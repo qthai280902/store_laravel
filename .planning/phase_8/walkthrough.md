@@ -20,3 +20,8 @@ ame='address'\ ð? map chu?n ð? lýu Order và OrderItem.
 - **Chia L?i Lý?i S?n Ph?m 6 C?t:** Ð? ép toàn b? lý?i hi?n th? th? s?n ph?m t?i \home.blade.php\, \products/index.blade.php\, và \products/search.blade.php\ v? class \grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6\ ðúng nhý ch? ð?o ð? thu nh? kích thý?c th? ? các màn h?nh l?n, giúp giao di?n g?n gàng và khoa h?c hõn.
 - **Khôi Ph?c Footer 4 C?t:** Xóa b? Footer ðõn gi?n c? trong \pp.blade.php\. Ð? d?ng l?i Footer chuyên nghi?p v?i CSS Grid chia 4 c?t (Liên h?, V? MiniMart, H? tr? khách hàng, M?ng x? h?i & Thanh toán). Layout áp d?ng \gap-8\ và màu \g-surface-container\ ð?ng b? Liquid Glass.
 - **S?a L?i Navbar R?t D?ng:** T?i \pp.blade.php\, th? \<nav>\ trên cùng ð? ðý?c g? b? các class flex-box th?a th?i gây l?i (\left-0 mx-auto max-w-max_width\) và ch?t ch?t b?ng \ixed top-0 w-full z-50\. Gi? ðây Header luôn bám dính ch?c ch?n ? mép trên cùng màn h?nh mà không bao gi? b? rõi xu?ng n?i dung.
+
+### 5. GSD Quick Hotfix: Cân Ð?i Giao Di?n, S?a Lý?i & C?u H? Product Card
+- **Quy ho?ch lý?i h?p l?:** T?i \home.blade.php\, lý?i ð?i v? t?i ða 5 c?t (\xl:grid-cols-5\) ð? th? có kho?ng th?. Các trang danh sách có sidebar (\products/index\, \search\) ðý?c ch?nh l?i t?i ða 4 c?t (\xl:grid-cols-4\).
+- **C?u h? Product Card:** Ð? thêm \	runcate max-w-[90%] text-[10px]\ cho Badge danh m?c, thay th? Image tag chýa có URL b?ng kh?i \div\ \spect-[4/3]\ g?n gàng (kh?c ph?c ch? tràn khung), và b?t \line-clamp-2 text-base\ cho tên s?n ph?m.
+- **Ð?ng b? l? (Container):** Thay th? các class config CSS c? b?ng chu?n Tailwind (\max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\) trong \pp.blade.php\ (cho c? Main và Footer), giúp các kh?i Explore Categories và Top Deals canh th?ng t?p l? hai bên.

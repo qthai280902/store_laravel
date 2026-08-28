@@ -2,18 +2,20 @@
 
 <div class="glass-tier-3 rounded-[20px] p-4 flex flex-col relative overflow-hidden group h-full">
     @if($product->category)
-        <div class="absolute top-4 left-4 bg-tertiary text-on-tertiary font-label-md text-label-md px-2 py-1 rounded-full z-10 shadow-sm">{{ $product->category->name }}</div>
+        <div class="absolute top-4 left-4 bg-tertiary text-on-tertiary font-label-md truncate max-w-[90%] text-[10px] px-2 py-1 rounded-full z-10 shadow-sm" title="{{ $product->category->name }}">{{ $product->category->name }}</div>
     @endif
     
-    <div class="w-full h-40 rounded-xl overflow-hidden mb-4 relative">
-        <a href="{{ route('products.show', $product->slug) }}">
-            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://placehold.co/600x400/F5F5F5/00490e?text={{ urlencode($product->name) }}" alt="{{ $product->name }}"/>
+    <div class="mb-4 relative rounded-xl overflow-hidden">
+        <a href="{{ route('products.show', $product->slug) }}" class="block w-full">
+            <div class="aspect-[4/3] w-full overflow-hidden bg-surface-variant">
+                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="{{ $product->image_url ?? 'https://picsum.photos/seed/' . urlencode($product->slug) . '/600/400' }}" alt="{{ $product->name }}" loading="lazy"/>
+            </div>
         </a>
     </div>
     
     <div class="flex-grow">
         <a href="{{ route('products.show', $product->slug) }}">
-            <h3 class="font-label-md text-label-md text-on-surface mb-1 line-clamp-2" title="{{ $product->name }}">{{ $product->name }}</h3>
+            <h3 class="font-label-md text-base text-on-surface mb-1 line-clamp-2" title="{{ $product->name }}">{{ $product->name }}</h3>
         </a>
         <p class="font-body-lg text-body-lg text-on-surface-variant text-sm line-clamp-1">{{ $product->description ?? 'Mô tả sản phẩm' }}</p>
     </div>

@@ -4,9 +4,9 @@
     <div class="md:col-span-8 flex flex-col gap-[32px]">
         <!-- Breadcrumbs -->
         <div class="flex items-center gap-[8px] font-label-md text-label-md text-on-surface-variant">
-            <a class="hover:text-primary" href="{{ route('home') }}">Home</a>
+            <a class="hover:text-primary" href="{{ route('home') }}">Trang chủ</a>
             <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-            <a class="hover:text-primary" href="{{ route('products.index', ['category' => $product->category->slug ?? '']) }}">{{ $product->category->name ?? 'Products' }}</a>
+            <a class="hover:text-primary" href="{{ route('products.index', ['category' => $product->category->slug ?? '']) }}">{{ $product->category->name ?? 'Sản phẩm' }}</a>
             <span class="material-symbols-outlined text-[16px]">chevron_right</span>
             <span class="text-on-surface">{{ $product->name }}</span>
         </div>
@@ -17,7 +17,7 @@
                 <span class="material-symbols-outlined text-[16px]">eco</span>
                 {{ $product->category->name ?? 'Category' }}
             </div>
-            <img class="w-full h-auto max-h-[500px] object-contain rounded-lg" src="https://placehold.co/600x400/F5F5F5/00490e?text={{ urlencode($product->name) }}" alt="{{ $product->name }}"/>
+            <img class="w-full h-auto max-h-[500px] object-contain rounded-lg" src="{{ $product->image_url ?? 'https://picsum.photos/seed/' . urlencode($product->slug) . '/600/400' }}" alt="{{ $product->name }}"/>
             
             <!-- Thumbnails -->
             <div class="flex gap-[16px] mt-[24px]">
@@ -36,9 +36,9 @@
         <!-- Tabs Section -->
         <div class="glass-tier-2 rounded-[20px] p-[32px] mt-[16px]">
             <div class="flex gap-[32px] border-b border-outline-variant/30 mb-[24px]">
-                <button class="font-label-md text-label-md text-primary border-b-2 border-primary pb-[16px] font-bold">Description</button>
-                <button class="font-label-md text-label-md text-on-surface-variant pb-[16px] hover:text-primary transition-colors">Nutrition Facts</button>
-                <button class="font-label-md text-label-md text-on-surface-variant pb-[16px] hover:text-primary transition-colors">Reviews (0)</button>
+                <button class="font-label-md text-label-md text-primary border-b-2 border-primary pb-[16px] font-bold">Mô tả</button>
+                <button class="font-label-md text-label-md text-on-surface-variant pb-[16px] hover:text-primary transition-colors">Thành phần dinh dưỡng</button>
+                <button class="font-label-md text-label-md text-on-surface-variant pb-[16px] hover:text-primary transition-colors">Đánh giá (0)</button>
             </div>
             <div class="font-body-lg text-body-lg text-on-surface-variant">
                 <p class="mb-[16px]">{{ $product->description }}</p>
@@ -48,7 +48,7 @@
         @if(isset($relatedProducts) && $relatedProducts->count() > 0)
         <!-- Related Products -->
         <div class="mt-[32px]">
-            <h2 class="font-headline-lg text-headline-lg text-on-surface mb-[24px]">Related Products</h2>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface mb-[24px]">Sản phẩm liên quan</h2>
             <div class="flex gap-[24px] overflow-x-auto hide-scrollbar pb-[24px]">
                 @foreach($relatedProducts as $related)
                     <div class="min-w-[280px]">
@@ -71,7 +71,7 @@
                     <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
                     <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
                     <span class="material-symbols-outlined text-secondary">star_half</span>
-                    <span class="font-label-md text-label-md ml-[4px]">(0 reviews)</span>
+                    <span class="font-label-md text-label-md ml-[4px]">(0 đánh giá)</span>
                 </div>
             </div>
             
@@ -88,7 +88,7 @@
                 
                 @if($product->variants->count() > 1)
                     <div class="flex flex-col gap-[16px]">
-                        <label class="font-label-md text-label-md text-on-surface">Variants</label>
+                        <label class="font-label-md text-label-md text-on-surface">Phân loại</label>
                         <div class="flex flex-wrap gap-[8px]">
                             @foreach($product->variants as $index => $variant)
                                 <label class="cursor-pointer relative">
@@ -105,7 +105,7 @@
                 @endif
                 
                 <div class="flex flex-col gap-[16px]">
-                    <label class="font-label-md text-label-md text-on-surface">Quantity</label>
+                    <label class="font-label-md text-label-md text-on-surface">Số lượng</label>
                     <div class="flex items-center gap-[16px]">
                         <button type="button" class="w-[48px] h-[48px] rounded-full glass-tier-2 flex items-center justify-center hover:bg-white/40 transition-colors text-on-surface" onclick="document.getElementById('qty').stepDown()">
                             <span class="material-symbols-outlined">remove</span>
@@ -119,7 +119,7 @@
                 
                 <button type="submit" class="w-full bg-primary text-on-primary font-label-md text-label-md py-[16px] rounded-full shadow-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-[8px] mt-[16px] cursor-pointer">
                     <span class="material-symbols-outlined">shopping_cart</span>
-                    Add to Cart
+                    Thêm vào giỏ hàng
                 </button>
                 
                 @if(session('success'))
@@ -132,11 +132,11 @@
             <div class="glass-tier-1 rounded-[12px] p-[16px] flex flex-col gap-[12px] mt-[8px]">
                 <div class="flex items-center gap-[12px] text-on-surface-variant font-label-md text-label-md">
                     <span class="material-symbols-outlined text-primary">local_shipping</span>
-                    Next day delivery
+                    Giao hàng nhanh trong ngày
                 </div>
                 <div class="flex items-center gap-[12px] text-on-surface-variant font-label-md text-label-md">
                     <span class="material-symbols-outlined text-primary">storefront</span>
-                    Available in store
+                    Có sẵn tại cửa hàng
                 </div>
             </div>
         </div>

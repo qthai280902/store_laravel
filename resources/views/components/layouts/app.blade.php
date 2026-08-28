@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="light" lang="vi">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -17,7 +17,7 @@
     </div>
     
     <!-- TopNavBar -->
-    <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-20 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-b-[1px] border-white/30 shadow-xl">
+    <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 lg:px-8 h-20 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-b-[1px] border-white/30 shadow-xl">
         <a href="{{ route('home') }}" class="font-display-lg text-display-lg font-extrabold text-primary dark:text-primary-fixed-dim">
             MiniMart
         </a>
@@ -26,15 +26,15 @@
         <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
             <form action="{{ route('products.search') }}" method="GET" class="w-full">
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search products..." class="w-full pl-10 pr-4 py-2 bg-white/50 backdrop-blur-md border border-outline-variant rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body-lg text-sm transition-all">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Tìm kiếm sản phẩm..." class="w-full pl-10 pr-4 py-2 bg-white/50 backdrop-blur-md border border-outline-variant rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body-lg text-sm transition-all">
             </form>
         </div>
 
         <div class="hidden md:flex gap-6">
-            <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="{{ route('products.index') }}">Categories</a>
-            <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Deals</a>
-            <a class="text-primary border-b-2 border-primary pb-1 font-bold scale-95 transition-transform hover:text-primary transition-colors duration-200" href="#">Fresh</a>
-            <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Organic</a>
+            <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="{{ route('products.index') }}">Danh mục</a>
+            <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="{{ route('products.index', ['category' => 'trai-cay-nhap-khau']) }}">Trái cây</a>
+            <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="{{ route('products.index', ['category' => 'rau-cu-huu-co']) }}">Rau củ</a>
+            <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="{{ route('posts.index') }}">Blog</a>
         </div>
         
         <div class="flex gap-4 items-center">
@@ -45,12 +45,12 @@
                 @endif
             </a>
             @auth
-                <a href="{{ route('account.orders') }}" class="text-primary dark:text-primary-fixed-dim hover:text-primary transition-colors duration-200" title="My Orders">
+                <a href="{{ route('account.orders') }}" class="text-primary dark:text-primary-fixed-dim hover:text-primary transition-colors duration-200" title="Đơn hàng">
                     <span class="material-symbols-outlined">person</span>
                 </a>
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
-                    <button type="submit" class="text-error hover:text-error-container transition-colors duration-200" title="Logout">
+                    <button type="submit" class="text-error hover:text-error-container transition-colors duration-200" title="Đăng xuất">
                         <span class="material-symbols-outlined">logout</span>
                     </button>
                 </form>
@@ -63,13 +63,13 @@
     </nav>
     
     <!-- Main Content -->
-    <main class="pt-[120px] px-gutter max-w-max_width mx-auto pb-margin_desktop">
+    <main class="pt-[120px] px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-12 w-full">
         {{ $slot }}
     </main>
     
     <!-- Footer -->
     <footer class="w-full bg-surface-container dark:bg-surface-container-highest border-t border-outline-variant mt-12 py-12">
-        <div class="px-gutter max-w-max_width mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <!-- Cột 1: Liên hệ -->
             <div class="flex flex-col gap-4">
                 <div class="font-display-lg text-primary text-2xl font-extrabold mb-2">MiniMart</div>
@@ -120,7 +120,7 @@
                 </div>
             </div>
         </div>
-        <div class="max-w-max_width mx-auto px-gutter mt-12 pt-6 border-t border-outline-variant/30 text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-outline-variant/30 text-center">
             <p class="text-on-surface-variant font-label-md text-xs opacity-80">© {{ date('Y') }} MiniMart Fresh. All rights reserved.</p>
         </div>
     </footer>
