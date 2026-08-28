@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MiniMart - Search Results</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "primary-fixed-dim": "#92d78b",
+                            "on-surface": "#181d16",
+                            "on-error-container": "#93000a",
+                            "tertiary-fixed": "#ffd9e2",
+                            "tertiary-fixed-dim": "#ffb0c8",
+                            "outline-variant": "#c0c9bb",
+                            "on-primary-container": "#76b970",
+                            "inverse-surface": "#2d322b",
+                            "tertiary-container": "#741a41",
+                            "primary-fixed": "#aef4a5",
+                            "on-secondary-fixed": "#321300",
+                            "on-tertiary-container": "#f985ad",
+                            "primary-container": "#00490e",
+                            "on-secondary-fixed-variant": "#743400",
+                            "inverse-primary": "#92d78b",
+                            "on-primary-fixed": "#002203",
+                            "on-secondary": "#ffffff",
+                            "secondary-fixed": "#ffdbc8",
+                            "secondary-container": "#ff9650",
+                            "secondary-fixed-dim": "#ffb68b",
+                            "on-primary": "#ffffff",
+                            "secondary": "#994700",
+                            "on-primary-fixed-variant": "#0e5217",
+                            "outline": "#717a6d",
+                            "on-tertiary-fixed": "#3e001d",
+                            "on-surface-variant": "#41493e",
+                            "on-tertiary-fixed-variant": "#7f234a",
+                            "on-background": "#181d16",
+                            "surface-container-high": "#e6eadf",
+                            "surface-variant": "#e0e4d9",
+                            "surface-bright": "#f7fbf0",
+                            "tertiary": "#56002b",
+                            "surface-container": "#ebefe5",
+                            "surface-container-low": "#f1f5ea",
+                            "surface": "#f7fbf0",
+                            "error": "#ba1a1a",
+                            "surface-dim": "#d7dbd1",
+                            "primary": "#003006",
+                            "surface-container-lowest": "#ffffff",
+                            "on-error": "#ffffff",
+                            "inverse-on-surface": "#eef2e7",
+                            "on-tertiary": "#ffffff",
+                            "surface-container-highest": "#e0e4d9",
+                            "error-container": "#ffdad6",
+                            "surface-tint": "#2b6b2c",
+                            "background": "#f7fbf0",
+                            "on-secondary-container": "#6f3200"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px",
+                            "2xl": "1.25rem",
+                            "3xl": "1.5rem"
+                    },
+                    "spacing": {
+                            "base_unit": "8px",
+                            "max_width": "1280px",
+                            "gutter": "24px",
+                            "margin_desktop": "40px"
+                    },
+                    "fontFamily": {
+                            "headline-lg": ["Plus Jakarta Sans"],
+                            "body-lg": ["Plus Jakarta Sans"],
+                            "headline-lg-mobile": ["Plus Jakarta Sans"],
+                            "display-lg": ["Plus Jakarta Sans"],
+                            "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                            "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                            "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                            "display-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                            "label-md": ["14px", {"lineHeight": "1.4", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Glassmorphism Styles */
+        .glass-tier-2 {
+            background-color: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-tier-3 {
+            background-color: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(40px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Ambient Orbs */
+        .orb-1 {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(146, 215, 139, 0.4) 0%, rgba(146, 215, 139, 0) 70%);
+            top: -20%;
+            left: -10%;
+            z-index: -1;
+            filter: blur(80px);
+        }
+        .orb-2 {
+            position: absolute;
+            width: 50vw;
+            height: 50vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 219, 200, 0.4) 0%, rgba(255, 219, 200, 0) 70%);
+            bottom: -10%;
+            right: -10%;
+            z-index: -1;
+            filter: blur(80px);
+        }
+        
+        body {
+            overflow-x: hidden;
+            background-color: #f7fbf0; /* background */
+        }
+    </style>
+</head>
+<body class="text-on-surface font-body-lg min-h-screen relative">
+<!-- Ambient Background -->
+<div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+<div class="orb-1"></div>
+<div class="orb-2"></div>
+</div>
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-gutter max-w-max_width mx-auto h-20 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 shadow-xl">
+<!-- Logo -->
+<a class="font-display-lg text-display-lg font-extrabold text-primary dark:text-primary-fixed-dim" href="#">
+            MiniMart
+        </a>
+<!-- Search Bar -->
+<div class="flex-1 max-w-md mx-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-[#ffffff] border border-outline-variant text-on-surface rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" placeholder="Search groceries..." type="text" value="Organic Avocados"/>
+</div>
+</div>
+<!-- Navigation Links & Actions -->
+<div class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Categories</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Deals</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Fresh</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Organic</a>
+<div class="flex gap-4 ml-4">
+<button class="w-12 h-12 rounded-full glass-tier-2 flex items-center justify-center hover:bg-white/40 transition-colors">
+<span class="material-symbols-outlined text-primary">person</span>
+</button>
+<button class="w-12 h-12 rounded-full glass-tier-2 flex items-center justify-center hover:bg-white/40 transition-colors relative">
+<span class="material-symbols-outlined text-primary">shopping_cart</span>
+<span class="absolute top-0 right-0 w-3 h-3 bg-error rounded-full border-2 border-white"></span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-[120px] pb-[80px] px-gutter max-w-max_width mx-auto">
+<!-- Search Header -->
+<header class="mb-12">
+<h1 class="font-headline-lg text-headline-lg md:font-display-lg md:text-display-lg text-primary mb-2">
+                "Organic Avocados"
+            </h1>
+<p class="font-label-md text-label-md text-on-surface-variant">
+                Showing 12 results
+            </p>
+</header>
+<!-- Filter Bar -->
+<div class="flex gap-4 mb-8 overflow-x-auto pb-4 hide-scrollbar">
+<button class="px-6 py-2 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md whitespace-nowrap">
+                All Results
+            </button>
+<button class="px-6 py-2 rounded-full glass-tier-2 text-on-surface hover:bg-white/40 transition-colors font-label-md text-label-md whitespace-nowrap">
+                Fresh Produce
+            </button>
+<button class="px-6 py-2 rounded-full glass-tier-2 text-on-surface hover:bg-white/40 transition-colors font-label-md text-label-md whitespace-nowrap flex items-center gap-2">
+                Price <span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<article class="glass-tier-3 rounded-2xl p-4 flex flex-col group hover:shadow-xl transition-shadow duration-300">
+<div class="relative h-48 w-full rounded-xl overflow-hidden mb-4 bg-white/50">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of fresh organic Hass avocados in a rustic woven basket on a clean white marble countertop. Bright, airy, and natural studio lighting highlighting the textured dark green skin and fresh green stems. Premium grocery store aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUhc71QV67Jlfu8oP1X76NACRqsF_EMjP-LMwApoEo666Wt2BLIaruYe05ZzbhmsWe2tOp4Fb42ZgGIsxt9_Kzkn-Xo1jLKZIMGJMbZMxm0yB9lBqFQdLZOmSFHeQnleQG8rpn4Jat835yKYoiI971GPgcSCSZwYQz7r_pp7q3WdXEL8pudpwwuHqLLpCiaZm7IHMpPEgWdzIJgMYPdPCCBMoea_36-LomcVZXhFJb_0DG_Qv1vFRB"/>
+<div class="absolute top-2 right-2 bg-white px-3 py-1 rounded-full shadow-sm font-label-md text-label-md text-on-surface">
+                        $2.99 / ea
+                    </div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-lg text-on-surface text-[20px] mb-1">Organic Hass Avocado</h3>
+<p class="text-on-surface-variant font-label-md text-label-md font-normal">Fresh Produce \ Mexico</p>
+</div>
+<button class="mt-4 w-full py-3 bg-primary text-white font-label-md text-label-md rounded-full shadow-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add_shopping_cart</span> Add to Cart
+                </button>
+</article>
+<!-- Card 2 -->
+<article class="glass-tier-3 rounded-2xl p-4 flex flex-col group hover:shadow-xl transition-shadow duration-300">
+<div class="relative h-48 w-full rounded-xl overflow-hidden mb-4 bg-white/50">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A net bag filled with small, bright green smooth-skinned avocados resting on a light wooden cutting board. Soft window light illuminating the vibrant colors. High quality organic grocery aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2XgKsSBkeWxayo_v81jXT73ITecplGyT-A0xtpWY2T_RpZF8sf1TTz-mXehMQtbclnIaxymrEVgaqKsYGbHN49OBQALZf7fxcWZKq-siBhm7DNHTpltfDcZvlbIW_PfkP9_gzz5AfQ8q50ugR8ZNN63tMThgh1ONTN8x4fYik4HhCMDO7YdbJfYn4hsOfJ6RIJolKvJWWjE7j3pXw4uTGU_HAuu9bxuyyR8M0PRdLzQ1c1nApLY2A"/>
+<div class="absolute top-2 right-2 bg-white px-3 py-1 rounded-full shadow-sm font-label-md text-label-md text-on-surface">
+                        $5.49 / bag
+                    </div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-lg text-on-surface text-[20px] mb-1">Mini Avocados Bag</h3>
+<p class="text-on-surface-variant font-label-md text-label-md font-normal">Fresh Produce \ 6-pack</p>
+</div>
+<button class="mt-4 w-full py-3 bg-primary text-white font-label-md text-label-md rounded-full shadow-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add_shopping_cart</span> Add to Cart
+                </button>
+</article>
+<!-- Card 3 -->
+<article class="glass-tier-3 rounded-2xl p-4 flex flex-col group hover:shadow-xl transition-shadow duration-300 relative">
+<div class="absolute -top-3 -left-3 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-md text-label-md z-10 shadow-md transform -rotate-6">
+                    Sale
+                </div>
+<div class="relative h-48 w-full rounded-xl overflow-hidden mb-4 bg-white/50">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A large, perfectly ripe Florida avocado cut in half, showing the bright yellow-green interior and large pit, resting beside a whole avocado on a pristine white surface. Clean, bright, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCce2o6UpZ4el35r4qo6lrnwLrtnmIz_LZXablfRQbiho-nbucxkTohkY7PTaVBh-sXqvMTFxJNKZs1t3fwfViJPyFywWLQYrRx3bEAN_X3OG06ElUgpN7bPaIsJv9zE0AT1ytoT70qB3D7NB1-tlka-LZv1wtShPObh3d9OWA7MftGbMAVH0oB1nwyYSlLwZU6TxBlQDfq44PMLv1CO5rOh6f_uED_33KdYZTt3LJUXTKbgrKdE0hq"/>
+<div class="absolute top-2 right-2 bg-white px-3 py-1 rounded-full shadow-sm font-label-md text-label-md text-on-surface">
+<span class="line-through text-outline mr-1">$4.99</span> $3.50 / ea
+                    </div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-lg text-on-surface text-[20px] mb-1">Jumbo Florida Avocado</h3>
+<p class="text-on-surface-variant font-label-md text-label-md font-normal">Fresh Produce \ USA</p>
+</div>
+<button class="mt-4 w-full py-3 bg-primary text-white font-label-md text-label-md rounded-full shadow-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add_shopping_cart</span> Add to Cart
+                </button>
+</article>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-margin_desktop px-gutter flex flex-col md:flex-row justify-between items-start max-w-max_width mx-auto bg-surface-container dark:bg-surface-container-highest border-t border-outline-variant mt-20">
+<div class="font-headline-lg text-primary mb-6 md:mb-0">
+            MiniMart
+        </div>
+<div class="flex flex-col md:flex-row gap-6 md:gap-12 w-full md:w-auto">
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">About Us</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Sustainability</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Store Locator</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+</div>
+<div class="mt-8 md:mt-0 text-on-surface-variant font-label-md text-label-md w-full text-center md:text-right">
+            © 2024 MiniMart Fresh. All rights reserved.
+        </div>
+</footer>
+</body></html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MiniMart - Product Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#92d78b",
+                      "on-surface": "#181d16",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed": "#ffd9e2",
+                      "tertiary-fixed-dim": "#ffb0c8",
+                      "outline-variant": "#c0c9bb",
+                      "on-primary-container": "#76b970",
+                      "inverse-surface": "#2d322b",
+                      "tertiary-container": "#741a41",
+                      "primary-fixed": "#aef4a5",
+                      "on-secondary-fixed": "#321300",
+                      "on-tertiary-container": "#f985ad",
+                      "primary-container": "#00490e",
+                      "on-secondary-fixed-variant": "#743400",
+                      "inverse-primary": "#92d78b",
+                      "on-primary-fixed": "#002203",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed": "#ffdbc8",
+                      "secondary-container": "#ff9650",
+                      "secondary-fixed-dim": "#ffb68b",
+                      "on-primary": "#ffffff",
+                      "secondary": "#994700",
+                      "on-primary-fixed-variant": "#0e5217",
+                      "outline": "#717a6d",
+                      "on-tertiary-fixed": "#3e001d",
+                      "on-surface-variant": "#41493e",
+                      "on-tertiary-fixed-variant": "#7f234a",
+                      "on-background": "#181d16",
+                      "surface-container-high": "#e6eadf",
+                      "surface-variant": "#e0e4d9",
+                      "surface-bright": "#f7fbf0",
+                      "tertiary": "#56002b",
+                      "surface-container": "#ebefe5",
+                      "surface-container-low": "#f1f5ea",
+                      "surface": "#f7fbf0",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#d7dbd1",
+                      "primary": "#003006",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error": "#ffffff",
+                      "inverse-on-surface": "#eef2e7",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#e0e4d9",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#2b6b2c",
+                      "background": "#f7fbf0",
+                      "on-secondary-container": "#6f3200"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base_unit": "8px",
+                      "max_width": "1280px",
+                      "gutter": "24px",
+                      "margin_desktop": "40px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "display-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-md": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        /* Glassmorphism Classes */
+        .glass-tier-1 {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-tier-2 {
+            background-color: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-tier-3 {
+            background-color: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-tier-4 {
+            background-color: rgba(255, 255, 255, 0.50);
+            backdrop-filter: blur(50px) saturate(180%);
+            -webkit-backdrop-filter: blur(50px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .ambient-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: pulse-slow 8s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: #aef4a5;
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: #ffb0c8;
+            bottom: -50px;
+            right: -100px;
+            animation-delay: 2s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: #ffdbc8;
+            top: 40%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+
+        @keyframes pulse-slow {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.1) translate(20px, 30px); }
+        }
+
+        /* Hide scrollbar for horizontal scroll */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen relative overflow-x-hidden pt-24 pb-12">
+<!-- Ambient Background Orbs -->
+<div class="ambient-orb orb-1"></div>
+<div class="ambient-orb orb-2"></div>
+<div class="ambient-orb orb-3"></div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-gutter max-w-[1280px] mx-auto h-20 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 shadow-xl" style="left: 50%; transform: translateX(-50%); border-top:none; border-bottom:none;">
+<div class="flex items-center gap-[40px]">
+<a class="font-display-lg text-display-lg font-extrabold text-primary dark:text-primary-fixed-dim" href="#">
+                MiniMart
+            </a>
+<div class="hidden md:flex gap-[24px]">
+<a class="font-label-md text-label-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Danh mục</a>
+<a class="font-label-md text-label-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Khuyến mãi</a>
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 font-bold hover:text-primary transition-colors duration-200 scale-95 transition-transform" href="#">Tươi sống</a>
+<a class="font-label-md text-label-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Hữu cơ</a>
+</div>
+</div>
+<div class="flex items-center gap-[16px]">
+<button class="p-[8px] rounded-full hover:bg-white/20 transition-colors text-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-[8px] rounded-full hover:bg-white/20 transition-colors text-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined">person</span>
+</button>
+<button class="p-[8px] rounded-full hover:bg-white/20 transition-colors text-primary dark:text-primary-fixed-dim relative">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-0 right-0 bg-error text-on-error rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">2</span>
+</button>
+</div>
+</nav>
+<main class="max-w-[1280px] mx-auto px-gutter md:px-margin_desktop grid grid-cols-1 md:grid-cols-12 gap-gutter mt-8">
+<!-- Left Column: Gallery & Info (8 cols) -->
+<div class="md:col-span-8 flex flex-col gap-[32px]">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-[8px] font-label-md text-label-md text-on-surface-variant">
+<a class="hover:text-primary" href="#">Trang chủ</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-primary" href="#">Tươi sống</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-on-surface">Táo Gala Hữu Cơ</span>
+</div>
+<!-- Main Gallery -->
+<div class="bg-surface-container-lowest rounded-[20px] overflow-hidden flex flex-col items-center justify-center p-[24px] shadow-sm relative">
+<div class="absolute top-[24px] left-[24px] bg-primary-fixed text-on-primary-fixed px-[12px] py-[4px] rounded-full font-label-md text-label-md z-10 shadow-sm flex items-center gap-[4px]">
+<span class="material-symbols-outlined text-[16px]">eco</span>
+                    Hữu cơ
+                </div>
+<img class="w-full h-auto max-h-[500px] object-contain rounded-lg" data-alt="High resolution studio photography of three ripe organic Gala apples on a pristine white background. The lighting is bright, soft, and even, typical of premium grocery e-commerce. The apples have a red and yellow striped skin, and one is cut in half revealing creamy white flesh and brown seeds. The overall aesthetic is fresh, clean, and vibrant, fitting a modern light-mode design system with a high-end natural feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKFgrk0ybZoNxxKqRYJ6ja3xeVUMkOLjKRdJshrQsFHf4ugeU0qqizUqKuoL9Hw6fBYBRt6w0OYbCAbm9gax4baS1YMFsyczjAHZ_DZmB88qDA8L2XsaDPgI4CDqQhpT-n0p7KH36WDHe05soQVNDSpbfoPNjoUtloywqIoL-SNROeWNuISAHyFnQvLwJLruQT1Q_OCVW1otHlOLpaKPF80RVOLxknVKliA1_xBg0G5DtwxnPzcbzM"/>
+<!-- Thumbnails -->
+<div class="flex gap-[16px] mt-[24px]">
+<button class="w-[80px] h-[80px] rounded-lg border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Thumbnail showing three whole organic apples in bright studio lighting against a pure white background. Clean, vibrant, premium grocery aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtgm6tmGwyWIt24hLIFP8kzrqVe-LFkqPvDRKAJ3YpedsyrvrNe1DoRzB6DqB3X8dWdcCw0SmiRCnvDSgPPqDGJXb6hK8WeKzzDt-fZPK_2aT9nKs3NaQ7SpaKNYhiCG-vB805XA9M_C5YIb4CPwAhCVZSlpqInuDzSVQbp8QEOnIatyMMiJ0utqbO0rPi-DlUzEygCEa6qvbbjzArnsLWyVOwoG1uXULpu-iJIgFCr0_1FhPm7Z54"/>
+</button>
+<button class="w-[80px] h-[80px] rounded-lg border-2 border-transparent hover:border-outline-variant overflow-hidden opacity-70 hover:opacity-100 transition-all">
+<img class="w-full h-full object-cover" data-alt="Thumbnail showing one halved organic apple with seeds exposed, pure white background. Clean, vibrant, premium grocery aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfBDMZgbovQk6lbCRREukjdp7O112yi4rNXU2mO3EOFXa5HLkrwGVjpb2FnKzi9KxPLrR_jTX7wtD0_Dyf9eXjRl7q2OlKcuX17EA1OvP7-aUNediE5IsyKyoyGlVEaQGK_TSJUnWj3wYD4PN5FaKZN0bG-EMrAaWYAavcvCitRoIQgSaQ8l0KUdNwkDPV9VR6aSIFRv29127215F0MUuNbbflZkozeuO6rsPLhRK1Zm6GnynODEVC"/>
+</button>
+<button class="w-[80px] h-[80px] rounded-lg border-2 border-transparent hover:border-outline-variant overflow-hidden opacity-70 hover:opacity-100 transition-all">
+<img class="w-full h-full object-cover" data-alt="Thumbnail showing organic apple in a bowl context, bright natural lighting, shallow depth of field. Clean, vibrant, premium grocery aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNgWSPFJkl7rmc5PjZ6yZsuPXiIjglJCvDO2Uey0RmnjP61y9VHTIx3rJIBn6YbcUN5zk6YStZ8cGKeqSZvxW1f74462Glf_JBuaZ0_JJNj-KCOKvbbBIQqYAdsIqNdgjYjJe5X-9dKKjZ1T5r5wK43_Ugs7n-ALNlZJi_-jntZ4RinREnqb4nGF0B3VolufJZbzEvIcdkITGQI6rjDYgEQIoKod0o_qfxCMiTMCQTpv89srIlkV5V"/>
+</button>
+</div>
+</div>
+<!-- Tabs Section -->
+<div class="glass-tier-2 rounded-[20px] p-[32px] mt-[16px]">
+<div class="flex gap-[32px] border-b border-outline-variant/30 mb-[24px]">
+<button class="font-label-md text-label-md text-primary border-b-2 border-primary pb-[16px] font-bold">Mô tả</button>
+<button class="font-label-md text-label-md text-on-surface-variant pb-[16px] hover:text-primary transition-colors">Thông tin dinh dưỡng</button>
+<button class="font-label-md text-label-md text-on-surface-variant pb-[16px] hover:text-primary transition-colors">Đánh giá (24)</button>
+</div>
+<div class="font-body-lg text-body-lg text-on-surface-variant">
+<p class="mb-[16px]">Táo Gala Hữu Cơ giòn ngọt, được trồng tại các trang trại chuẩn hữu cơ. Phù hợp để ăn tươi, làm salad hoặc ép nước.</p>
+<p>Mỗi quả được chọn lọc kỹ càng đảm bảo chất lượng và độ tươi ngon nhất khi giao đến tay bạn.</p>
+</div>
+</div>
+<!-- Thường được mua cùng -->
+<div class="mt-[32px]">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-[24px]">Thường được mua cùng</h2>
+<div class="flex gap-[24px] overflow-x-auto hide-scrollbar pb-[24px]">
+<!-- Product Card 1 -->
+<div class="glass-tier-2 rounded-[20px] p-[16px] min-w-[240px] flex flex-col gap-[16px] relative group hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="absolute top-[24px] right-[24px] bg-surface-container-lowest text-on-surface px-[8px] py-[4px] rounded-md font-label-md text-label-md shadow-sm z-10">
+                    $2.49
+                </div>
+<div class="bg-surface-container-lowest rounded-[12px] p-[16px] flex items-center justify-center h-[160px]">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform" data-alt="High resolution photo of a bunch of fresh organic cherry tomatoes on a vine, pure white background. Bright studio lighting highlighting the vibrant red color and fresh green stems. Premium grocery e-commerce style, light-mode friendly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzMPuyQ9Tz7URynya4jyfz8DmajlD6GbV9MGckhaeQxDGzhUlh8K-XUu1ieo3HuyjuuyFEB39le9bJzOTpU_ek4NnZWF_9D66kDHGz9JTisL7agtDd5gvqIZXzQkykc9YMdZBMvrizsItwbJeluN-tbPjeEUezsR_Ye2lbL-ZcCWBnnJWLZNytSpAzNGXEgNm9Bc3C3DfVFnuOtKIIGIpy9a3_69qdNJOy-hf0oOA0hLuqvL8QjIqN"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Cà chua bi hữu cơ</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-[14px]">Hộp 250g</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-[8px] rounded-full font-label-md text-label-md hover:bg-primary/90 transition-colors flex justify-center items-center gap-[4px] mt-auto shadow-md">
+<span class="material-symbols-outlined text-[18px]">add</span> Thêm
+                </button>
+</div>
+<!-- Product Card 2 -->
+<div class="glass-tier-2 rounded-[20px] p-[16px] min-w-[240px] flex flex-col gap-[16px] relative group hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="absolute top-[24px] right-[24px] bg-surface-container-lowest text-on-surface px-[8px] py-[4px] rounded-md font-label-md text-label-md shadow-sm z-10">
+                    $1.99
+                </div>
+<div class="bg-surface-container-lowest rounded-[12px] p-[16px] flex items-center justify-center h-[160px]">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform" data-alt="High resolution photo of fresh red onions, whole and slightly peeled, pure white background. Bright studio lighting highlighting the purple and white layers. Premium grocery e-commerce style, light-mode friendly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfInUo3ImH2nrEwybcU0b3XtEwLeTpKRCoTOi0cAGMeYl0VVV2hhVSalOGZytldokT_erKpjwGV_3hCuN2xQADmuOoZJqsvrWNbNAPVZnma2z88jS0f3N5Xzae-a3eX77cFCXLxnNIXFq3npbMwCVXSi8zdouAzCwVPAZL2o4emCmKUQ-Yo2kVmJamCEjio6W9W6FDi4S_2TB7pEjgKoyPkwkJp7RSZU19fWFtJ41Gyj6m2bZ7jUl2"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Hành tây tím</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-[14px]">Túi 500g</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-[8px] rounded-full font-label-md text-label-md hover:bg-primary/90 transition-colors flex justify-center items-center gap-[4px] mt-auto shadow-md">
+<span class="material-symbols-outlined text-[18px]">add</span> Thêm
+                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sticky Buy Box (4 cols) -->
+<div class="md:col-span-4 relative">
+<div class="sticky top-[104px] glass-tier-4 rounded-[24px] p-[32px] shadow-2xl flex flex-col gap-[24px]">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-[8px]">Táo Gala Hữu Cơ</h1>
+<div class="flex items-center gap-[8px] text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary">star_half</span>
+<span class="font-label-md text-label-md ml-[4px]">(24 đánh giá)</span>
+</div>
+</div>
+<div class="flex items-end gap-[12px]">
+<div class="bg-secondary text-on-secondary px-[16px] py-[8px] rounded-lg font-headline-lg text-headline-lg shadow-md inline-block">
+                        $3.99
+                    </div>
+<span class="font-body-lg text-body-lg text-on-surface-variant pb-[4px]">/ kg</span>
+</div>
+<hr class="border-outline-variant/30"/>
+<!-- Preferences -->
+<div class="flex flex-col gap-[16px]">
+<label class="font-label-md text-label-md text-on-surface">Nếu hết hàng</label>
+<div class="flex flex-wrap gap-[8px]">
+<label class="cursor-pointer relative">
+<input checked="" class="peer sr-only" name="out-of-stock" type="radio"/>
+<div class="px-[16px] py-[8px] rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-colors">
+                Thay sản phẩm tương tự
+            </div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="out-of-stock" type="radio"/>
+<div class="px-[16px] py-[8px] rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-colors">
+                Liên hệ tôi trước
+            </div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="out-of-stock" type="radio"/>
+<div class="px-[16px] py-[8px] rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-colors">
+                Hoàn tiền mục đó
+            </div>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-[16px]">
+<label class="font-label-md text-label-md text-on-surface">Độ chín</label>
+<div class="flex flex-wrap gap-[8px]">
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="ripeness" type="radio"/>
+<div class="px-[16px] py-[8px] rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-colors">
+                Còn xanh
+            </div>
+</label>
+<label class="cursor-pointer relative">
+<input checked="" class="peer sr-only" name="ripeness" type="radio"/>
+<div class="px-[16px] py-[8px] rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-colors">
+                Vừa chín tới
+            </div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="ripeness" type="radio"/>
+<div class="px-[16px] py-[8px] rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-colors">
+                Chín kỹ
+            </div>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-[16px]">
+<label class="font-label-md text-label-md text-on-surface">Số lượng</label>
+<div class="flex items-center gap-[16px]">
+<button class="w-[48px] h-[48px] rounded-full glass-tier-2 flex items-center justify-center hover:bg-white/40 transition-colors text-on-surface">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<input class="w-[80px] h-[48px] bg-surface-container-lowest border border-outline-variant rounded-[12px] text-center font-body-lg text-body-lg text-on-surface focus:ring-primary focus:border-primary" type="number" value="1"/>
+<button class="w-[48px] h-[48px] rounded-full glass-tier-2 flex items-center justify-center hover:bg-white/40 transition-colors text-on-surface">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-[16px] rounded-full shadow-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-[8px] mt-[16px]">
+<span class="material-symbols-outlined">shopping_cart</span>
+                    Thêm vào giỏ
+                </button>
+<div class="glass-tier-1 rounded-[12px] p-[16px] flex flex-col gap-[12px] mt-[8px]">
+<div class="flex items-center gap-[12px] text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+                        Giao hàng trong ngày mai, 8 AM
+                    </div>
+<div class="flex items-center gap-[12px] text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-primary">storefront</span>
+                        Có sẵn tại chi nhánh Main Street
+                    </div>
+</div>
+</div>
+</div>
+</main>
+<!-- Related Products -->
+<!-- Footer -->
+<footer class="w-full py-margin_desktop px-gutter flex flex-col md:flex-row justify-between items-start max-w-max_width mx-auto bg-surface-container dark:bg-surface-container-highest border-t border-outline-variant mt-[64px]">
+<div class="font-headline-lg text-primary mb-6 md:mb-0">
+            MiniMart
+        </div>
+<div class="flex flex-col md:flex-row gap-6 md:gap-12">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Về chúng tôi</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Bền vững</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Hệ thống cửa hàng</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Chính sách bảo mật</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Liên hệ</a>
+</div>
+<div class="font-body-lg text-body-lg text-on-surface-variant mt-6 md:mt-0 text-sm">
+            © 2024 MiniMart Fresh. Tất cả quyền được bảo lưu.
+        </div>
+</footer>
+</body></html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MiniMart - Thanh toán</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#92d78b",
+                        "on-surface": "#181d16",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffd9e2",
+                        "tertiary-fixed-dim": "#ffb0c8",
+                        "outline-variant": "#c0c9bb",
+                        "on-primary-container": "#76b970",
+                        "inverse-surface": "#2d322b",
+                        "tertiary-container": "#741a41",
+                        "primary-fixed": "#aef4a5",
+                        "on-secondary-fixed": "#321300",
+                        "on-tertiary-container": "#f985ad",
+                        "primary-container": "#00490e",
+                        "on-secondary-fixed-variant": "#743400",
+                        "inverse-primary": "#92d78b",
+                        "on-primary-fixed": "#002203",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#ffdbc8",
+                        "secondary-container": "#ff9650",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "on-primary": "#ffffff",
+                        "secondary": "#994700",
+                        "on-primary-fixed-variant": "#0e5217",
+                        "outline": "#717a6d",
+                        "on-tertiary-fixed": "#3e001d",
+                        "on-surface-variant": "#41493e",
+                        "on-tertiary-fixed-variant": "#7f234a",
+                        "on-background": "#181d16",
+                        "surface-container-high": "#e6eadf",
+                        "surface-variant": "#e0e4d9",
+                        "surface-bright": "#f7fbf0",
+                        "tertiary": "#56002b",
+                        "surface-container": "#ebefe5",
+                        "surface-container-low": "#f1f5ea",
+                        "surface": "#f7fbf0",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d7dbd1",
+                        "primary": "#003006",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eef2e7",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e0e4d9",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#2b6b2c",
+                        "background": "#f7fbf0",
+                        "on-secondary-container": "#6f3200"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "squircle": "20px"
+                    },
+                    "spacing": {
+                        "base_unit": "8px",
+                        "max_width": "1280px",
+                        "gutter": "24px",
+                        "margin_desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f7fbf0;
+            overflow-x: hidden;
+        }
+        
+        /* Ambient Background Orbs */
+        .ambient-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            z-index: -1;
+            animation: float 20s infinite ease-in-out alternate;
+        }
+        
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(146, 215, 139, 0.4); /* primary-fixed-dim */
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 182, 139, 0.3); /* secondary-fixed-dim */
+            bottom: -200px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+        
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 176, 200, 0.3); /* tertiary-fixed-dim */
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 20px) scale(1.1); }
+            100% { transform: translate(-20px, 40px) scale(0.9); }
+        }
+
+        /* Glass Tiers */
+        .glass-tier-3 {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px; /* squircle */
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-tier-4 {
+            background: rgba(255, 255, 255, 0.50);
+            backdrop-filter: blur(50px) saturate(180%);
+            -webkit-backdrop-filter: blur(50px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+            border-left: 1px solid rgba(255, 255, 255, 0.4);
+            border-right: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Inputs */
+        .solid-input {
+            background-color: #ffffff;
+            border: 1px solid #c0c9bb; /* outline-variant */
+            border-radius: 12px;
+            color: #181d16; /* on-surface */
+        }
+        .solid-input:focus {
+            outline: none;
+            border-color: #003006; /* primary */
+            box-shadow: 0 0 0 2px rgba(0, 48, 6, 0.1);
+        }
+        
+        /* Hide scrollbar for horizontal scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="text-on-surface antialiased min-h-screen font-body-lg text-body-lg">
+<!-- Background Orbs -->
+<div class="ambient-orb orb-1"></div>
+<div class="ambient-orb orb-2"></div>
+<div class="ambient-orb orb-3"></div>
+<!-- TopNavBar (Transactional - Suppressed) -->
+<!-- According to rules, navigational shell is suppressed on transactional pages like Checkout -->
+<header class="w-full py-4 px-gutter max-w-max_width mx-auto flex justify-center items-center">
+<h1 class="font-display-lg text-display-lg font-extrabold text-primary">MiniMart</h1>
+</header>
+<main class="max-w-max_width mx-auto px-gutter md:px-margin_desktop pb-20 pt-8">
+<div class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-primary md:hidden">Thanh toán</h2>
+<h2 class="font-headline-lg text-headline-lg text-primary hidden md:block">Thanh toán</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Left Column: Form Sections (Regular Glass - Tier 3) -->
+<div class="md:col-span-7 lg:col-span-8 flex flex-col gap-6">
+<!-- Delivery Scheduling -->
+<section class="glass-tier-3 p-6 md:p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="local_shipping" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<h3 class="font-headline-lg text-headline-lg text-primary text-[24px]">Phương thức nhận hàng</h3>
+</div>
+<!-- Segmented Toggle -->
+<div class="flex bg-white/50 p-1 rounded-full border border-outline-variant/50 mb-8 max-w-sm">
+<button class="flex-1 py-2 px-4 rounded-full bg-primary text-white font-label-md text-label-md shadow-sm transition-all text-center">
+        Giao tận nơi
+    </button>
+<button class="flex-1 py-2 px-4 rounded-full text-on-surface-variant hover:text-primary font-label-md text-label-md transition-all text-center">
+        Tự đến lấy
+    </button>
+</div>
+<!-- Horizontal Date Picker -->
+<div class="mb-6">
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-2 snap-x">
+<!-- Selected Date -->
+<label class="relative cursor-pointer snap-start shrink-0">
+<input checked="" class="peer sr-only" name="deliveryDate" type="radio"/>
+<div class="px-5 py-3 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex flex-col items-center justify-center min-w-[80px]">
+<span class="font-label-md text-label-md text-primary mb-1">Hôm nay</span>
+<span class="font-body-lg text-body-lg text-on-surface font-semibold text-lg">15</span>
+</div>
+</label>
+<!-- Date 2 -->
+<label class="relative cursor-pointer snap-start shrink-0">
+<input class="peer sr-only" name="deliveryDate" type="radio"/>
+<div class="px-5 py-3 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex flex-col items-center justify-center min-w-[80px]">
+<span class="font-label-md text-label-md text-on-surface-variant mb-1">Ngày mai</span>
+<span class="font-body-lg text-body-lg text-on-surface font-semibold text-lg">16</span>
+</div>
+</label>
+<!-- Date 3 -->
+<label class="relative cursor-pointer snap-start shrink-0">
+<input class="peer sr-only" name="deliveryDate" type="radio"/>
+<div class="px-5 py-3 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex flex-col items-center justify-center min-w-[80px]">
+<span class="font-label-md text-label-md text-on-surface-variant mb-1">Thứ 4</span>
+<span class="font-body-lg text-body-lg text-on-surface font-semibold text-lg">17</span>
+</div>
+</label>
+<!-- Date 4 -->
+<label class="relative cursor-pointer snap-start shrink-0">
+<input class="peer sr-only" name="deliveryDate" type="radio"/>
+<div class="px-5 py-3 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex flex-col items-center justify-center min-w-[80px]">
+<span class="font-label-md text-label-md text-on-surface-variant mb-1">Thứ 5</span>
+<span class="font-body-lg text-body-lg text-on-surface font-semibold text-lg">18</span>
+</div>
+</label>
+<!-- Date 5 -->
+<label class="relative cursor-pointer snap-start shrink-0">
+<input class="peer sr-only" name="deliveryDate" type="radio"/>
+<div class="px-5 py-3 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex flex-col items-center justify-center min-w-[80px]">
+<span class="font-label-md text-label-md text-on-surface-variant mb-1">Thứ 6</span>
+<span class="font-body-lg text-body-lg text-on-surface font-semibold text-lg">19</span>
+</div>
+</label>
+<!-- Date 6 -->
+<label class="relative cursor-pointer snap-start shrink-0">
+<input class="peer sr-only" name="deliveryDate" type="radio"/>
+<div class="px-5 py-3 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex flex-col items-center justify-center min-w-[80px]">
+<span class="font-label-md text-label-md text-on-surface-variant mb-1">Thứ 7</span>
+<span class="font-body-lg text-body-lg text-on-surface font-semibold text-lg">20</span>
+</div>
+</label>
+<!-- Date 7 -->
+<label class="relative cursor-pointer snap-start shrink-0">
+<input class="peer sr-only" name="deliveryDate" type="radio"/>
+<div class="px-5 py-3 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex flex-col items-center justify-center min-w-[80px]">
+<span class="font-label-md text-label-md text-on-surface-variant mb-1">CN</span>
+<span class="font-body-lg text-body-lg text-on-surface font-semibold text-lg">21</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Time Slots Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+<!-- Selected Slot -->
+<label class="relative cursor-pointer h-full">
+<input checked="" class="peer sr-only" name="deliveryTimeSlot" type="radio"/>
+<div class="h-full p-4 rounded-xl border border-primary bg-primary-container/20 hover:bg-primary-container/30 transition-colors flex flex-col items-center justify-center text-center gap-1">
+<span class="font-body-lg text-body-lg text-primary font-medium text-sm">08:00 - 10:00</span>
+</div>
+</label>
+<!-- Available Slot -->
+<label class="relative cursor-pointer h-full">
+<input class="peer sr-only" name="deliveryTimeSlot" type="radio"/>
+<div class="h-full p-4 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/20 flex flex-col items-center justify-center text-center gap-1">
+<span class="font-body-lg text-body-lg text-on-surface text-sm">10:00 - 12:00</span>
+</div>
+</label>
+<!-- Limited Slot -->
+<label class="relative cursor-pointer h-full">
+<input class="peer sr-only" name="deliveryTimeSlot" type="radio"/>
+<div class="h-full p-3 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/20 flex flex-col items-center justify-center text-center gap-1 relative overflow-hidden">
+<span class="font-body-lg text-body-lg text-on-surface text-sm">13:00 - 15:00</span>
+<span class="inline-block px-2 py-0.5 mt-1 rounded bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">Sắp hết</span>
+</div>
+</label>
+<!-- Available Slot -->
+<label class="relative cursor-pointer h-full">
+<input class="peer sr-only" name="deliveryTimeSlot" type="radio"/>
+<div class="h-full p-4 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/20 flex flex-col items-center justify-center text-center gap-1">
+<span class="font-body-lg text-body-lg text-on-surface text-sm">15:00 - 17:00</span>
+</div>
+</label>
+<!-- Full Slot (Muted/Disabled) -->
+<label class="relative cursor-not-allowed h-full opacity-50">
+<input class="peer sr-only" disabled="" name="deliveryTimeSlot" type="radio"/>
+<div class="h-full p-4 rounded-xl border border-outline-variant/50 bg-surface-variant/30 flex flex-col items-center justify-center text-center gap-1">
+<span class="font-body-lg text-body-lg text-on-surface-variant text-sm line-through">17:00 - 19:00</span>
+<span class="text-error text-[10px] font-semibold mt-1">Đã đầy</span>
+</div>
+</label>
+<!-- Available Slot -->
+<label class="relative cursor-pointer h-full">
+<input class="peer sr-only" name="deliveryTimeSlot" type="radio"/>
+<div class="h-full p-4 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/20 flex flex-col items-center justify-center text-center gap-1">
+<span class="font-body-lg text-body-lg text-on-surface text-sm">19:00 - 21:00</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Delivery Address -->
+<section class="glass-tier-3 p-6 md:p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<h3 class="font-headline-lg text-headline-lg text-primary text-[24px]">Địa chỉ giao hàng</h3>
+</div>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="fullName">Họ và tên</label>
+<input class="solid-input w-full px-4 py-3 font-body-lg text-body-lg" id="fullName" placeholder="Nguyễn Văn A" type="text"/>
+</div>
+<div class="md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="streetAddress">Địa chỉ cụ thể</label>
+<input class="solid-input w-full px-4 py-3 font-body-lg text-body-lg" id="streetAddress" placeholder="Số 123 Đường Xuân Thủy, Phường Dịch Vọng Hậu" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="city">Quận/Huyện</label>
+<input class="solid-input w-full px-4 py-3 font-body-lg text-body-lg" id="city" placeholder="Cầu Giấy" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="province">Tỉnh/Thành phố</label>
+<input class="solid-input w-full px-4 py-3 font-body-lg text-body-lg" id="province" placeholder="Hà Nội" type="text"/>
+</div>
+</form>
+</section>
+<!-- Payment Method -->
+<section class="glass-tier-3 p-6 md:p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+<h3 class="font-headline-lg text-headline-lg text-primary text-[24px]">Phương thức thanh toán</h3>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Bank Card -->
+<label class="relative cursor-pointer">
+<input checked="" class="peer sr-only" name="paymentMethod" type="radio"/>
+<div class="p-4 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex items-center gap-3 h-full">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="credit_card">credit_card</span>
+<span class="font-label-md text-label-md text-on-surface flex-1">Thẻ Ngân Hàng / Thẻ Tín Dụng</span>
+</div>
+</label>
+<!-- Momo -->
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="paymentMethod" type="radio"/>
+<div class="p-4 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex items-center gap-3 h-full">
+<div class="w-8 h-8 bg-[#A50064] rounded-md flex items-center justify-center shrink-0">
+<span class="text-white font-bold text-xs">MoMo</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface flex-1">Ví MoMo</span>
+</div>
+</label>
+<!-- ZaloPay -->
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="paymentMethod" type="radio"/>
+<div class="p-4 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex items-center gap-3 h-full">
+<div class="w-8 h-8 bg-[#0068FF] rounded-md flex items-center justify-center shrink-0">
+<span class="text-white font-bold text-[10px]">ZaloPay</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface flex-1">Ví ZaloPay</span>
+</div>
+</label>
+<!-- COD -->
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="paymentMethod" type="radio"/>
+<div class="p-4 rounded-xl border border-outline-variant bg-white/50 hover:bg-white transition-colors peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:ring-1 peer-checked:ring-primary flex items-center gap-3 h-full">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="local_atm">local_atm</span>
+<span class="font-label-md text-label-md text-on-surface flex-1">Thanh toán khi nhận hàng (COD)</span>
+</div>
+</label>
+</div>
+<!-- Conditional Credit Card Form (Visible if Bank Card is selected - mocking static visibility for now) -->
+<form class="grid grid-cols-1 gap-4 mt-6">
+<div class="md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="cardNumber">Số thẻ</label>
+<input class="solid-input w-full px-4 py-3 font-body-lg text-body-lg" id="cardNumber" placeholder="0000 0000 0000 0000" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4 md:col-span-2">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="expDate">Ngày hết hạn</label>
+<input class="solid-input w-full px-4 py-3 font-body-lg text-body-lg" id="expDate" placeholder="MM/YY" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="cvv">CVV</label>
+<input class="solid-input w-full px-4 py-3 font-body-lg text-body-lg" id="cvv" placeholder="123" type="text"/>
+</div>
+</div>
+</form>
+</section>
+</div>
+<!-- Right Column: Order Summary (Thick Glass - Tier 4) -->
+<div class="md:col-span-5 lg:col-span-4">
+<div class="glass-tier-4 p-6 md:p-8 sticky top-8">
+<h3 class="font-headline-lg text-headline-lg text-primary text-[24px] mb-6 border-b border-outline-variant/30 pb-4">Tóm tắt đơn hàng</h3>
+<!-- Itemized List -->
+<div class="flex flex-col gap-4 mb-6">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-white/60 flex items-center justify-center p-1">
+<img class="w-full h-full object-cover rounded-md" data-alt="A close-up, high-quality photograph of fresh, vibrant organic avocados resting on a clean white surface. The lighting is bright and soft, highlighting the textured green skin and implying freshness. The background is slightly blurred to keep focus on the produce, fitting a premium grocery light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH3UPmYRO6Iyhz1T9-IvGM-R1CBeDqz6mTL1wSwLH3Qg1bEozF3RTFv9jHBWqqavjtuhe7sSO-aam29lnx3SaUHTXqiA4RBgEwK8O_6Uh6w6pBx2Ml4ctNuEKJAlz7SMgGfJPkZ2_tme-8BASbeD_cPgVJg5c-qmyDheT9dK0HuF9Xit0IKiS3EXTle1oMdkC2yG-v6J8-YYhPIwbFzfogUuG4ll0NMY2vFp3NOrRlc2oy3B59TuW4"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Bơ Hữu Cơ</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-sm">SL: 2</p>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface">140.000₫</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-white/60 flex items-center justify-center p-1">
+<img class="w-full h-full object-cover rounded-md" data-alt="A pristine, artisanal loaf of sourdough bread on a marble countertop. The crust is deeply golden and textured, lightly dusted with flour. Bright, natural daylight pours in from the side, casting soft shadows. The scene evokes a sense of high-end bakery quality, complementing a transparent, fresh digital UI style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu0_DClVyHEP7csIKnq_bA9lfpiCpDukxiWWbIjfr63BIFvIiW8pvqbYHXaLGAgCNfBXVD-Gnvxt38iBwXHVsqHbrjIfXmpjn38LX0cDcUwfkMwB9_7HLi95su6_dK4D4Z6j6RpQJF9HU_N-4136puZc6GTRL7FDWbzhY3iyAF42BYX_TR7hqmABYohoSs8PTAAxHj7aRFJM3jFwR5IdWHtHYCk-eZIUCANa3LES-f2TtxOW5BHQS3"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Bánh Mì Sourdough</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-sm">SL: 1</p>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface">85.000₫</span>
+</div>
+</div>
+<!-- Subtotals -->
+<div class="border-t border-outline-variant/30 pt-4 mb-6 flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="font-body-lg text-body-lg text-on-surface-variant">Tạm tính</span>
+<span class="font-label-md text-label-md text-on-surface">225.000₫</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-lg text-body-lg text-on-surface-variant">Phí giao hàng</span>
+<span class="font-label-md text-label-md text-on-surface">30.000₫</span>
+</div>
+</div>
+<!-- Total -->
+<div class="border-t border-outline-variant/50 pt-4 mb-8 flex justify-between items-center">
+<span class="font-headline-lg text-headline-lg text-primary text-[20px]">Tổng cộng</span>
+<span class="font-headline-lg text-headline-lg text-primary text-[24px]">255.000₫</span>
+</div>
+<!-- CTA -->
+<button class="w-full bg-primary text-white font-label-md text-label-md py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-primary-container transition-all duration-300">
+                        Đặt Hàng
+                    </button>
+<p class="text-center font-body-lg text-body-lg text-on-surface-variant text-xs mt-4">
+                        Bằng việc đặt hàng, bạn đồng ý với Điều khoản Dịch vụ của chúng tôi.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Suppressed on Checkout flow to maintain focus, but adding a simplified version for completion if needed, though instructions say transactional implies hiding shell. Decided to omit standard footer to prioritize canvas). -->
+</body></html>

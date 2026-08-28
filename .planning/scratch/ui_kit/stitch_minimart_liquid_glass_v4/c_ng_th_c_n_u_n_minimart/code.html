@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Công thức &amp; Combo | MiniMart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f7fbf0",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#0e5217",
+                        "outline": "#717a6d",
+                        "on-background": "#181d16",
+                        "surface-container-high": "#e6eadf",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#743400",
+                        "surface-container-highest": "#e0e4d9",
+                        "primary-fixed": "#aef4a5",
+                        "secondary": "#994700",
+                        "surface-container-low": "#f1f5ea",
+                        "inverse-primary": "#92d78b",
+                        "tertiary-container": "#741a41",
+                        "surface-dim": "#d7dbd1",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "on-surface": "#181d16",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#321300",
+                        "on-tertiary-container": "#f985ad",
+                        "outline-variant": "#c0c9bb",
+                        "on-primary-container": "#76b970",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#3e001d",
+                        "inverse-surface": "#2d322b",
+                        "error": "#ba1a1a",
+                        "primary": "#003006",
+                        "surface-tint": "#2b6b2c",
+                        "tertiary-fixed": "#ffd9e2",
+                        "surface-variant": "#e0e4d9",
+                        "primary-container": "#00490e",
+                        "inverse-on-surface": "#eef2e7",
+                        "background": "#f7fbf0",
+                        "on-primary-fixed": "#002203",
+                        "on-surface-variant": "#41493e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f7fbf0",
+                        "secondary-fixed": "#ffdbc8",
+                        "secondary-container": "#ff9650",
+                        "primary-fixed-dim": "#92d78b",
+                        "tertiary-fixed-dim": "#ffb0c8",
+                        "on-tertiary-fixed-variant": "#7f234a",
+                        "on-secondary-container": "#6f3200",
+                        "tertiary": "#56002b",
+                        "surface-container": "#ebefe5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "max_width": "1280px",
+                        "base_unit": "8px",
+                        "margin_desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-tier-1 { /* Ultra-thin */
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .glass-tier-2 { /* Thin */
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-tier-3 { /* Regular */
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(40px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-tier-4 { /* Thick */
+            background: rgba(255, 255, 255, 0.50);
+            backdrop-filter: blur(50px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-tier-5 { /* Ultra-thick */
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(60px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Animated Background Orbs */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            z-index: -1;
+            animation: float 20s infinite ease-in-out alternate;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: theme('colors.primary-fixed');
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 600px;
+            height: 600px;
+            background: theme('colors.secondary-fixed-dim');
+            bottom: -200px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: theme('colors.tertiary-fixed');
+            top: 40%;
+            left: 30%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* Material Symbols */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Scrollbar hiding for clean UI */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-body-lg text-body-lg">
+<!-- Background Orbs -->
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+<div class="bg-orb orb-3"></div>
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-gutter max-w-max_width mx-auto h-20 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 shadow-xl hidden md:flex">
+<div class="flex items-center gap-8">
+<span class="font-display-lg text-display-lg font-extrabold text-primary dark:text-primary-fixed-dim">MiniMart</span>
+<div class="flex gap-6">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Categories</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Deals</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-bold" href="#">Fresh</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Organic</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-primary">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-white/20 transition-colors relative">
+<span class="material-symbols-outlined text-primary" data-weight="fill">shopping_cart</span>
+<span class="absolute top-1 right-1 bg-error text-on-error font-label-md text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+</button>
+<button class="p-2 rounded-full hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-primary">person</span>
+</button>
+</div>
+</nav>
+<!-- Mobile Header (Fallback for TopNavBar on small screens) -->
+<header class="md:hidden fixed top-0 w-full z-40 h-16 px-4 flex items-center justify-between glass-tier-3">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-extrabold text-primary">MiniMart</span>
+<button class="p-2">
+<span class="material-symbols-outlined text-primary">shopping_cart</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="pt-24 md:pt-32 pb-32 px-4 md:px-gutter max-w-max_width mx-auto flex flex-col md:flex-row gap-8">
+<!-- Recipe Grid Section (Left Side on Desktop) -->
+<section class="flex-1">
+<div class="mb-8">
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg md:font-display-lg text-primary font-bold mb-2">Công thức &amp; Combo</h1>
+<p class="text-on-surface-variant">Khám phá các bữa ăn tươi ngon, dễ làm với nguyên liệu có sẵn.</p>
+</div>
+<!-- Bento Grid for Recipes -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Recipe Card 1 -->
+<article class="glass-tier-3 rounded-[20px] overflow-hidden cursor-pointer group hover:shadow-xl transition-all duration-300">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautifully plated Vietnamese Pho in a modern, well-lit white bowl on a light wooden table. The scene is brightly lit with natural sunlight, highlighting the fresh green herbs, thinly sliced beef, and clear broth. High-end food photography style, shallow depth of field, clean and fresh aesthetic consistent with a premium grocery app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3JdkpvDYLyOSMn7djzN0EaiJS2AxqGmkDWDsC0TEBSXg5yvpCrIco-OVMWznVkYRqLJhyROl0jar6FzF3_101TXqL_-rPBJNBK8dMyphbaQxRk4M6kXL71jFU9HH5iGDk_H7j0Pgt04pmAHWEHujkzOWdczmb1bTdgpZSBsduBXZsNBEVyArCeoY721NW4cOi6dAfh21qk4Ra2xkblq7Kqky_6kgkXTnP9H8szR5Ti7Ft61trUL7n"/>
+<div class="absolute top-4 right-4 glass-tier-1 px-3 py-1 rounded-full flex items-center gap-1 text-on-primary">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-md text-label-md">45p</span>
+</div>
+</div>
+<div class="p-5">
+<h3 class="font-label-md text-[18px] font-bold text-primary mb-2 line-clamp-2">Phở Bò Truyền Thống</h3>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-md text-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">group</span> 4 phần</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">local_fire_department</span> 450 kcal</span>
+</div>
+</div>
+</article>
+<!-- Recipe Card 2 -->
+<article class="glass-tier-3 rounded-[20px] overflow-hidden cursor-pointer group hover:shadow-xl transition-all duration-300">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A fresh, vibrant Vietnamese spring roll (Goi Cuon) cut in half, revealing plump shrimp, rice noodles, and green herbs, served on a minimalist white ceramic plate. A small bowl of rich peanut dipping sauce is adjacent. The lighting is soft and bright, emphasizing the freshness of the ingredients in a modern, clean kitchen setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaH0gq3zaUgclYyCNb5j6_rXPJ0DVm5JfrCwJD78Zl3CPceJ5rWYo70kJu1M6eZj8Kgb3rltxy2UaMPwcUyGJWIWIXc-AxJE6Whq0U9AWIIt-noy4Or3lDzmgUh81lzRzFLWm4wag1ZJsktle_fIBy2E2CSErgJA5DIAUD0qfjq7Ca9cCxPludyHrmSkVWZbRQZssBLwoqBywYkBEWzmXOBMnMfrg0sE-ALheOccRuMK9hke_Krxws"/>
+<div class="absolute top-4 right-4 glass-tier-1 px-3 py-1 rounded-full flex items-center gap-1 text-on-primary">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-md text-label-md">20p</span>
+</div>
+</div>
+<div class="p-5">
+<h3 class="font-label-md text-[18px] font-bold text-primary mb-2 line-clamp-2">Gỏi Cuốn Tôm Thịt</h3>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-md text-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">group</span> 2 phần</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">local_fire_department</span> 250 kcal</span>
+</div>
+</div>
+</article>
+<!-- Recipe Card 3 (Selected State Example) -->
+<article class="glass-tier-3 rounded-[20px] overflow-hidden cursor-pointer group shadow-lg border-2 border-primary-container relative">
+<div class="absolute inset-0 bg-primary-container/10 pointer-events-none z-10"></div>
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sizzling pan of Vietnamese Shaking Beef (Bo Luc Lac) with cubed tenderloin, crisp bell peppers, and onions, plated next to fresh watercress and a small bowl of lime-pepper dip. The scene is lit with bright, high-contrast light to show the rich caramelization of the meat, set against a pristine light-colored countertop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTQzVjzGaFNnGgVx74UBJ-lahfs3WXqtPyCC6Fybilvz3yMK0PL4Xo6YN4UvC04MPFDOhKPZSgnTVWqxFltU7s1jL4sn_VCqgTBviD6rL1SHAm7vhOpdIGpFhuWQ9bHphqYljeFrzqjVighTZppHjBhuZpmCaGFAyZuffnSFvUc7X6sixXzfIDJfQ8opxrNTUlNZAJG2MW4uEl9WwrydwFJ2kdfyTxj2i007wssO7GvPcYjjN8zTYn"/>
+<div class="absolute top-4 right-4 glass-tier-1 px-3 py-1 rounded-full flex items-center gap-1 text-on-primary">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-md text-label-md">30p</span>
+</div>
+</div>
+<div class="p-5">
+<h3 class="font-label-md text-[18px] font-bold text-primary mb-2 line-clamp-2">Bò Lúc Lắc Rau Trộn</h3>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-md text-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">group</span> 3 phần</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">local_fire_department</span> 600 kcal</span>
+</div>
+</div>
+</article>
+<!-- Recipe Card 4 -->
+<article class="glass-tier-3 rounded-[20px] overflow-hidden cursor-pointer group hover:shadow-xl transition-all duration-300">
+<div class="relative h-48 w-full overflow-hidden">
+<div class="bg-cover bg-center w-full h-full group-hover:scale-105 transition-transform duration-500" data-alt="A steaming clay pot of Vietnamese caramelized pork and eggs (Thit Kho Tau), placed on a rustic yet clean wooden board. White rice is served in a delicate modern bowl nearby. The lighting highlights the rich amber color of the sauce and the glossy finish of the pork, maintaining a bright, premium aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC4mrENOUTrXr91ysZrUWaqZs8z-u7N6Iyzr6F6LT1NBUBSzo9FhFodNihn6MBCnGsI5RaxBQZgcY5V_ResRsdR77aSlzXWSD-TMwffDgcjEq-OIemlwPRxN6cVFSFL1H3Tr6VR7iQbegaDbTI9blm3JXCIG87mPaH25V0Q-lOj5xrZOMnZPQOQkKLSNooFnjR0dnunOuJX9Xh-unwzu4GUZZonDkkTxfsGxwMGuw2PNVG7ZUN1J1ep')"></div>
+<div class="absolute top-4 right-4 glass-tier-1 px-3 py-1 rounded-full flex items-center gap-1 text-on-primary">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-md text-label-md">60p</span>
+</div>
+</div>
+<div class="p-5">
+<h3 class="font-label-md text-[18px] font-bold text-primary mb-2 line-clamp-2">Thịt Kho Tàu</h3>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-md text-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">group</span> 4 phần</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">local_fire_department</span> 550 kcal</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Recipe Detail Panel (Right Side on Desktop, Slides over on Mobile ideally) -->
+<aside class="w-full md:w-[400px] flex-shrink-0 flex flex-col gap-6 sticky top-24 h-[calc(100vh-120px)] overflow-y-auto hide-scrollbar pb-24">
+<!-- Detail Header Card -->
+<div class="glass-tier-4 rounded-[24px] p-6">
+<h2 class="font-headline-lg text-[24px] font-bold text-primary mb-4">Bò Lúc Lắc Rau Trộn</h2>
+<p class="text-on-surface-variant mb-4 text-[15px]">Món bò mềm ngọt kết hợp với rau xà lách giòn rụm, chua ngọt thanh mát. Bữa tối hoàn hảo cho gia đình.</p>
+<div class="flex gap-4">
+<button class="flex-1 glass-tier-2 py-2 rounded-full font-label-md text-primary flex items-center justify-center gap-2 hover:bg-white/40 transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span> Lưu
+                    </button>
+<button class="flex-1 glass-tier-2 py-2 rounded-full font-label-md text-primary flex items-center justify-center gap-2 hover:bg-white/40 transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span> Chia sẻ
+                    </button>
+</div>
+</div>
+<!-- Solid White Ingredient Checklist -->
+<div class="bg-white rounded-[24px] p-6 shadow-sm border border-outline-variant/30 flex-1">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-label-md text-[18px] font-bold text-on-surface">Nguyên liệu (8)</h3>
+<div class="flex items-center gap-2 bg-surface-container rounded-full px-3 py-1">
+<span class="font-label-md text-sm text-on-surface-variant">Cho 3 người</span>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Ingredient 1 -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/20 last:border-0">
+<div class="flex items-center gap-3">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary w-5 h-5 cursor-pointer" type="checkbox"/>
+<div>
+<p class="font-label-md text-on-surface">Thịt bò thăn</p>
+<p class="text-[13px] text-on-surface-variant">500g</p>
+</div>
+</div>
+<div class="flex items-center gap-3 bg-surface-container rounded-full p-1">
+<button class="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-sm text-primary hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="font-label-md text-on-surface w-4 text-center">1</span>
+<button class="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-sm text-primary hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+<!-- Ingredient 2 -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/20 last:border-0">
+<div class="flex items-center gap-3">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary w-5 h-5 cursor-pointer" type="checkbox"/>
+<div>
+<p class="font-label-md text-on-surface">Ớt chuông (Đỏ, Xanh)</p>
+<p class="text-[13px] text-on-surface-variant">2 quả</p>
+</div>
+</div>
+<div class="flex items-center gap-3 bg-surface-container rounded-full p-1">
+<button class="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-sm text-primary hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="font-label-md text-on-surface w-4 text-center">2</span>
+<button class="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-sm text-primary hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+<!-- Ingredient 3 -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/20 last:border-0">
+<div class="flex items-center gap-3">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary w-5 h-5 cursor-pointer" type="checkbox"/>
+<div>
+<p class="font-label-md text-on-surface">Hành tây</p>
+<p class="text-[13px] text-on-surface-variant">1 củ</p>
+</div>
+</div>
+<div class="flex items-center gap-3 bg-surface-container rounded-full p-1">
+<button class="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-sm text-primary hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="font-label-md text-on-surface w-4 text-center">1</span>
+<button class="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-sm text-primary hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+<!-- Ingredient 4 -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/20 last:border-0 opacity-50">
+<div class="flex items-center gap-3">
+<input class="rounded border-outline text-primary focus:ring-primary w-5 h-5 cursor-pointer" type="checkbox"/>
+<div>
+<p class="font-label-md text-on-surface">Tỏi (Đã có ở nhà)</p>
+<p class="text-[13px] text-on-surface-variant">1 củ</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- Sticky Thick-glass bottom bar for Action -->
+<div class="fixed bottom-0 left-0 w-full z-50 glass-tier-4 py-4 px-4 md:px-gutter shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+<div class="max-w-max_width mx-auto flex justify-end md:pr-[400px] relative">
+<div class="w-full md:w-[400px] flex items-center justify-between md:absolute md:right-0 md:bottom-0 md:h-full">
+<div class="hidden md:block">
+<p class="font-label-md text-on-surface">Tổng cộng</p>
+<p class="font-headline-lg text-[20px] text-primary font-bold">245.000đ</p>
+</div>
+<button class="w-full md:w-auto flex-1 md:flex-none bg-primary text-on-primary font-label-md text-label-md py-4 px-6 rounded-full shadow-lg hover:bg-primary-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                    Thêm 8 nguyên liệu vào giỏ
+                </button>
+</div>
+</div>
+</div>
+</body></html>

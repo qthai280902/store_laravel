@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MiniMart - Order Tracking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#92d78b",
+                        "on-surface": "#181d16",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffd9e2",
+                        "tertiary-fixed-dim": "#ffb0c8",
+                        "outline-variant": "#c0c9bb",
+                        "on-primary-container": "#76b970",
+                        "inverse-surface": "#2d322b",
+                        "tertiary-container": "#741a41",
+                        "primary-fixed": "#aef4a5",
+                        "on-secondary-fixed": "#321300",
+                        "on-tertiary-container": "#f985ad",
+                        "primary-container": "#00490e",
+                        "on-secondary-fixed-variant": "#743400",
+                        "inverse-primary": "#92d78b",
+                        "on-primary-fixed": "#002203",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#ffdbc8",
+                        "secondary-container": "#ff9650",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "on-primary": "#ffffff",
+                        "secondary": "#994700",
+                        "on-primary-fixed-variant": "#0e5217",
+                        "outline": "#717a6d",
+                        "on-tertiary-fixed": "#3e001d",
+                        "on-surface-variant": "#41493e",
+                        "on-tertiary-fixed-variant": "#7f234a",
+                        "on-background": "#181d16",
+                        "surface-container-high": "#e6eadf",
+                        "surface-variant": "#e0e4d9",
+                        "surface-bright": "#f7fbf0",
+                        "tertiary": "#56002b",
+                        "surface-container": "#ebefe5",
+                        "surface-container-low": "#f1f5ea",
+                        "surface": "#f7fbf0",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d7dbd1",
+                        "primary": "#003006",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eef2e7",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e0e4d9",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#2b6b2c",
+                        "background": "#f7fbf0",
+                        "on-secondary-container": "#6f3200"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base_unit": "8px",
+                        "max_width": "1280px",
+                        "gutter": "24px",
+                        "margin_desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-regular {
+            background-color: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 20s infinite ease-in-out alternate;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-lg text-body-lg min-h-screen relative overflow-x-hidden">
+<!-- Ambient Orbs -->
+<div class="ambient-orb bg-primary-fixed-dim/30 w-[400px] h-[400px] top-[-100px] left-[-100px]"></div>
+<div class="ambient-orb bg-secondary-fixed/40 w-[500px] h-[500px] bottom-[-200px] right-[-100px] animation-delay-2000"></div>
+<div class="ambient-orb bg-tertiary-fixed/30 w-[300px] h-[300px] top-[40%] left-[60%] animation-delay-4000"></div>
+<!-- Main Nav Suppressed as this is a transactional flow -->
+<header class="w-full px-gutter py-6 max-w-max_width mx-auto flex items-center justify-between z-40 relative">
+<a class="flex items-center gap-2 group" href="#">
+<span class="material-symbols-outlined text-primary group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span class="font-label-md text-label-md text-primary">Back to Orders</span>
+</a>
+<div class="font-display-lg text-headline-lg font-extrabold text-primary">MiniMart</div>
+<div class="w-24"></div> <!-- Spacer -->
+</header>
+<main class="max-w-max_width mx-auto px-gutter md:px-margin_desktop pb-24 relative z-10">
+<div class="mb-12">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Order #88392-AB</h1>
+<p class="text-on-surface-variant">Estimated Delivery: 2:45 PM</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column: Map & Driver -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Map View -->
+<div class="glass-regular rounded-[20px] p-2 h-[400px] relative overflow-hidden shadow-xl">
+<img class="w-full h-full object-cover rounded-[16px]" data-alt="A highly detailed, top-down view of a modern, clean digital map interface showing a suburban neighborhood. A smooth route line is drawn in bright green, with a sleek, minimalist delivery vehicle icon moving along it. The map style is light mode, utilizing subtle shades of mint, pale cream, and white to reflect a high-end, fresh grocery delivery brand aesthetic. The lighting is bright and clear, conveying efficiency and transparency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABhFRLJhUjMUh2jBWO4_0K-D2sOFJUEa6iz3DnqGand2HIhDhcbwjVfwU4WxqKh8RpKOONZ-RB1xEzQ87pENAv2L5a05eSjW5-noul7IUDClsTi329JcUWRqqg2CEaU6X6FCIQ0GLa_2FIJkE42b8WBc_Aw7Iz1TgD-G4Usil_12_qbKZDo00h5b3hlO6KtF-7Y4p5CbeWlpz6l3dchQ7k_iZ35U3aMogVtOrmyhcgFuew0hfIPMOO"/>
+<div class="absolute bottom-6 right-6 glass-regular p-3 rounded-full flex flex-col gap-2 shadow-lg">
+<button class="w-10 h-10 flex items-center justify-center bg-white rounded-full text-on-surface hover:bg-surface-container transition-colors shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white rounded-full text-on-surface hover:bg-surface-container transition-colors shadow-sm">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+</div>
+<!-- Driver Details -->
+<div class="glass-regular rounded-[20px] p-6 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-md relative">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a friendly delivery driver wearing a clean, modern green cap with a subtle logo. The background is a soft, blurred bright white and mint green, fitting a premium, fresh light-mode aesthetic. The lighting is natural and flattering, emphasizing a trustworthy and prompt service vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl6MKwu4ydFfvjQttJ_FX-PdvWKw5Q1GPq44scyw4Ryall3ohnJQjCtYng0Scf6GCBbfzNcx6ql9I2EVOLUIKHlSV2QeLrqEU6enFbVLLe2fDsV7dH4c2iMsn4Xd5-dlWnK8kJWbE6eDVAnG-KiV195QLTnPq2o_JyC3hfAWH0yppysHJz63JX7ZkfIFPSlcb-Jz9trDmuBUnkf2lGyylB7Bw6jJbRt56DF1W0h4zH93aGv4ri2NF-"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface text-lg">Marcus T.</h3>
+<div class="flex items-center gap-1 text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-sm">4.9 (124 deliveries)</span>
+</div>
+<p class="text-sm text-on-surface-variant mt-1">Silver Honda Civic • ABC-1234</p>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="w-12 h-12 rounded-full glass-regular flex items-center justify-center text-primary hover:bg-white/50 transition-colors shrink-0">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="h-12 px-6 rounded-full glass-regular flex items-center justify-center text-primary hover:bg-white/50 transition-colors gap-2">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-md text-label-md whitespace-nowrap">Nhắn tin cho tài xế</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Status Stepper -->
+<div class="lg:col-span-4">
+<div class="glass-regular rounded-[20px] p-8 shadow-xl h-full">
+<h2 class="font-headline-lg text-xl mb-8">Delivery Status</h2>
+<div class="relative flex flex-col gap-8">
+<!-- Progress Line -->
+<div class="absolute left-6 top-6 bottom-10 w-[2px] bg-outline-variant/30 rounded-full"></div>
+<div class="absolute left-6 top-6 h-[45%] w-[2px] bg-primary rounded-full"></div>
+<!-- Step 1: Placed -->
+<div class="flex gap-6 relative z-10">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-md">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+</div>
+<div class="pt-2">
+<h4 class="font-label-md text-label-md text-on-surface">Order Placed</h4>
+<p class="text-sm text-on-surface-variant mt-1">1:15 PM</p>
+</div>
+</div>
+<!-- Step 2: Preparing -->
+<div class="flex gap-6 relative z-10">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-md">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+</div>
+<div class="pt-2">
+<h4 class="font-label-md text-label-md text-on-surface">Preparing Order</h4>
+<p class="text-sm text-on-surface-variant mt-1">1:30 PM</p>
+</div>
+</div>
+<!-- Step 3: Out for Delivery (Active) -->
+<div class="flex gap-6 relative z-10">
+<div class="w-12 h-12 rounded-full bg-white border-2 border-primary flex items-center justify-center shrink-0 shadow-lg relative">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<div class="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-20"></div>
+</div>
+<div class="pt-2">
+<h4 class="font-label-md text-label-md text-primary">Out for Delivery</h4>
+<p class="text-sm text-on-surface-variant mt-1">Just left the store</p>
+</div>
+</div>
+<!-- Step 4: Delivered (Pending) -->
+<div class="flex gap-6 relative z-10">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-outline">home</span>
+</div>
+<div class="pt-2 opacity-50">
+<h4 class="font-label-md text-label-md text-on-surface-variant">Delivered</h4>
+<p class="text-sm text-on-surface-variant mt-1">Est. 2:45 PM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

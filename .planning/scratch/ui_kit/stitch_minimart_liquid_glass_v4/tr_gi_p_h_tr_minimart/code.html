@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trợ giúp &amp; Hỗ trợ - MiniMart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Glassmorphism Utilities */
+        .glass-tier-1 {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-tier-2 {
+            background-color: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-tier-3 {
+            background-color: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-tier-4 {
+            background-color: rgba(255, 255, 255, 0.50);
+            backdrop-filter: blur(50px) saturate(180%);
+            -webkit-backdrop-filter: blur(50px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-tier-5 {
+            background-color: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(60px) saturate(180%);
+            -webkit-backdrop-filter: blur(60px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Ambient Background Orbs */
+        .bg-orb-1 {
+            position: fixed; top: -10%; left: -10%; width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(174, 244, 165, 0.4) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%; filter: blur(80px); z-index: -1; animation: float1 20s infinite alternate;
+        }
+        .bg-orb-2 {
+            position: fixed; bottom: -20%; right: -10%; width: 60vw; height: 60vw;
+            background: radial-gradient(circle, rgba(255, 150, 80, 0.3) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%; filter: blur(100px); z-index: -1; animation: float2 25s infinite alternate;
+        }
+        @keyframes float1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(5%, 10%) scale(1.1); } }
+        @keyframes float2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-10%, -5%) scale(1.2); } }
+
+        /* Accordion Transition */
+        .accordion-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+            opacity: 1;
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f7fbf0",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#0e5217",
+                        "outline": "#717a6d",
+                        "on-background": "#181d16",
+                        "surface-container-high": "#e6eadf",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#743400",
+                        "surface-container-highest": "#e0e4d9",
+                        "primary-fixed": "#aef4a5",
+                        "secondary": "#994700",
+                        "surface-container-low": "#f1f5ea",
+                        "inverse-primary": "#92d78b",
+                        "tertiary-container": "#741a41",
+                        "surface-dim": "#d7dbd1",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "on-surface": "#181d16",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#321300",
+                        "on-tertiary-container": "#f985ad",
+                        "outline-variant": "#c0c9bb",
+                        "on-primary-container": "#76b970",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#3e001d",
+                        "inverse-surface": "#2d322b",
+                        "error": "#ba1a1a",
+                        "primary": "#003006",
+                        "surface-tint": "#2b6b2c",
+                        "tertiary-fixed": "#ffd9e2",
+                        "surface-variant": "#e0e4d9",
+                        "primary-container": "#00490e",
+                        "inverse-on-surface": "#eef2e7",
+                        "background": "#f7fbf0",
+                        "on-primary-fixed": "#002203",
+                        "on-surface-variant": "#41493e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f7fbf0",
+                        "secondary-fixed": "#ffdbc8",
+                        "secondary-container": "#ff9650",
+                        "primary-fixed-dim": "#92d78b",
+                        "tertiary-fixed-dim": "#ffb0c8",
+                        "on-tertiary-fixed-variant": "#7f234a",
+                        "on-secondary-container": "#6f3200",
+                        "tertiary": "#56002b",
+                        "surface-container": "#ebefe5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "max_width": "1280px",
+                        "base_unit": "8px",
+                        "margin_desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen relative overflow-x-hidden antialiased">
+<!-- Ambient Backgrounds -->
+<div class="bg-orb-1"></div>
+<div class="bg-orb-2"></div>
+<!-- TopNavBar: Standardized from JSON Context -->
+<header class="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-gutter max-w-max_width mx-auto h-20 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 shadow-xl">
+<div class="flex items-center gap-6">
+<span class="font-display-lg text-display-lg font-extrabold text-primary">MiniMart</span>
+<nav class="hidden md:flex gap-6">
+<!-- Nav labels derived from JSON context, inactive state -->
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Categories</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Deals</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Fresh</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Organic</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-primary hover:text-primary transition-colors duration-200 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+</button>
+<button class="text-primary hover:text-primary transition-colors duration-200 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">person</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="pt-[120px] pb-margin_desktop px-gutter max-w-max_width mx-auto">
+<!-- Header Section -->
+<div class="text-center mb-12">
+<h1 class="font-display-lg text-display-lg text-primary mb-4 hidden md:block">Trợ giúp &amp; Hỗ trợ</h1>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-4 md:hidden">Trợ giúp &amp; Hỗ trợ</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Tìm kiếm câu trả lời nhanh chóng hoặc liên hệ trực tiếp với chúng tôi để được hỗ trợ tốt nhất về trải nghiệm mua sắm của bạn.</p>
+</div>
+<!-- Search Input Zone -->
+<div class="max-w-3xl mx-auto mb-16 relative">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline">search</span>
+</div>
+<!-- Solid opaque input field for dense data entry as per guidelines -->
+<input class="w-full bg-[#ffffff] border border-outline-variant text-on-surface font-body-lg text-body-lg py-4 pl-12 pr-4 rounded-[12px] focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all placeholder:text-outline-variant" placeholder="Bạn cần tìm thông tin gì?" type="text"/>
+</div>
+<!-- Bento Grid Layout for FAQ Categories -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+<!-- Category: Đơn hàng -->
+<div class="glass-tier-2 rounded-[20px] p-6 flex flex-col h-full">
+<div class="flex items-center gap-4 mb-6 pb-4 border-b border-white/20">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">inventory_2</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary hidden md:block">Đơn hàng</h2>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary md:hidden">Đơn hàng</h2>
+</div>
+<div class="flex-grow space-y-4">
+<div class="accordion-item glass-tier-1 rounded-lg">
+<button class="w-full flex justify-between items-center p-4 font-label-md text-label-md text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span>Làm sao để kiểm tra trạng thái đơn hàng?</span>
+<span class="material-symbols-outlined accordion-icon">expand_more</span>
+</button>
+<div class="accordion-content px-4 font-body-lg text-body-lg text-on-surface-variant">
+                            Bạn có thể kiểm tra trạng thái đơn hàng trong phần "Lịch sử mua hàng" trên tài khoản cá nhân, hoặc theo dõi qua liên kết trong email xác nhận.
+                        </div>
+</div>
+<div class="accordion-item glass-tier-1 rounded-lg">
+<button class="w-full flex justify-between items-center p-4 font-label-md text-label-md text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span>Tôi có thể hủy đơn hàng không?</span>
+<span class="material-symbols-outlined accordion-icon">expand_more</span>
+</button>
+<div class="accordion-content px-4 font-body-lg text-body-lg text-on-surface-variant">
+                            Đơn hàng có thể được hủy trong vòng 15 phút sau khi đặt hàng thành công. Vui lòng vào mục "Đơn hàng của tôi" để thực hiện.
+                        </div>
+</div>
+</div>
+</div>
+<!-- Category: Giao hàng -->
+<div class="glass-tier-2 rounded-[20px] p-6 flex flex-col h-full">
+<div class="flex items-center gap-4 mb-6 pb-4 border-b border-white/20">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">local_shipping</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary hidden md:block">Giao hàng</h2>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary md:hidden">Giao hàng</h2>
+</div>
+<div class="flex-grow space-y-4">
+<div class="accordion-item glass-tier-1 rounded-lg">
+<button class="w-full flex justify-between items-center p-4 font-label-md text-label-md text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span>Thời gian giao hàng là bao lâu?</span>
+<span class="material-symbols-outlined accordion-icon">expand_more</span>
+</button>
+<div class="accordion-content px-4 font-body-lg text-body-lg text-on-surface-variant">
+                            Đối với các sản phẩm Fresh, chúng tôi giao trong vòng 2 giờ (nội thành). Các đơn hàng khác giao trong 1-2 ngày làm việc.
+                        </div>
+</div>
+<div class="accordion-item glass-tier-1 rounded-lg">
+<button class="w-full flex justify-between items-center p-4 font-label-md text-label-md text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span>Phí giao hàng được tính thế nào?</span>
+<span class="material-symbols-outlined accordion-icon">expand_more</span>
+</button>
+<div class="accordion-content px-4 font-body-lg text-body-lg text-on-surface-variant">
+                            Miễn phí giao hàng cho đơn từ 300,000đ. Dưới mức này, phí vận chuyển đồng giá 25,000đ.
+                        </div>
+</div>
+</div>
+</div>
+<!-- Category: Thanh toán -->
+<div class="glass-tier-2 rounded-[20px] p-6 flex flex-col h-full">
+<div class="flex items-center gap-4 mb-6 pb-4 border-b border-white/20">
+<div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container">payments</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary hidden md:block">Thanh toán</h2>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary md:hidden">Thanh toán</h2>
+</div>
+<div class="flex-grow space-y-4">
+<div class="accordion-item glass-tier-1 rounded-lg">
+<button class="w-full flex justify-between items-center p-4 font-label-md text-label-md text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span>Hỗ trợ những phương thức thanh toán nào?</span>
+<span class="material-symbols-outlined accordion-icon">expand_more</span>
+</button>
+<div class="accordion-content px-4 font-body-lg text-body-lg text-on-surface-variant">
+                            MiniMart chấp nhận Thanh toán khi nhận hàng (COD), Thẻ tín dụng/ghi nợ, Momo, ZaloPay và Chuyển khoản ngân hàng.
+                        </div>
+</div>
+<div class="accordion-item glass-tier-1 rounded-lg">
+<button class="w-full flex justify-between items-center p-4 font-label-md text-label-md text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span>Giao dịch bị lỗi nhưng tiền đã trừ?</span>
+<span class="material-symbols-outlined accordion-icon">expand_more</span>
+</button>
+<div class="accordion-content px-4 font-body-lg text-body-lg text-on-surface-variant">
+                            Hệ thống sẽ tự động hoàn tiền trong vòng 24-48 giờ làm việc. Nếu cần hỗ trợ khẩn cấp, vui lòng liên hệ CSKH.
+                        </div>
+</div>
+</div>
+</div>
+<!-- Category: Đổi trả -->
+<div class="glass-tier-2 rounded-[20px] p-6 flex flex-col h-full">
+<div class="flex items-center gap-4 mb-6 pb-4 border-b border-white/20">
+<div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-error-container">keyboard_return</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary hidden md:block">Đổi trả</h2>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary md:hidden">Đổi trả</h2>
+</div>
+<div class="flex-grow space-y-4">
+<div class="accordion-item glass-tier-1 rounded-lg">
+<button class="w-full flex justify-between items-center p-4 font-label-md text-label-md text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span>Chính sách đổi trả sản phẩm tươi sống?</span>
+<span class="material-symbols-outlined accordion-icon">expand_more</span>
+</button>
+<div class="accordion-content px-4 font-body-lg text-body-lg text-on-surface-variant">
+                            Các sản phẩm rau củ, thịt cá tươi sống áp dụng chính sách 1-đổi-1 trong vòng 24 giờ kể từ khi nhận hàng nếu có vấn đề về chất lượng.
+                        </div>
+</div>
+<div class="accordion-item glass-tier-1 rounded-lg">
+<button class="w-full flex justify-between items-center p-4 font-label-md text-label-md text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span>Quy trình hoàn tiền diễn ra như thế nào?</span>
+<span class="material-symbols-outlined accordion-icon">expand_more</span>
+</button>
+<div class="accordion-content px-4 font-body-lg text-body-lg text-on-surface-variant">
+                            Sau khi nhận được hàng hoàn trả, MiniMart sẽ xử lý hoàn tiền qua ví điện tử/tài khoản ngân hàng trong 3-5 ngày làm việc.
+                        </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Contact Support Card (Regular Glass - Tier 3) -->
+<div class="glass-tier-3 rounded-[20px] p-8 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+<!-- Decorative blur element inside card -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary-fixed-dim/20 rounded-full blur-[40px] pointer-events-none"></div>
+<div class="flex-1 text-center md:text-left z-10">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2 hidden md:block">Vẫn cần hỗ trợ thêm?</h2>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-2 md:hidden">Vẫn cần hỗ trợ thêm?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Đội ngũ Chăm sóc khách hàng của chúng tôi luôn sẵn sàng hỗ trợ bạn từ 8:00 đến 22:00 mỗi ngày.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto z-10">
+<!-- Primary Button -->
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all w-full sm:w-auto">
+<span class="material-symbols-outlined">forum</span>
+                    Live Chat
+                </button>
+<!-- Secondary Button (Glass) -->
+<button class="glass-tier-3 font-label-md text-label-md text-primary px-6 py-3 rounded-full flex items-center justify-center gap-2 hover:bg-white/40 transition-all w-full sm:w-auto border border-white/40">
+<span class="material-symbols-outlined">call</span>
+                    Gọi ngay
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer: Standardized from JSON Context -->
+<footer class="w-full py-margin_desktop px-gutter flex flex-col md:flex-row justify-between items-start max-w-max_width mx-auto bg-surface-container border-t border-outline-variant mt-20">
+<div class="mb-8 md:mb-0">
+<span class="font-headline-lg text-primary block mb-4">MiniMart</span>
+<p class="font-body-lg text-body-lg text-on-surface-variant">© 2024 MiniMart Fresh. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap gap-6 md:gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">About Us</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Sustainability</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Store Locator</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+</div>
+</footer>
+<script>
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            
+            // Close other accordions in the same category (optional, keeping it simple here)
+            // const siblings = item.parentElement.querySelectorAll('.accordion-item');
+            // siblings.forEach(sib => {
+            //     if (sib !== item) sib.classList.remove('active');
+            // });
+
+            item.classList.toggle('active');
+        }
+    </script>
+</body></html>

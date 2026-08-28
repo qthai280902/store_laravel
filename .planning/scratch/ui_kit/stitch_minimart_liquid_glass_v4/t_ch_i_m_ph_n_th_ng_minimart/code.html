@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MiniMart - Loyalty &amp; Rewards</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Brand Anchors -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f7fbf0",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#0e5217",
+                    "outline": "#717a6d",
+                    "on-background": "#181d16",
+                    "surface-container-high": "#e6eadf",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#743400",
+                    "surface-container-highest": "#e0e4d9",
+                    "primary-fixed": "#aef4a5",
+                    "secondary": "#994700",
+                    "surface-container-low": "#f1f5ea",
+                    "inverse-primary": "#92d78b",
+                    "tertiary-container": "#741a41",
+                    "surface-dim": "#d7dbd1",
+                    "secondary-fixed-dim": "#ffb68b",
+                    "on-surface": "#181d16",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#321300",
+                    "on-tertiary-container": "#f985ad",
+                    "outline-variant": "#c0c9bb",
+                    "on-primary-container": "#76b970",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#3e001d",
+                    "inverse-surface": "#2d322b",
+                    "error": "#ba1a1a",
+                    "primary": "#003006",
+                    "surface-tint": "#2b6b2c",
+                    "tertiary-fixed": "#ffd9e2",
+                    "surface-variant": "#e0e4d9",
+                    "primary-container": "#00490e",
+                    "inverse-on-surface": "#eef2e7",
+                    "background": "#f7fbf0",
+                    "on-primary-fixed": "#002203",
+                    "on-surface-variant": "#41493e",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7fbf0",
+                    "secondary-fixed": "#ffdbc8",
+                    "secondary-container": "#ff9650",
+                    "primary-fixed-dim": "#92d78b",
+                    "tertiary-fixed-dim": "#ffb0c8",
+                    "on-tertiary-fixed-variant": "#7f234a",
+                    "on-secondary-container": "#6f3200",
+                    "tertiary": "#56002b",
+                    "surface-container": "#ebefe5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "max_width": "1280px",
+                    "base_unit": "8px",
+                    "margin_desktop": "40px"
+            },
+            "fontFamily": {
+                    "label-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "display-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg-mobile": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Base typography adjustments to match Tailwind class naming conventions strictly */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f7fbf0; /* surface */
+        }
+        
+        /* Atmospheric Liquid Glass Orbs */
+        .orb-1 {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(174, 244, 165, 0.4) 0%, rgba(247, 251, 240, 0) 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+        }
+        .orb-2 {
+            position: fixed;
+            bottom: -20%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(255, 219, 200, 0.4) 0%, rgba(247, 251, 240, 0) 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="text-on-surface antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- Background Orbs -->
+<div class="orb-1 pointer-events-none"></div>
+<div class="orb-2 pointer-events-none"></div>
+<!-- TopNavBar (Shared Component) -->
+<!-- Wrapping in a full-width div for the glass background, inner for layout max-width to obey strict classes -->
+<header class="fixed top-0 left-0 w-full z-40 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 shadow-xl">
+<nav class="flex justify-between items-center px-gutter max-w-max_width mx-auto h-20">
+<!-- Logo -->
+<div class="font-display-lg text-[28px] md:text-display-lg font-extrabold text-primary dark:text-primary-fixed-dim flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 36px; font-variation-settings: 'FILL' 1;">shopping_basket</span>
+                MiniMart
+            </div>
+<!-- Navigation Links (Hidden on mobile per rules) -->
+<ul class="hidden md:flex items-center gap-8">
+<li><a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Categories</a></li>
+<li><a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Deals</a></li>
+<li><a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Fresh</a></li>
+<li><a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Organic</a></li>
+</ul>
+<!-- Actions (Search on right, plus trailing actions) -->
+<div class="flex items-center gap-4 text-primary dark:text-primary-fixed-dim">
+<div class="hidden md:flex items-center bg-white rounded-full px-4 py-2 border border-outline-variant shadow-sm mr-2">
+<span class="material-symbols-outlined text-outline mr-2">search</span>
+<input class="border-none bg-transparent focus:ring-0 text-label-md font-label-md text-on-surface p-0 w-48" placeholder="Search..." type="text"/>
+</div>
+<button class="p-2 hover:bg-white/20 rounded-full transition-colors duration-200 flex items-center justify-center">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="p-2 hover:bg-white/20 rounded-full transition-colors duration-200 flex items-center justify-center bg-primary-container text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</button>
+</div>
+</nav>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-32 pb-margin_desktop px-gutter max-w-max_width mx-auto w-full flex flex-col gap-8 md:gap-12">
+<!-- Header -->
+<div class="flex flex-col gap-2">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight">MiniMart Rewards</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Quản lý điểm thưởng và ưu đãi đặc quyền của bạn.</p>
+</div>
+<!-- Top Section: Bento Grid (Hero + QR) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Hero Card: Points Balance (Thick Glass - Tier 4) -->
+<div class="lg:col-span-8 bg-white/50 backdrop-blur-[50px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 rounded-[24px] p-8 shadow-xl flex flex-col justify-between min-h-[300px] relative overflow-hidden">
+<!-- Decorative subtle element inside glass -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-fixed/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-label-md text-label-md uppercase tracking-wider">Điểm tích luỹ</span>
+</div>
+<div class="font-display-lg text-[64px] md:text-[80px] text-primary leading-none tracking-tighter drop-shadow-sm">
+                        2,450
+                    </div>
+</div>
+<div class="relative z-10 mt-8">
+<div class="flex justify-between items-end mb-3">
+<div class="font-label-md text-label-md text-on-surface">Thành viên Bạc</div>
+<div class="font-label-md text-label-md text-secondary">Vàng</div>
+</div>
+<!-- Progress Bar Track -->
+<div class="w-full h-3 bg-surface-variant/50 rounded-full overflow-hidden border border-white/40 shadow-inner">
+<!-- Progress Fill -->
+<div class="h-full bg-primary rounded-full relative" style="width: 75%;">
+<!-- Edge highlight on progress bar -->
+<div class="absolute inset-0 border-t border-white/30 rounded-full"></div>
+</div>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-3">120 điểm nữa lên Vàng</p>
+</div>
+</div>
+<!-- QR/Barcode Card (Solid Opaque Surface) -->
+<div class="lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-[24px] p-8 shadow-sm flex flex-col items-center justify-center text-center gap-6">
+<div class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary">Quét mã</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-sm">Tích điểm khi thanh toán tại quầy</p>
+<!-- Barcode Placeholder -->
+<div class="w-full max-w-[240px] aspect-[2/1] bg-surface relative rounded-lg overflow-hidden border border-outline-variant/30 flex items-center justify-center">
+<img class="w-full h-full object-cover mix-blend-multiply opacity-80" data-alt="A hyper-realistic, crisp close-up rendering of a modern digital barcode displayed on a sleek smartphone screen. The image features a bright, clinical white background with subtle, high-key lighting that emphasizes the stark contrast of the black barcode lines. The composition is highly functional and technical, designed to fit seamlessly into a clean, minimalist light-mode user interface for a premium retail loyalty program." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVBVojALI8Sy2Nw2EJV9NfL-GaDM2ux_-XtD7ieUNJpmGpsQcogOKiFFbXC14uUx0mUhtra04ZOSkavMB4IkF86WLuAcjbdPYxLFDIaa5RewgBDF51e8--IB9mrLHLntyMXCUhSioo8vGECp3Qz_PihbosLPAiJ4mTuysCSul2D5xSqDRzg-F6P4bvBKxgmpFQhcfWqPSC8J001UUeJg_iddBFDgObxMBz8GW2suhRFoKbNnWYWOHU"/>
+</div>
+<div class="font-label-md text-label-md text-outline bg-surface-container py-2 px-4 rounded-full font-mono tracking-widest">
+                    ID: 8492 0192 481
+                </div>
+</div>
+</section>
+<!-- Referral Section (Thin Glass - Tier 2) -->
+<section class="bg-white/25 backdrop-blur-[30px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 rounded-full p-2 pl-6 md:pl-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">loyalty</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Chia sẻ mã, nhận quà</h3>
+<p class="font-label-md text-label-md text-on-surface-variant font-normal text-xs">Nhận 50 điểm cho mỗi lượt mời thành công.</p>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant rounded-full p-1 pl-4 w-full md:w-auto">
+<span class="font-label-md text-label-md text-primary font-mono font-bold tracking-wider">MINIMART24</span>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-full hover:bg-primary/90 transition-colors shadow-sm ml-auto md:ml-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+<span>Copy</span>
+</button>
+</div>
+</section>
+<!-- Rewards Grid Section -->
+<section class="flex flex-col gap-6">
+<div class="flex justify-between items-end border-b border-outline-variant/30 pb-4">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Ưu đãi có thể đổi</h2>
+<a class="font-label-md text-label-md text-secondary hover:underline flex items-center gap-1" href="#">
+                    Xem tất cả <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<!-- Grid (Regular Glass - Tier 3) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+<!-- Reward Card 1 -->
+<div class="bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 rounded-[20px] p-3 flex flex-col shadow-lg transition-transform hover:-translate-y-1 duration-300">
+<div class="w-full aspect-[4/3] rounded-2xl overflow-hidden relative mb-4">
+<img class="w-full h-full object-cover" data-alt="A high-quality, top-down photograph of a freshly brewed cup of cappuccino with elegant latte art, placed on a pristine white marble surface. The scene is lit with bright, soft natural light, enhancing the rich brown tones of the coffee and creating a premium, inviting atmosphere. This image perfectly complements a sophisticated light-mode UI, featuring minimal shadows and a clean, high-end retail aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGJMufTAJlaQwG-eVOKzREZZOJWDP6fkEsoEVV6-hCppt8RRkcFDUt-Mr9bQ15Hyc1DovmcE5BepLWyrj2aajr8aP4WGzdBHZ-6wjHE1i_htVUwI2q7-cdbWza6MJEpTruw6Kw7nH8YyQAMYWau4_5Z1Oz86ZqUtkemvp1MCsqryh4bpiY0I1T-HMGMjzxBag0zvWDMPT5USv0zC8jV6WIGtPY9f4lR2i2TRyqGKcpHE7uZ45tjExX"/>
+<!-- Points Chip (Solid Opaque) -->
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1 border border-outline-variant/20">
+<span class="material-symbols-outlined text-[16px] text-secondary" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                            300
+                        </div>
+</div>
+<div class="px-2 pb-2 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface text-lg mb-1">Cà phê sữa đá miễn phí</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-sm leading-snug">Tại quầy Deli MiniMart.</p>
+</div>
+<button class="mt-6 w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-full shadow-md hover:bg-primary/90 transition-colors border-t border-white/20">
+                            Đổi ngay
+                        </button>
+</div>
+</div>
+<!-- Reward Card 2 -->
+<div class="bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 rounded-[20px] p-3 flex flex-col shadow-lg transition-transform hover:-translate-y-1 duration-300">
+<div class="w-full aspect-[4/3] rounded-2xl overflow-hidden relative mb-4">
+<img class="w-full h-full object-cover" data-alt="A vibrant, macro-style photograph of fresh, dewy organic vegetables, focusing on bright red tomatoes and crisp green lettuce. The lighting is crisp and studio-quality, highlighting the natural textures and water droplets to convey absolute freshness. The composition is clean and modern, designed to sit beautifully within a high-glass, light-mode digital grocery interface, utilizing a palette of vivid, natural greens and reds against bright highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTNNC0RT7kZSigiup3dLHGpVoGMjgktI7rOMfKfDs_ND1DiF4ew8fZHmcxWkklg_SVeRYr-p6etXC3MiKSB3PTJxNqiaUkwOcF2mf1sd1GHsUBbqHH52xtNi4KUK_IMdnj3QSyUKC_v5CQAuTEaztYLGRHHeWxPcLNbz45g2lmc5SbjkuOn-6XeXqOzTNbWsTIc7wqclBdE3wpH1436dmoenbKrgS0fwJozz870viiXeBEyqv8bPnk"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1 border border-outline-variant/20">
+<span class="material-symbols-outlined text-[16px] text-secondary" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                            500
+                        </div>
+</div>
+<div class="px-2 pb-2 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface text-lg mb-1">Giảm 10% rau củ tươi</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-sm leading-snug">Áp dụng cho hoá đơn rau củ quả từ 200k.</p>
+</div>
+<button class="mt-6 w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-full shadow-md hover:bg-primary/90 transition-colors border-t border-white/20">
+                            Đổi ngay
+                        </button>
+</div>
+</div>
+<!-- Reward Card 3 -->
+<div class="bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 rounded-[20px] p-3 flex flex-col shadow-lg transition-transform hover:-translate-y-1 duration-300">
+<div class="w-full aspect-[4/3] rounded-2xl overflow-hidden relative mb-4">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist 3D rendering of a premium, eco-friendly brown paper grocery bag filled with an assortment of fresh market produce. The bag sits against a seamless, soft off-white background, lit with bright, diffused studio lighting. The image exudes a sense of high-end convenience and quality, tailored perfectly for a modern, light-mode e-commerce application, focusing on soft shadows and clear, bright colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9JoxJKxNLPj51HsBP492325BFxYx9_mgk2eCdguhUa9u0oIIMyC6Ut7_9vPvvzZheDQqJYGFKlIny9sZ5Zkyvwem_AGriUQeAomtqAZEVxGGbBdEnb9xJamuP4KKEB5DiH5M2JPx0OPwH2PoCzYvHFDaoWqm5BUp3SeBO6yW1mtFCKCnXHJ7g-Aq96-NfZPnbPULHb4Kh5PVV3Xyd-OiB0_qQgAsh8xTCcM_gYROJynFaMAW0TI1C"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1 border border-outline-variant/20">
+<span class="material-symbols-outlined text-[16px] text-secondary" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                            1000
+                        </div>
+</div>
+<div class="px-2 pb-2 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface text-lg mb-1">Miễn phí giao hàng</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-sm leading-snug">Sử dụng cho 1 đơn hàng online bất kỳ.</p>
+</div>
+<button class="mt-6 w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-full shadow-md hover:bg-primary/90 transition-colors border-t border-white/20">
+                            Đổi ngay
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full bg-surface-container dark:bg-surface-container-highest border-t border-outline-variant mt-16 relative z-10">
+<div class="py-margin_desktop px-gutter flex flex-col md:flex-row justify-between items-start max-w-max_width mx-auto gap-8">
+<!-- Brand & Copyright -->
+<div class="flex flex-col gap-4">
+<div class="font-headline-lg text-headline-lg text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 32px; font-variation-settings: 'FILL' 1;">shopping_basket</span>
+                    MiniMart
+                </div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xs">
+                    Mang sự tươi ngon đến tận cửa nhà bạn mỗi ngày.
+                </p>
+<p class="font-label-md text-label-md text-on-surface-variant opacity-80 mt-4">
+                    © 2024 MiniMart Fresh. All rights reserved.
+                </p>
+</div>
+<!-- Links -->
+<div class="flex flex-col md:flex-row gap-8 md:gap-16">
+<div class="flex flex-col gap-3">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">About Us</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Sustainability</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Store Locator</a>
+</div>
+<div class="flex flex-col gap-3">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
