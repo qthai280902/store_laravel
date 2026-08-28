@@ -10,10 +10,16 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $latestProducts = Product::latest()->take(10)->get();
+        $newProducts = Product::latest()->take(10)->get();
+        $featuredProducts = Product::where('is_featured', true)->inRandomOrder()->take(10)->get();
+        if ($featuredProducts->count() < 5) {
+            $featuredProducts = Product::inRandomOrder()->take(10)->get();
+        }
+        $flashSales = Product::inRandomOrder()->take(10)->get();
+        
         $categories = Category::all();
         $latestPosts = Post::where('is_published', true)->latest()->take(3)->get();
 
-        return view('home', compact('latestProducts', 'categories', 'latestPosts'));
+        return view('home', compact('newProducts', 'featuredProducts', 'flashSales', 'categories', 'latestPosts'));
     }
 }

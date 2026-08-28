@@ -1,13 +1,12 @@
 <x-layouts.app title="Blog & Tin tức - MiniMart">
-    <!-- Header -->
-    <header class="mb-12 mt-6 text-center">
-        <h1 class="font-headline-lg text-headline-lg md:font-display-lg md:text-display-lg text-primary mb-4">
-            Blog & Tin Tức
+    <!-- Hero Banner -->
+    <div class="h-64 bg-cover bg-center bg-gradient-to-r from-green-600 to-green-400 rounded-3xl flex items-center justify-center mb-12 shadow-lg relative overflow-hidden">
+        <!-- Optional overlay for better text readability if using an image background in the future -->
+        <div class="absolute inset-0 bg-black/20"></div>
+        <h1 class="relative z-10 text-4xl font-bold text-white tracking-wide">
+            Blog & Tin tức
         </h1>
-        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
-            Cập nhật những thông tin mới nhất về nông sản sạch, mẹo vặt bảo quản và sức khỏe từ MiniMart.
-        </p>
-    </header>
+    </div>
 
     <!-- Blog Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

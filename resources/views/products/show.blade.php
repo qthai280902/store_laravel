@@ -17,7 +17,7 @@
                 <span class="material-symbols-outlined text-[16px]">eco</span>
                 {{ $product->category->name ?? 'Category' }}
             </div>
-            <img class="w-full h-auto max-h-[500px] object-contain rounded-lg" src="{{ $product->image_url ?? 'https://picsum.photos/seed/' . urlencode($product->slug) . '/600/400' }}" alt="{{ $product->name }}"/>
+            <img class="w-full h-auto max-h-[350px] object-cover rounded-lg shadow-sm" src="{{ $product->image_url ?? 'https://picsum.photos/seed/' . urlencode($product->slug) . '/600/400' }}" alt="{{ $product->name }}"/>
             
             <!-- Thumbnails -->
             <div class="flex gap-[16px] mt-[24px]">

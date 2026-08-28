@@ -14,8 +14,13 @@ class Product extends Model
         'slug',
         'description',
         'image_url',
+        'brand',
+        'unit',
+        'original_price',
         'base_price',
+        'stock',
         'is_active',
+        'is_featured',
     ];
 
     protected $casts = [

@@ -17,8 +17,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
+            $table->string('brand')->nullable();
+            $table->string('unit')->default('kg');
+            $table->decimal('original_price', 15, 2)->nullable();
             $table->decimal('base_price', 15, 2);
             $table->boolean('is_active')->default(true);
+            $table->boolean('is_featured')->default(false);
             $table->timestamps();
         });
     }
