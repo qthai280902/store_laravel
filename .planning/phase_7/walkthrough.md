@@ -35,3 +35,11 @@ vendor\bin\pint --format agent
 
 ## Káº¿t quáº£
 100% file view trá»ng yáº¿u cá»§a dá»± Ã¡n Ä‘Ã£ chÃ­nh thá»©c khoÃ¡c lÃªn mÃ¬nh bá»™ cÃ¡nh Liquid Glass V4 chuáº©n chá»‰nh. CÃ¡c hiá»‡u á»©ng kÃ­nh má», orb float phÃ­a sau hiá»ƒn thá»‹ chÃ­nh xÃ¡c theo há»‡ thá»‘ng Tailwind v4. Backend khÃ´ng suy suyá»ƒn.
+
+### 4. Hotfix: S?a l?i V? Layout, Header ğè n?i dung và Product Card
+- **S?a l?i Header ğè (app.blade.php):** C?p nh?t class padding top cho th? <main> t? pt-[100px] lên pt-[120px] ğ? n?i dung tránh ph?n fixed header (ğ? cao h-20 c?a Tailwind tıõng ğıõng 80px, nhıng bóng m? t?a ra c?n padding l?n hõn).
+- **S?a l?i th? S?n ph?m (product-card.blade.php):** Ğ? xóa s?ch th? <article> c? t? vi?t sai c?u trúc, copy chu?n c?u trúc HTML g?c t? file homepage_minimart/code.html (dùng wrapper glass-tier-3). Logic bi?n category ğı?c tách làm badge ? góc trái ?nh, không ğè lên th? tên.
+- **Lı?i Trang Chi ti?t (show.blade.php):** Xác nh?n ğ? b?c grid 12 c?t (grid-cols-12) cho ph?n Left Column (col-span-8) và Sticky Buy Box (col-span-4), ğúng v?i m?u UI kit g?c.
+- **Lı?i Gi? hàng (cart/index.blade.php):** Gi? nguyên c?u trúc flex layout flex-grow/lg:w-2/3 và lg:w-1/3 chính xác theo file UI kit shopping_cart_minimart/code.html. Không c?n dùng col-span-8/4 cho trang này v? UI kit không thi?t k? ki?u grid cho Cart.
+- Ğ? ch?y 
+pm run build ğ? compile CSS Tailwind V4 v?i các class thay ğ?i m?i nh?t.
