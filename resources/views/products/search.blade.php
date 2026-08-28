@@ -30,11 +30,9 @@
     </div>
 
     <!-- Product Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
         @forelse($products as $product)
-            <a href="{{ route('products.show', $product->slug) }}" class="block h-full">
-                <x-product-card :product="$product" />
-            </a>
+            <x-product-card :product="$product" />
         @empty
             <div class="col-span-full glass-tier-2 rounded-3xl p-12 text-center">
                 <h3 class="text-2xl font-bold text-primary mb-2">Không tìm thấy sản phẩm</h3>

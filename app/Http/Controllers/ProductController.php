@@ -13,7 +13,15 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->only(['search', 'category_id']);
+        $filters = $request->only(['search']);
+        
+        if ($request->has('category')) {
+            $category = \App\Models\Category::where('slug', $request->category)->first();
+            if ($category) {
+                $filters['category_id'] = $category->id;
+            }
+        }
+
         $sortBy = $request->get('sort_by', 'created_at');
         $sortDir = $request->get('sort_dir', 'desc');
 

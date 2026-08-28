@@ -43,10 +43,10 @@
                             </label>
 
                             <label class="flex items-center p-4 border border-outline-variant rounded-[16px] cursor-pointer hover:bg-white/40 transition-colors glass-tier-2 group">
-                                <input class="w-5 h-5 text-primary border-outline-variant focus:ring-primary focus:ring-2" name="payment_method" type="radio" value="bank_transfer"/>
+                                <input class="w-5 h-5 text-primary border-outline-variant focus:ring-primary focus:ring-2" name="payment_method" type="radio" value="momo"/>
                                 <span class="ml-4 flex-grow">
-                                    <span class="block font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Chuyển khoản ngân hàng</span>
-                                    <span class="block font-body-lg text-sm text-on-surface-variant mt-1">Chuyển khoản qua quét mã QR</span>
+                                    <span class="block font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Ví điện tử MoMo</span>
+                                    <span class="block font-body-lg text-sm text-on-surface-variant mt-1">Thanh toán qua ứng dụng MoMo</span>
                                 </span>
                             </label>
                         </div>

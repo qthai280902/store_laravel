@@ -1,6 +1,6 @@
 <x-layouts.app title="MiniMart - Siêu thị Nông sản">
     <!-- Hero Section -->
-    <section class="relative w-full h-[500px] rounded-3xl overflow-hidden mb-margin_desktop shadow-xl flex items-center justify-center">
+    <section class="relative w-full h-[500px] rounded-3xl overflow-hidden mb-12 shadow-xl flex items-center justify-center">
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxkbzAdcpoMPJAK0BPRwz4aXxAIFCrleW5XXSxJpmWp3pTmQwBUZcx686AcMHTLIaupnRxzhMLS95kprbF8dPWA5mBBAcmQXrc8jzos4VsmKdBvS77JjZBgORzvdZJrb2HJhXiwWOjd-cXuR7n28dY29xVdg1jc-p298f75OT3DYsTJGHQP0k0IJY-laH-QZas3A8hmoE821ESUjdzo4hGUohmmdqZTIx0ONHsE_SlOvszMJtICFE9')"></div>
         <div class="absolute inset-0 bg-white/20 backdrop-blur-sm"></div>
         <div class="relative z-10 text-center px-4 max-w-3xl glass-tier-3 p-8 rounded-2xl">
@@ -11,7 +11,7 @@
     </section>
 
     <!-- Category Tiles -->
-    <section class="mb-margin_desktop">
+    <section class="mb-12">
         <h2 class="font-headline-lg text-headline-lg text-primary mb-6">Explore Categories</h2>
         <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
             @php
@@ -27,9 +27,9 @@
     </section>
 
     <!-- Top Deals Grid -->
-    <section class="mb-margin_desktop">
+    <section class="mb-12">
         <h2 class="font-headline-lg text-headline-lg text-primary mb-6">Top Deals</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
             @foreach($latestProducts as $product)
                 <x-product-card :product="$product" />
             @endforeach
@@ -37,7 +37,7 @@
     </section>
 
     <!-- Buy It Again Strip -->
-    <section class="mb-margin_desktop">
+    <section class="mb-12">
         <div class="flex justify-between items-center mb-6">
             <h2 class="font-headline-lg text-headline-lg text-primary">Mua lại nhanh</h2>
             <a class="text-primary font-label-md text-label-md hover:underline cursor-pointer" href="{{ route('products.index') }}">Xem tất cả</a>
@@ -60,7 +60,7 @@
     </section>
 
     <!-- Recipe Teaser Section -->
-    <section class="mb-margin_desktop">
+    <section class="mb-12">
         <div class="flex justify-between items-center mb-6">
             <h2 class="font-headline-lg text-headline-lg text-primary">Khám phá công thức</h2>
             <a class="text-primary font-label-md text-label-md hover:underline cursor-pointer" href="#">Xem tất cả</a>
@@ -81,7 +81,7 @@
     </section>
 
     <!-- Newsletter Band -->
-    <section class="glass-tier-3 rounded-[24px] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 mb-margin_desktop">
+    <section class="glass-tier-3 rounded-[24px] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
         <div class="max-w-md">
             <h2 class="font-headline-lg text-headline-lg text-primary mb-2">Stay Fresh, Stay Updated</h2>
             <p class="font-body-lg text-body-lg text-on-surface-variant">Subscribe to our newsletter for the latest deals, recipes, and seasonal produce updates directly to your inbox.</p>

@@ -82,7 +82,7 @@
 
     <!-- Product Grid (9 columns) -->
     <div class="col-span-1 md:col-span-9">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
             @forelse($products as $product)
                 <x-product-card :product="$product" />
             @empty

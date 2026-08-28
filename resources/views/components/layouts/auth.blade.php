@@ -47,7 +47,7 @@
         }
     </style>
 </head>
-<body class="bg-background min-h-screen flex items-center justify-center relative overflow-hidden font-body-lg text-body-lg text-on-surface">
+<body class="bg-background min-h-screen overflow-y-auto pb-12 flex flex-col items-center justify-center relative font-body-lg text-body-lg text-on-surface pt-12">
     <!-- Ambient Background -->
     <div class="orb-primary"></div>
     <div class="orb-secondary"></div>

@@ -17,7 +17,7 @@
     </div>
     
     <!-- TopNavBar -->
-    <nav class="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-gutter max-w-max_width mx-auto h-20 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 shadow-xl docked full-width top-0">
+    <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-20 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-b-[1px] border-white/30 shadow-xl">
         <a href="{{ route('home') }}" class="font-display-lg text-display-lg font-extrabold text-primary dark:text-primary-fixed-dim">
             MiniMart
         </a>
@@ -68,17 +68,60 @@
     </main>
     
     <!-- Footer -->
-    <footer class="w-full py-margin_desktop px-gutter flex flex-col md:flex-row justify-between items-start max-w-max_width mx-auto bg-surface-container dark:bg-surface-container-highest border-t border-outline-variant full-width bottom-0">
-        <div class="mb-6 md:mb-0">
-            <div class="font-headline-lg text-primary mb-2 text-headline-lg">MiniMart</div>
-            <p class="text-on-surface-variant font-label-md text-label-md opacity-80 hover:opacity-100">© {{ date('Y') }} MiniMart Fresh. All rights reserved.</p>
+    <footer class="w-full bg-surface-container dark:bg-surface-container-highest border-t border-outline-variant mt-12 py-12">
+        <div class="px-gutter max-w-max_width mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Cột 1: Liên hệ -->
+            <div class="flex flex-col gap-4">
+                <div class="font-display-lg text-primary text-2xl font-extrabold mb-2">MiniMart</div>
+                <p class="text-on-surface-variant font-body-lg text-sm flex items-start gap-2">
+                    <span class="material-symbols-outlined text-[18px] text-primary mt-0.5">location_on</span>
+                    123 Nguyễn Huệ, Quận 1, TP.HCM
+                </p>
+                <p class="text-on-surface-variant font-body-lg text-sm flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px] text-primary">call</span>
+                    Hotline: 1900 1234
+                </p>
+                <p class="text-on-surface-variant font-body-lg text-sm flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px] text-primary">mail</span>
+                    support@minimart.vn
+                </p>
+            </div>
+
+            <!-- Cột 2: Về MiniMart -->
+            <div class="flex flex-col gap-4">
+                <h3 class="font-label-md text-label-md text-on-surface font-bold mb-2">Về MiniMart</h3>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Giới thiệu</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Nguồn gốc nông sản</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Chứng nhận VietGAP/GlobalGAP</a>
+            </div>
+
+            <!-- Cột 3: Hỗ trợ khách hàng -->
+            <div class="flex flex-col gap-4">
+                <h3 class="font-label-md text-label-md text-on-surface font-bold mb-2">Hỗ trợ khách hàng</h3>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Chính sách đổi trả</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Chính sách giao hàng</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Câu hỏi thường gặp</a>
+            </div>
+
+            <!-- Cột 4: Mạng xã hội & Thanh toán -->
+            <div class="flex flex-col gap-4">
+                <h3 class="font-label-md text-label-md text-on-surface font-bold mb-2">Kết nối & Thanh toán</h3>
+                <div class="flex items-center gap-4 mb-2">
+                    <a href="#" class="w-10 h-10 rounded-full glass-tier-2 flex items-center justify-center hover:bg-primary/20 text-primary transition-colors">
+                        <span class="font-bold">fb</span>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full glass-tier-2 flex items-center justify-center hover:bg-primary/20 text-primary transition-colors">
+                        <span class="font-bold">tt</span>
+                    </a>
+                </div>
+                <div class="flex items-center gap-2 mt-2">
+                    <div class="px-3 py-1 glass-tier-1 rounded text-xs font-bold text-primary border border-primary/20">MoMo</div>
+                    <div class="px-3 py-1 glass-tier-1 rounded text-xs font-bold text-primary border border-primary/20">VISA</div>
+                </div>
+            </div>
         </div>
-        <div class="flex flex-col md:flex-row gap-4 md:gap-8">
-            <a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md opacity-80 hover:opacity-100" href="#">About Us</a>
-            <a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md opacity-80 hover:opacity-100" href="#">Sustainability</a>
-            <a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md opacity-80 hover:opacity-100" href="#">Store Locator</a>
-            <a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
-            <a class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md opacity-80 hover:opacity-100" href="#">Contact</a>
+        <div class="max-w-max_width mx-auto px-gutter mt-12 pt-6 border-t border-outline-variant/30 text-center">
+            <p class="text-on-surface-variant font-label-md text-xs opacity-80">© {{ date('Y') }} MiniMart Fresh. All rights reserved.</p>
         </div>
     </footer>
 </body>

@@ -40,3 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout/success/{order}', [OrderController::class, 'success'])->name('checkout.success');
     Route::get('/account/orders', [OrderController::class, 'account'])->name('account.orders');
 });
+
+use App\Http\Controllers\PostController;
+Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
+Route::get('/blog/{slug}', [PostController::class, 'show'])->name('posts.show');
