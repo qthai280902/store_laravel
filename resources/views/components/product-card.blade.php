@@ -1,6 +1,6 @@
 @props(['product'])
 
-<div class="product-card bg-white/60 backdrop-blur-xl border border-white/80 shadow-sm ring-1 ring-white/50 rounded-[1.5rem] p-4 flex flex-col relative overflow-hidden group h-full {{ $product->stock == 0 ? 'opacity-50' : '' }}">
+<div class="product-card bg-white/50 backdrop-blur-3xl border border-white/80 shadow-[0_8px_30px_rgba(0,0,0,0.06)] ring-1 ring-white/50 rounded-[2rem] p-4 flex flex-col relative overflow-hidden group h-full {{ $product->stock == 0 ? 'opacity-50' : '' }}">
     <!-- Sale Tag & Category -->
     <div class="absolute top-3 left-3 flex flex-col gap-1 z-10">
         @if($product->category)
@@ -11,10 +11,10 @@
         @endif
     </div>
     
-    <div class="mb-3 relative rounded-xl overflow-hidden">
+    <div class="mb-3 relative rounded-[1.5rem] overflow-hidden">
         <a href="{{ route('products.show', $product->slug) }}" class="block w-full">
             <div class="aspect-[16/9] w-full overflow-hidden bg-surface-variant">
-                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="{{ $product->image_url ?? 'https://picsum.photos/seed/' . urlencode($product->slug) . '/600/400' }}" alt="{{ $product->name }}" loading="lazy"/>
+                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="{{ $product->image_url ?? 'https://placehold.co/600x400/F5F5F5/00490e?text=' . urlencode($product->name) }}" alt="{{ $product->name }}" loading="lazy"/>
             </div>
         </a>
     </div>
@@ -48,7 +48,7 @@
         @if($product->stock == 0)
             <button 
                 type="button" 
-                class="w-8 h-8 flex-none flex items-center justify-center rounded-xl bg-gray-300 text-gray-500 shadow-sm cursor-not-allowed" 
+                class="w-8 h-8 flex-none flex items-center justify-center rounded-full bg-gray-300 text-gray-500 shadow-sm cursor-not-allowed" 
                 title="Hết hàng"
                 @click.prevent="alert('Sản phẩm hết hàng, vui lòng quay lại sau')">
                 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
@@ -56,7 +56,7 @@
         @else
             <button 
                 type="button" 
-                class="w-8 h-8 flex-none flex items-center justify-center rounded-xl bg-green-600 text-white hover:bg-green-500 shadow-sm transition-colors cursor-pointer" 
+                class="w-8 h-8 flex-none flex items-center justify-center rounded-full bg-green-600 text-white hover:bg-green-500 shadow-sm transition-colors cursor-pointer" 
                 title="Thêm vào giỏ"
                 @click.prevent="
                     fetch('{{ route('cart.add') }}', {
@@ -71,7 +71,7 @@
                             $dispatch('cart-added', { 
                                 name: '{{ addslashes($product->name) }}', 
                                 price: '{{ number_format($product->price ?? $product->base_price) }}', 
-                                image: '{{ $product->image_url ?? 'https://picsum.photos/seed/' . urlencode($product->slug) . '/600/400' }}' 
+                                image: '{{ $product->image_url ?? 'https://placehold.co/600x400/F5F5F5/00490e?text=' . urlencode($product->name) }}' 
                             });
                             setTimeout(() => window.location.reload(), 4000);
                         }

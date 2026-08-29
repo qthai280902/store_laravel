@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html class="light" lang="vi">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="color-scheme: light;">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>{{ $title ?? 'MiniMart' }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light only">
+    <meta name="supported-color-schemes" content="light">
+    <title>{{ $title ?? 'MiniMart - Thực phẩm sạch cho gia đình' }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -22,9 +24,10 @@
             
             <!-- Search -->
             <div class="hidden md:flex flex-1 max-w-3xl mx-8 relative">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-                <form action="{{ route('products.search') }}" method="GET" class="w-full">
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Tìm kiếm sản phẩm, danh mục..." class="w-full pl-10 pr-4 py-2 bg-white/60 backdrop-blur-md border border-outline-variant rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body-lg text-sm transition-all shadow-sm">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px] z-10 pointer-events-none">search</span>
+                <form action="{{ route('products.search') }}" method="GET" class="w-full relative">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Tìm kiếm sản phẩm, danh mục..." class="w-full pl-10 pr-20 py-2.5 bg-white/60 backdrop-blur-md border border-outline-variant rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body-lg text-sm transition-all shadow-sm">
+                    <button type="submit" class="absolute right-1 top-1 bottom-1 bg-primary text-white px-4 rounded-full hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm font-bold text-sm flex items-center justify-center">Tìm</button>
                 </form>
             </div>
 
@@ -141,74 +144,76 @@
     </main>
     
     <!-- Footer -->
-    <footer class="w-full bg-gray-100 border-t border-gray-200 mt-12 py-16">
-        <div class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-            <!-- Cột 1: Logo & Thông tin -->
-            <div class="flex flex-col gap-3">
-                <div class="text-2xl font-extrabold text-green-800 mb-2">MiniMart</div>
-                <p class="text-gray-600 text-sm leading-relaxed">Hệ thống siêu thị mini cung cấp nông sản sạch, thực phẩm hữu cơ chất lượng cao cho gia đình Việt.</p>
-                <div class="mt-3 space-y-2">
-                    <p class="text-gray-600 text-sm flex items-start gap-2">
-                        <span class="material-symbols-outlined text-[18px] text-green-600 mt-0.5 shrink-0">location_on</span>
-                        123 Nguyễn Huệ, Quận 1, TP.HCM
-                    </p>
-                    <p class="text-gray-600 text-sm flex items-center gap-2">
-                        <span class="material-symbols-outlined text-[18px] text-green-600 shrink-0">call</span>
-                        Hotline: 1900 1234
-                    </p>
-                    <p class="text-gray-600 text-sm flex items-center gap-2">
-                        <span class="material-symbols-outlined text-[18px] text-green-600 shrink-0">mail</span>
-                        support@minimart.vn
-                    </p>
-                </div>
-            </div>
-
-            <!-- Cột 2: Liên kết nhanh -->
-            <div class="flex flex-col gap-3">
-                <h3 class="font-bold text-gray-900 mb-2">Liên kết nhanh</h3>
-                <a href="{{ route('home') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Trang chủ</a>
-                <a href="{{ route('products.index') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Sản phẩm</a>
-                <a href="{{ route('posts.index') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Blog & Tin tức</a>
-                <a href="{{ route('about') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Giới thiệu</a>
-                <a href="{{ route('stores') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Hệ thống cửa hàng</a>
-            </div>
-
-            <!-- Cột 3: Chính sách & Hỗ trợ -->
-            <div class="flex flex-col gap-3">
-                <h3 class="font-bold text-gray-900 mb-2">Chính sách & Hỗ trợ</h3>
-                <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách đổi trả 24h</a>
-                <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách giao hàng</a>
-                <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách bảo mật</a>
-                <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Điều khoản sử dụng</a>
-                <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Câu hỏi thường gặp</a>
-            </div>
-
-            <!-- Cột 4: Đăng ký nhận tin & MXH -->
-            <div class="flex flex-col gap-4">
-                <h3 class="font-bold text-gray-900 mb-2">Đăng ký nhận tin</h3>
-                <p class="text-gray-600 text-sm">Nhận thông tin khuyến mãi và sản phẩm mới nhất từ MiniMart.</p>
-                <div class="flex gap-2">
-                    <input type="email" placeholder="Email của bạn" class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white">
-                    <button class="px-4 py-2.5 bg-green-600 text-white rounded-xl text-sm font-bold hover:bg-green-700 transition-colors shrink-0">Gửi</button>
-                </div>
-                <div class="mt-2">
-                    <p class="text-gray-500 text-xs font-semibold mb-2">Theo dõi chúng tôi</p>
-                    <div class="flex items-center gap-3">
-                        <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">fb</a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">tt</a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">ig</a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">yt</a>
+    <footer class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 mt-20"> 
+        <div class="bg-white/40 backdrop-blur-3xl border border-white/60 shadow-[0_-8px_40px_rgba(0,0,0,0.04)] rounded-[3rem] p-10 md:p-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <!-- Cột 1: Logo & Thông tin -->
+                <div class="flex flex-col gap-3">
+                    <div class="text-2xl font-extrabold text-green-800 mb-2">MiniMart</div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Hệ thống siêu thị mini cung cấp nông sản sạch, thực phẩm hữu cơ chất lượng cao cho gia đình Việt.</p>
+                    <div class="mt-3 space-y-2">
+                        <p class="text-gray-600 text-sm flex items-start gap-2">
+                            <span class="material-symbols-outlined text-[18px] text-green-600 mt-0.5 shrink-0">location_on</span>
+                            123 Nguyễn Huệ, Quận 1, TP.HCM
+                        </p>
+                        <p class="text-gray-600 text-sm flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px] text-green-600 shrink-0">call</span>
+                            Hotline: 1900 1234
+                        </p>
+                        <p class="text-gray-600 text-sm flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px] text-green-600 shrink-0">mail</span>
+                            support@minimart.vn
+                        </p>
                     </div>
                 </div>
-                <div class="flex items-center gap-2 mt-2">
-                    <div class="px-3 py-1 bg-white rounded border border-gray-200 text-xs font-bold text-gray-700">MoMo</div>
-                    <div class="px-3 py-1 bg-white rounded border border-gray-200 text-xs font-bold text-gray-700">VISA</div>
-                    <div class="px-3 py-1 bg-white rounded border border-gray-200 text-xs font-bold text-gray-700">COD</div>
+
+                <!-- Cột 2: Liên kết nhanh -->
+                <div class="flex flex-col gap-3">
+                    <h3 class="font-bold text-gray-900 mb-2">Liên kết nhanh</h3>
+                    <a href="{{ route('home') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Trang chủ</a>
+                    <a href="{{ route('products.index') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Sản phẩm</a>
+                    <a href="{{ route('posts.index') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Blog & Tin tức</a>
+                    <a href="{{ route('about') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Giới thiệu</a>
+                    <a href="{{ route('stores') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Hệ thống cửa hàng</a>
+                </div>
+
+                <!-- Cột 3: Chính sách & Hỗ trợ -->
+                <div class="flex flex-col gap-3">
+                    <h3 class="font-bold text-gray-900 mb-2">Chính sách & Hỗ trợ</h3>
+                    <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách đổi trả 24h</a>
+                    <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách giao hàng</a>
+                    <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách bảo mật</a>
+                    <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Điều khoản sử dụng</a>
+                    <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Câu hỏi thường gặp</a>
+                </div>
+
+                <!-- Cột 4: Đăng ký nhận tin & MXH -->
+                <div class="flex flex-col gap-4">
+                    <h3 class="font-bold text-gray-900 mb-2">Đăng ký nhận tin</h3>
+                    <p class="text-gray-600 text-sm">Nhận thông tin khuyến mãi và sản phẩm mới nhất từ MiniMart.</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email của bạn" class="flex-1 px-4 py-2.5 rounded-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white">
+                        <button class="px-4 py-2.5 bg-green-600 text-white rounded-full text-sm font-bold hover:bg-green-700 transition-colors shrink-0">Gửi</button>
+                    </div>
+                    <div class="mt-2">
+                        <p class="text-gray-500 text-xs font-semibold mb-2">Theo dõi chúng tôi</p>
+                        <div class="flex items-center gap-3">
+                            <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">fb</a>
+                            <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">tt</a>
+                            <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">ig</a>
+                            <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">yt</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 mt-2">
+                        <div class="px-3 py-1 bg-white rounded border border-gray-200 text-xs font-bold text-gray-700">MoMo</div>
+                        <div class="px-3 py-1 bg-white rounded border border-gray-200 text-xs font-bold text-gray-700">VISA</div>
+                        <div class="px-3 py-1 bg-white rounded border border-gray-200 text-xs font-bold text-gray-700">COD</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-gray-300 text-center">
-            <p class="text-gray-500 text-xs">© {{ date('Y') }} MiniMart Fresh. Tất cả quyền được bảo lưu.</p>
+            <div class="mt-12 pt-6 border-t border-gray-300/50 text-center">
+                <p class="text-gray-500 text-xs">© {{ date('Y') }} MiniMart Fresh. Tất cả quyền được bảo lưu.</p>
+            </div>
         </div>
     </footer>
 

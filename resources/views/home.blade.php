@@ -313,7 +313,7 @@
             <p class="font-body-lg text-body-lg text-on-surface-variant">Đăng ký nhận bản tin để không bỏ lỡ khuyến mãi, công thức nấu ăn và nông sản theo mùa.</p>
         </div>
         <div class="w-full max-w-md flex gap-2">
-            <input class="w-full bg-[#ffffff] border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body-lg" placeholder="Nhập email của bạn" type="email"/>
+            <input class="w-full bg-[#ffffff] border border-outline-variant rounded-full px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body-lg" placeholder="Nhập email của bạn" type="email"/>
             <button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full shadow-md hover:bg-primary-container transition-colors whitespace-nowrap">Đăng ký</button>
         </div>
         </div>

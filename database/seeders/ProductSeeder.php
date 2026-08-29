@@ -304,9 +304,15 @@ class ProductSeeder extends Seeder
             ],
         ];
 
-        // 4 & 5. Loop and insert 200 products and variants
+        // 4 & 5. Loop and insert 300 products and variants
         foreach ($catalog as $catName => $productNames) {
             $cat = $categories[$catName];
+
+            // Pad each category to 30 products to make exactly 300 total
+            $originalCount = count($productNames);
+            for ($i = $originalCount; $i < 30; $i++) {
+                $productNames[] = $productNames[$i % $originalCount] . ' (Extra ' . ($i - $originalCount + 1) . ')';
+            }
 
             foreach ($productNames as $name) {
                 // Generate base price in range 15,000 - 1,200,000 (rounded to nearest 1,000 VND)

@@ -231,19 +231,19 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2 text-left">
                             <label class="block text-sm font-semibold text-gray-700">Họ và tên <span class="text-red-500">*</span></label>
-                            <input type="text" class="w-full px-5 py-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200" placeholder="Nguyễn Văn A" required>
+                            <input type="text" class="w-full px-5 py-4 rounded-full border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200" placeholder="Nguyễn Văn A" required>
                         </div>
                         <div class="space-y-2 text-left">
                             <label class="block text-sm font-semibold text-gray-700">Email <span class="text-red-500">*</span></label>
-                            <input type="email" class="w-full px-5 py-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200" placeholder="name@example.com" required>
+                            <input type="email" class="w-full px-5 py-4 rounded-full border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200" placeholder="name@example.com" required>
                         </div>
                     </div>
                     <div class="space-y-2 text-left">
                         <label class="block text-sm font-semibold text-gray-700">Nội dung lời nhắn <span class="text-red-500">*</span></label>
-                        <textarea rows="5" class="w-full px-5 py-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200 resize-none" placeholder="Hãy chia sẻ suy nghĩ của bạn với chúng tôi..." required></textarea>
+                        <textarea rows="5" class="w-full px-5 py-4 rounded-3xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200 resize-none" placeholder="Hãy chia sẻ suy nghĩ của bạn với chúng tôi..." required></textarea>
                     </div>
                     <div class="pt-4 text-center">
-                        <button type="button" class="inline-flex items-center justify-center gap-2 bg-green-600 text-white font-bold text-lg px-10 py-4 rounded-xl hover:bg-green-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+                        <button type="button" class="inline-flex items-center justify-center gap-2 bg-green-600 text-white font-bold text-lg px-10 py-4 rounded-full hover:bg-green-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
                             <span>Gửi Lời Nhắn</span>
                             <span class="material-symbols-outlined text-xl">send</span>
                         </button>
