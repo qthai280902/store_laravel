@@ -2,6 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
+  --color-scheme: light;
   --color-primary-fixed-dim: #92d78b;
   --color-on-surface: #181d16;
   --color-on-error-container: #93000a;
@@ -210,6 +211,17 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-
-:root { color-scheme: light; }
-@custom-variant dark (&:where(.dark, .dark *));
+@layer base {
+  :root {
+    color-scheme: light !important;
+  }
+  .material-symbols-outlined {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    word-wrap: normal !important;
+    /* Khóa chiều rộng bằng đúng 1 ký tự icon để giấu chuỗi text dài */
+    max-width: 1em;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+}

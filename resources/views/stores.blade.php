@@ -3,6 +3,7 @@
          x-data="{
             activeStore: 1,
             searchQuery: '',
+            selectedCity: 'all',
             getMapUrl(id) {
                 const maps = {
                     1: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4602324217154!2d106.70114091533423!3d10.776019462145327!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f46b4122d1b%3A0xb36fc5b3f2c537d!2zTMOqIEzhu6NpLCBC4bq_biBOZ2jDqSwgUXXhuq1uIDEsIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1622340316656!5m2!1svi!2s',
@@ -28,9 +29,17 @@
 
             <!-- Cột Phải: Danh sách chi nhánh (1 phần) -->
             <div class="space-y-4">
+                <div class="mb-4">
+                    <select x-model="selectedCity" class="w-full bg-white/50 backdrop-blur-md border border-white/80 rounded-full px-6 py-4 shadow-sm outline-none text-gray-800 font-medium cursor-pointer appearance-none">
+                        <option value="all">Tất cả Tỉnh / Thành phố</option>
+                        <option value="HCM">Hồ Chí Minh</option>
+                        <option value="HN">Hà Nội</option>
+                        <option value="DN">Đà Nẵng</option>
+                    </select>
+                </div>
                 <input type="text" x-model="searchQuery" placeholder="Tìm theo quận, tên đường..." class="w-full bg-white/50 backdrop-blur-md border border-white/80 rounded-full px-6 py-4 shadow-sm mb-6 outline-none focus:ring-2 focus:ring-green-500">
                 <!-- Store 1 -->
-                <div x-show="searchQuery === '' || 'MiniMart Quận 1 123 Lê Lợi, P. Bến Nghé, Quận 1, TP.HCM'.toLowerCase().includes(searchQuery.toLowerCase())" @click="activeStore = 1" class="bg-white/60 backdrop-blur-lg rounded-2xl p-5 shadow-md border cursor-pointer transition-all duration-300" :class="activeStore === 1 ? 'border-green-500 shadow-xl bg-green-50/60' : 'border-white/50 hover:shadow-lg'">
+                <div data-city="HCM" x-show="(selectedCity === 'all' || selectedCity === 'HCM') && $el.innerText.toLowerCase().includes(searchQuery.toLowerCase())" @click="activeStore = 1" class="bg-white/60 backdrop-blur-lg rounded-2xl p-5 shadow-md border cursor-pointer transition-all duration-300" :class="activeStore === 1 ? 'border-green-500 shadow-xl bg-green-50/60' : 'border-white/50 hover:shadow-lg'">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors" :class="activeStore === 1 ? 'bg-green-600 text-white' : 'bg-green-100 text-green-700'">
                             <span class="material-symbols-outlined text-[20px]">store</span>
@@ -56,7 +65,7 @@
                 </div>
 
                 <!-- Store 2 -->
-                <div x-show="searchQuery === '' || 'MiniMart Quận 3 456 Võ Văn Tần, P.5, Quận 3, TP.HCM'.toLowerCase().includes(searchQuery.toLowerCase())" @click="activeStore = 2" class="bg-white/60 backdrop-blur-lg rounded-2xl p-5 shadow-md border cursor-pointer transition-all duration-300" :class="activeStore === 2 ? 'border-green-500 shadow-xl bg-green-50/60' : 'border-white/50 hover:shadow-lg'">
+                <div data-city="HCM" x-show="(selectedCity === 'all' || selectedCity === 'HCM') && $el.innerText.toLowerCase().includes(searchQuery.toLowerCase())" @click="activeStore = 2" class="bg-white/60 backdrop-blur-lg rounded-2xl p-5 shadow-md border cursor-pointer transition-all duration-300" :class="activeStore === 2 ? 'border-green-500 shadow-xl bg-green-50/60' : 'border-white/50 hover:shadow-lg'">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors" :class="activeStore === 2 ? 'bg-green-600 text-white' : 'bg-green-100 text-green-700'">
                             <span class="material-symbols-outlined text-[20px]">store</span>
@@ -82,7 +91,7 @@
                 </div>
 
                 <!-- Store 3 -->
-                <div x-show="searchQuery === '' || 'MiniMart Quận 7 789 Nguyễn Văn Linh, P. Tân Phong, Quận 7, TP.HCM'.toLowerCase().includes(searchQuery.toLowerCase())" @click="activeStore = 3" class="bg-white/60 backdrop-blur-lg rounded-2xl p-5 shadow-md border cursor-pointer transition-all duration-300" :class="activeStore === 3 ? 'border-green-500 shadow-xl bg-green-50/60' : 'border-white/50 hover:shadow-lg'">
+                <div data-city="HCM" x-show="(selectedCity === 'all' || selectedCity === 'HCM') && $el.innerText.toLowerCase().includes(searchQuery.toLowerCase())" @click="activeStore = 3" class="bg-white/60 backdrop-blur-lg rounded-2xl p-5 shadow-md border cursor-pointer transition-all duration-300" :class="activeStore === 3 ? 'border-green-500 shadow-xl bg-green-50/60' : 'border-white/50 hover:shadow-lg'">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors" :class="activeStore === 3 ? 'bg-green-600 text-white' : 'bg-green-100 text-green-700'">
                             <span class="material-symbols-outlined text-[20px]">store</span>
