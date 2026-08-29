@@ -1,6 +1,6 @@
 @props(['product'])
 
-<div class="glass-tier-3 rounded-[20px] p-4 flex flex-col relative overflow-hidden group h-full {{ $product->stock == 0 ? 'opacity-50' : '' }}">
+<div class="product-card bg-white/60 backdrop-blur-xl border border-white/80 shadow-sm ring-1 ring-white/50 rounded-[1.5rem] p-4 flex flex-col relative overflow-hidden group h-full {{ $product->stock == 0 ? 'opacity-50' : '' }}">
     <!-- Sale Tag & Category -->
     <div class="absolute top-3 left-3 flex flex-col gap-1 z-10">
         @if($product->category)
@@ -48,7 +48,7 @@
         @if($product->stock == 0)
             <button 
                 type="button" 
-                class="bg-gray-300 text-gray-500 p-2 rounded-lg flex-shrink-0 shadow-sm cursor-not-allowed" 
+                class="w-8 h-8 flex-none flex items-center justify-center rounded-xl bg-gray-300 text-gray-500 shadow-sm cursor-not-allowed" 
                 title="Hết hàng"
                 @click.prevent="alert('Sản phẩm hết hàng, vui lòng quay lại sau')">
                 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
@@ -56,9 +56,9 @@
         @else
             <button 
                 type="button" 
-                class="bg-green-600 text-white p-2 rounded-lg hover:bg-green-500 transition-colors cursor-pointer flex-shrink-0 shadow-sm" 
+                class="w-8 h-8 flex-none flex items-center justify-center rounded-xl bg-green-600 text-white hover:bg-green-500 shadow-sm transition-colors cursor-pointer" 
                 title="Thêm vào giỏ"
-                @click="
+                @click.prevent="
                     fetch('{{ route('cart.add') }}', {
                         method: 'POST',
                         headers: {

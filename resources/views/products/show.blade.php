@@ -1,145 +1,111 @@
-<x-layouts.app title="{{ $product->name }} - MiniMart">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mt-6">
-    <!-- Left Column: Gallery & Info (8 cols) -->
-    <div class="md:col-span-8 flex flex-col gap-[32px]">
-        <!-- Breadcrumbs -->
-        <div class="flex items-center gap-[8px] font-label-md text-label-md text-on-surface-variant">
-            <a class="hover:text-primary" href="{{ route('home') }}">Trang chủ</a>
-            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-            <a class="hover:text-primary" href="{{ route('products.index', ['category' => $product->category->slug ?? '']) }}">{{ $product->category->name ?? 'Sản phẩm' }}</a>
-            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-            <span class="text-on-surface">{{ $product->name }}</span>
-        </div>
-        
-        <!-- Main Gallery -->
-        <div class="bg-surface-container-lowest rounded-[20px] overflow-hidden flex flex-col items-center justify-center p-[24px] shadow-sm relative">
-            <div class="absolute top-[24px] left-[24px] bg-primary-fixed text-on-primary-fixed px-[12px] py-[4px] rounded-full font-label-md text-label-md z-10 shadow-sm flex items-center gap-[4px]">
-                <span class="material-symbols-outlined text-[16px]">eco</span>
-                {{ $product->category->name ?? 'Category' }}
+<x-layouts.app :title="$product->name . ' - MiniMart'">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Breadcrumb -->
+        <nav class="mb-8 text-sm text-gray-500">
+            <a href="{{ route('home') }}" class="hover:text-green-700">Trang chủ</a>
+            <span class="mx-2">/</span>
+            <a href="{{ route('products.index') }}" class="hover:text-green-700">Sản phẩm</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-900">{{ $product->name }}</span>
+        </nav>
+
+        <!-- 2-Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Left: Image -->
+            <div class="bg-white/90 backdrop-blur-md rounded-3xl overflow-hidden shadow-lg border border-gray-100">
+                <img src="{{ $product->image_url ?? 'https://picsum.photos/seed/' . $product->slug . '/800/600' }}" alt="{{ $product->name }}" class="w-full h-full object-cover aspect-square">
             </div>
-            <img class="w-full h-auto max-h-[350px] object-cover rounded-lg shadow-sm" src="{{ $product->image_url ?? 'https://picsum.photos/seed/' . urlencode($product->slug) . '/600/400' }}" alt="{{ $product->name }}"/>
-            
-            <!-- Thumbnails -->
-            <div class="flex gap-[16px] mt-[24px]">
-                <button class="w-[80px] h-[80px] rounded-lg border-2 border-primary overflow-hidden">
-                    <img class="w-full h-full object-cover" src="https://placehold.co/80x80/F5F5F5/00490e?text=1" alt="Thumbnail 1"/>
-                </button>
-                <button class="w-[80px] h-[80px] rounded-lg border-2 border-transparent hover:border-outline-variant overflow-hidden opacity-70 hover:opacity-100 transition-all">
-                    <img class="w-full h-full object-cover" src="https://placehold.co/80x80/F5F5F5/00490e?text=2" alt="Thumbnail 2"/>
-                </button>
-                <button class="w-[80px] h-[80px] rounded-lg border-2 border-transparent hover:border-outline-variant overflow-hidden opacity-70 hover:opacity-100 transition-all">
-                    <img class="w-full h-full object-cover" src="https://placehold.co/80x80/F5F5F5/00490e?text=3" alt="Thumbnail 3"/>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Tabs Section -->
-        <div class="glass-tier-2 rounded-[20px] p-[32px] mt-[16px]">
-            <div class="flex gap-[32px] border-b border-outline-variant/30 mb-[24px]">
-                <button class="font-label-md text-label-md text-primary border-b-2 border-primary pb-[16px] font-bold">Mô tả</button>
-                <button class="font-label-md text-label-md text-on-surface-variant pb-[16px] hover:text-primary transition-colors">Thành phần dinh dưỡng</button>
-                <button class="font-label-md text-label-md text-on-surface-variant pb-[16px] hover:text-primary transition-colors">Đánh giá (0)</button>
-            </div>
-            <div class="font-body-lg text-body-lg text-on-surface-variant">
-                <p class="mb-[16px]">{{ $product->description }}</p>
-            </div>
-        </div>
-        
-        @if(isset($relatedProducts) && $relatedProducts->count() > 0)
-        <!-- Related Products -->
-        <div class="mt-[32px]">
-            <h2 class="font-headline-lg text-headline-lg text-on-surface mb-[24px]">Sản phẩm liên quan</h2>
-            <div class="flex gap-[24px] overflow-x-auto hide-scrollbar pb-[24px]">
-                @foreach($relatedProducts as $related)
-                    <div class="min-w-[280px]">
-                        <x-product-card :product="$related" />
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        @endif
-    </div>
-    
-    <!-- Right Column: Sticky Buy Box (4 cols) -->
-    <div class="md:col-span-4 relative">
-        <div class="sticky top-[104px] glass-tier-4 rounded-[24px] p-[32px] shadow-2xl flex flex-col gap-[24px]">
-            <div>
-                <h1 class="font-headline-lg text-headline-lg text-on-surface mb-[8px]">{{ $product->name }}</h1>
-                <div class="flex items-center gap-[8px] text-on-surface-variant">
-                    <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
-                    <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
-                    <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
-                    <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
-                    <span class="material-symbols-outlined text-secondary">star_half</span>
-                    <span class="font-label-md text-label-md ml-[4px]">(0 đánh giá)</span>
-                </div>
-            </div>
-            
-            <div class="flex items-end gap-[12px]">
-                <div class="bg-secondary text-on-secondary px-[16px] py-[8px] rounded-lg font-headline-lg text-headline-lg shadow-md inline-block">
-                    {{ number_format($product->price ?? $product->base_price) }}đ
-                </div>
-            </div>
-            
-            <hr class="border-outline-variant/30"/>
-            
-            <form action="{{ route('cart.add') }}" method="POST" class="flex flex-col gap-[24px]">
-                @csrf
+
+            <!-- Right: Info -->
+            <div class="flex flex-col">
+                <!-- Brand -->
+                <span class="text-sm text-gray-500 font-medium mb-1">{{ $product->brand ?? 'MiniMart' }}</span>
                 
-                @if($product->variants->count() > 1)
-                    <div class="flex flex-col gap-[16px]">
-                        <label class="font-label-md text-label-md text-on-surface">Phân loại</label>
-                        <div class="flex flex-wrap gap-[8px]">
-                            @foreach($product->variants as $index => $variant)
-                                <label class="cursor-pointer relative">
-                                    <input class="peer sr-only" name="variant_id" type="radio" value="{{ $variant->id }}" {{ $index === 0 ? 'checked' : '' }} />
-                                    <div class="px-[16px] py-[8px] rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-colors">
-                                        {{ $variant->name }} @if($variant->price_adjustment > 0) (+{{ number_format($variant->price_adjustment) }}đ) @endif
-                                    </div>
-                                </label>
-                            @endforeach
+                <!-- Title -->
+                <h1 class="text-3xl font-extrabold text-gray-900 mb-4">{{ $product->name }}</h1>
+                
+                <!-- Static Rating -->
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="flex text-yellow-400">
+                        <!-- 5 star SVGs or material icons -->
+                        @for($i = 0; $i < 5; $i++)
+                            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                        @endfor
+                    </div>
+                    <span class="text-sm text-gray-500">(4.8 · 128 đánh giá)</span>
+                </div>
+
+                <!-- Price Block -->
+                <div class="bg-green-50 rounded-2xl p-6 mb-6">
+                    @if($product->original_price)
+                        <del class="text-gray-400 text-lg">{{ number_format($product->original_price) }}đ</del>
+                    @endif
+                    <div class="text-4xl font-extrabold text-green-700">{{ number_format($product->price ?? $product->base_price) }}đ</div>
+                    <span class="text-sm text-gray-500">/ {{ $product->unit ?? 'kg' }}</span>
+                </div>
+
+                <!-- Stock Badge -->
+                <div class="mb-6">
+                    @if($product->stock > 0)
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">Còn hàng ({{ $product->stock }})</span>
+                    @else
+                        <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">Hết hàng</span>
+                    @endif
+                </div>
+
+                <!-- Short Description -->
+                <p class="text-gray-600 leading-relaxed mb-8">{{ $product->description }}</p>
+
+                <!-- Action Block -->
+                <div class="mt-auto bg-white/90 backdrop-blur-md rounded-2xl p-6 border border-gray-100 shadow-sm">
+                    <div class="flex items-center gap-4 mb-4">
+                        <label class="text-sm font-semibold text-gray-700">Số lượng:</label>
+                        <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden" x-data="{ qty: 1 }">
+                            <button @click="qty = Math.max(1, qty - 1)" class="px-3 py-2 text-gray-600 hover:bg-gray-100">−</button>
+                            <input type="number" x-model="qty" min="1" class="w-16 text-center border-x border-gray-300 py-2 text-sm focus:outline-none">
+                            <button @click="qty++" class="px-3 py-2 text-gray-600 hover:bg-gray-100">+</button>
                         </div>
                     </div>
-                @else
-                    <input type="hidden" name="variant_id" value="{{ $product->variants->first()->id ?? '' }}">
-                @endif
-                
-                <div class="flex flex-col gap-[16px]">
-                    <label class="font-label-md text-label-md text-on-surface">Số lượng</label>
-                    <div class="flex items-center gap-[16px]">
-                        <button type="button" class="w-[48px] h-[48px] rounded-full glass-tier-2 flex items-center justify-center hover:bg-white/40 transition-colors text-on-surface" onclick="document.getElementById('qty').stepDown()">
-                            <span class="material-symbols-outlined">remove</span>
+                    @if($product->stock > 0)
+                        <form action="{{ route('cart.add') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="variant_id" value="{{ $product->variants->first()->id ?? '' }}">
+                            <button type="submit" class="w-full py-4 bg-green-600 text-white font-bold rounded-2xl text-lg hover:bg-green-700 transition-colors cursor-pointer shadow-lg">
+                                Thêm vào giỏ hàng
+                            </button>
+                        </form>
+                    @else
+                        <button disabled class="w-full py-4 bg-gray-300 text-gray-500 font-bold rounded-2xl text-lg cursor-not-allowed">
+                            Sản phẩm tạm hết hàng
                         </button>
-                        <input id="qty" class="w-[80px] h-[48px] bg-surface-container-lowest border border-outline-variant rounded-[12px] text-center font-body-lg text-body-lg text-on-surface focus:ring-primary focus:border-primary" name="quantity" type="number" min="1" value="1"/>
-                        <button type="button" class="w-[48px] h-[48px] rounded-full glass-tier-2 flex items-center justify-center hover:bg-white/40 transition-colors text-on-surface" onclick="document.getElementById('qty').stepUp()">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <button type="submit" class="w-full bg-primary text-on-primary font-label-md text-label-md py-[16px] rounded-full shadow-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-[8px] mt-[16px] cursor-pointer">
-                    <span class="material-symbols-outlined">shopping_cart</span>
-                    Thêm vào giỏ hàng
-                </button>
-                
-                @if(session('success'))
-                    <div class="p-4 bg-primary-container text-on-primary-container rounded-[12px] font-label-md text-label-md mt-4">
-                        {{ session('success') }}
-                    </div>
-                @endif
-            </form>
-            
-            <div class="glass-tier-1 rounded-[12px] p-[16px] flex flex-col gap-[12px] mt-[8px]">
-                <div class="flex items-center gap-[12px] text-on-surface-variant font-label-md text-label-md">
-                    <span class="material-symbols-outlined text-primary">local_shipping</span>
-                    Giao hàng nhanh trong ngày
-                </div>
-                <div class="flex items-center gap-[12px] text-on-surface-variant font-label-md text-label-md">
-                    <span class="material-symbols-outlined text-primary">storefront</span>
-                    Có sẵn tại cửa hàng
+                    @endif
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- Description & Reviews Tabs -->
+        <div class="mt-16" x-data="{ tab: 'description' }">
+            <div class="flex border-b border-gray-200 mb-8">
+                <button @click="tab = 'description'" class="px-6 py-3 text-sm font-semibold transition-colors" :class="tab === 'description' ? 'text-green-700 border-b-2 border-green-700' : 'text-gray-500 hover:text-gray-700'">Mô tả chi tiết</button>
+                <button @click="tab = 'reviews'" class="px-6 py-3 text-sm font-semibold transition-colors" :class="tab === 'reviews' ? 'text-green-700 border-b-2 border-green-700' : 'text-gray-500 hover:text-gray-700'">Đánh giá (128)</button>
+            </div>
+
+            <div x-show="tab === 'description'" class="bg-white/90 backdrop-blur-md rounded-2xl p-8 border border-gray-100 shadow-sm">
+                <div class="prose max-w-none text-gray-700 leading-relaxed">
+                    <p>{{ $product->description }}</p>
+                    <h3 class="text-lg font-bold text-gray-900 mt-6 mb-3">Thông tin sản phẩm</h3>
+                    <ul class="space-y-2">
+                        <li><strong>Thương hiệu:</strong> {{ $product->brand ?? 'Đang cập nhật' }}</li>
+                        <li><strong>Đơn vị:</strong> {{ $product->unit ?? 'kg' }}</li>
+                        <li><strong>Danh mục:</strong> {{ $product->category->name ?? 'Chung' }}</li>
+                        <li><strong>Tình trạng:</strong> {{ $product->stock > 0 ? 'Còn hàng' : 'Hết hàng' }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div x-show="tab === 'reviews'" class="bg-white/90 backdrop-blur-md rounded-2xl p-8 border border-gray-100 shadow-sm">
+                <p class="text-gray-500 text-center py-8">Chưa có đánh giá nào cho sản phẩm này. Hãy là người đầu tiên!</p>
+            </div>
+        </div>
     </div>
 </x-layouts.app>

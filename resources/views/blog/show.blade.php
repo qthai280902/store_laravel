@@ -28,8 +28,8 @@
         @endif
 
         <!-- Content -->
-        <div class="glass-tier-1 rounded-[24px] p-8 md:p-12 font-body-lg text-on-surface leading-relaxed prose max-w-none">
-            {!! $post->content !!}
+        <div class="glass-tier-1 rounded-[24px] p-8 md:p-12">
+            <article class="prose prose-lg prose-green max-w-none">{!! $post->content !!}</article>
         </div>
 
         <!-- Back Button -->

@@ -14,8 +14,8 @@ class BlogSeeder extends Seeder
             [
                 'title' => 'Cách bảo quản Cải bó xôi Đà Lạt tươi lâu trong 5 ngày',
                 'category' => 'Mẹo vặt',
-                'image' => 'https://picsum.photos/seed/blog-spinach/800/500',
-                'content' => '<p>Cải bó xôi (spinach) là loại rau giàu sắt và vitamin K nhưng rất nhanh héo. Dưới đây là cách giữ rau tươi xanh trong suốt 5 ngày:</p><h3>Bước 1: Không rửa trước khi cất</h3><p>Nhiều người có thói quen rửa rau ngay khi mua về — đây là sai lầm lớn nhất. Nước còn đọng trên lá sẽ khiến rau bị nhớt và hỏng nhanh hơn.</p><h3>Bước 2: Bọc giấy ăn</h3><p>Dùng 2-3 tờ giấy ăn (paper towel) bọc quanh bó rau. Giấy sẽ hút ẩm dư thừa và giữ độ ẩm vừa đủ cho lá.</p><h3>Bước 3: Cho vào túi zip</h3><p>Cho bó rau đã bọc giấy vào túi zip, <strong>ép bớt không khí ra</strong> rồi đóng kín. Bảo quản ở ngăn mát tủ lạnh nhiệt độ 1-4°C.</p><p>Áp dụng đúng 3 bước trên, cải bó xôi của bạn sẽ giữ được độ tươi giòn tới 5 ngày mà không bị vàng úa.</p>',
+                'image' => 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80',
+                'content' => '<h2>Tầm quan trọng của việc bảo quản rau củ</h2><p>Cải bó xôi (spinach) là loại rau giàu sắt và vitamin K nhưng rất nhanh héo. Dưới đây là cách giữ rau tươi xanh trong suốt 5 ngày:</p><h3>Bước 1: Không rửa trước khi cất</h3><p>Nhiều người có thói quen rửa rau ngay khi mua về — đây là sai lầm lớn nhất. Nước còn đọng trên lá sẽ khiến rau bị nhớt và hỏng nhanh hơn.</p><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80" alt="Salad" class="rounded-2xl my-6 w-full object-cover h-80"><ul><li>Luôn giữ lá khô ráo.</li><li>Sử dụng hộp đựng thực phẩm kín.</li></ul><h3>Bước 2: Bọc giấy ăn</h3><p>Dùng 2-3 tờ giấy ăn (paper towel) bọc quanh bó rau. Giấy sẽ hút ẩm dư thừa và giữ độ ẩm vừa đủ cho lá.</p>',
             ],
             [
                 'title' => 'Top 5 trái cây nhập khẩu giàu vitamin C nhất cho mùa hè',

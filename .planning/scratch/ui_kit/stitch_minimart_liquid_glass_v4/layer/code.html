@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Featured Products - Liquid Glass</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#00490e",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e0e4d9",
+                        "background": "#f7fbf0",
+                        "tertiary-container": "#741a41",
+                        "on-tertiary-fixed-variant": "#7f234a",
+                        "inverse-primary": "#92d78b",
+                        "surface-container-high": "#e6eadf",
+                        "surface-bright": "#f7fbf0",
+                        "tertiary": "#56002b",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#ebefe5",
+                        "on-secondary-container": "#6f3200",
+                        "on-primary-fixed-variant": "#0e5217",
+                        "surface-container-low": "#f1f5ea",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c0c9bb",
+                        "on-primary-fixed": "#002203",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#717a6d",
+                        "on-surface": "#181d16",
+                        "primary-fixed": "#aef4a5",
+                        "tertiary-fixed": "#ffd9e2",
+                        "primary": "#003006",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#ff9650",
+                        "inverse-surface": "#2d322b",
+                        "secondary": "#994700",
+                        "on-surface-variant": "#41493e",
+                        "surface-tint": "#2b6b2c",
+                        "inverse-on-surface": "#eef2e7",
+                        "on-background": "#181d16",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#76b970",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "on-secondary-fixed": "#321300",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#3e001d",
+                        "surface-dim": "#d7dbd1",
+                        "surface-variant": "#e0e4d9",
+                        "primary-fixed-dim": "#92d78b",
+                        "tertiary-fixed-dim": "#ffb0c8",
+                        "on-tertiary-container": "#f985ad",
+                        "surface": "#f7fbf0",
+                        "on-secondary-fixed-variant": "#743400",
+                        "secondary-fixed": "#ffdbc8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.25rem",
+                        "3xl": "2rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin_desktop": "40px",
+                        "max_width": "1280px",
+                        "base_unit": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-ultra-thick {
+            background-color: rgba(0, 73, 14, 0.15); /* primary-container with low opacity for wash */
+            backdrop-filter: blur(60px) saturate(180%);
+            -webkit-backdrop-filter: blur(60px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-regular {
+            background-color: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .bg-color-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen text-on-surface font-body-lg antialiased relative overflow-x-hidden pt-24 pb-48">
+<!-- Ambient Background Orbs -->
+<div class="bg-color-orb w-[600px] h-[600px] bg-primary-fixed top-[-100px] left-[-200px]"></div>
+<div class="bg-color-orb w-[500px] h-[500px] bg-secondary-fixed right-[-100px] top-[200px]"></div>
+<!-- Featured Products Section -->
+<section class="max-w-max_width mx-auto px-gutter relative">
+<!-- Background Panel (Layer 2) with 50% overlap logic -->
+<!-- We achieve the overlap by setting a specific height/padding structure -->
+<div class="glass-ultra-thick rounded-[32px] absolute top-0 left-gutter right-gutter z-0" style="height: calc(240px + 50%);">
+<!-- Headline Zone -->
+<div class="h-[240px] flex flex-col items-center justify-center text-center px-8">
+<h2 class="font-display-lg text-display-lg md:text-[48px] text-[36px] text-primary mb-4">Sản phẩm nổi bật!</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Discover our freshest and most popular items, hand-picked for quality and taste. Elevated grocery shopping starts here.</p>
+</div>
+</div>
+<!-- Foreground Grid (Layer 1) -->
+<!-- Starts exactly at 240px to overlap bottom half of panel -->
+<div class="relative z-10 pt-[240px]">
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pb-12">
+<!-- Product Card Template (Repeated 12x) -->
+<!-- 1 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A macro shot of fresh, organic heirloom tomatoes glistening with water droplets under bright, natural daylight. The tomatoes rest on a clean, light wood surface. The lighting is soft and airy, creating a high-key, fresh aesthetic consistent with a premium organic market. Vibrant reds contrast with crisp white highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6vtwALs5oWjFwAhGRYrfTU20KxiJLGj_qkre2wkzjenlgXUx91K1MoiOUP3nJLxirWSTsiJREza-bWPBlY8zr58m0QximYslfsHKnkXycXp0x-AGBS2H3pAAXQHVR7LvVhm3cN3Y57-t5spiHb__9ZBHMK9-_6rfZouHV-JB_ooXOT_HS09QaGtnoEKGAHpTUvYDOGsaIvGbarsU6QlpcIZ_UUfXLchtgGaM70mrTjEdduXbM7JG1"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $4.99
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Heirloom Tomatoes</h3>
+<p class="text-on-surface-variant text-sm mb-4">Fresh &amp; Organic</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 2 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A pristine bunch of vibrant green kale arranged elegantly on a soft white marble surface. Bright, diffused studio lighting highlights the intricate textures and frills of the leaves. The mood is clean, healthy, and premium, perfectly matching a high-end fresh produce brand aesthetic with crisp contrasts." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3g_a9ywcESVeO1GfZX3UJ8CXgcKw6xRU4iHqAssOqb5H0TkQ-tIMNpCMVo4h0Zdclad9RzfPu6MbmrDuveRNsC8TQdoOUhNnMoKS41hDUx6eTx6b7SqPD_yHJgJGZ2rBQ7UcietNaRBS8_qawgAgLmWQfzQvrGSSeWRO5lyY4MzV8NlFEExS0i9XJyI9Esodjzz47I0iri4la-xA9Hh7ugIiotY3PXM0egh5S2QVUzEBQrXSXujLv"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $2.49
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Organic Curly Kale</h3>
+<p class="text-on-surface-variant text-sm mb-4">Local Farm</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 3 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A perfectly ripe, halved avocado revealing a bright green interior and smooth pit, resting beside whole avocados on a minimalist white background. Soft, directional light creates gentle shadows, emphasizing the creamy texture and premium quality. The scene is bright, fresh, and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8p5gfHp6waRqUwTRdqCUrOv76aTyt0r7Hjzxgv5mxY71JpH5ua919pWDhh9TRg9m9ePswpGRblWTAaMsuDh3eXbNHuua9OkSAlkZtXF9gAP8Oe1gFo7NUZ1zhK60VzRqxJe94VfV5Ba-mqYo5kYmy2ZFvPJizNhv6Uelzqt4A2evYdHjewosnCePw_OlKu1T2B7PrvfJx8U8yB7M2arDvX245DpnxkdTwlRbfmMsNQc9QN_HzWhEd"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $1.99
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Hass Avocados</h3>
+<p class="text-on-surface-variant text-sm mb-4">Imported Premium</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 4 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A rustic woven basket overflowing with crisp, shiny red apples against a soft, light-toned background. Sunlight streams in from a side window, casting a warm but high-key glow that highlights the fresh, natural appeal of the fruit. The composition is organic, elegant, and fresh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZGMwjBhgKuPH8vdLFndk5yQp-TbqQmHb8LHmA6nZ4UXSdug9SZ2QSfYlfgVHzRIhG6NDHN4BvpPaN9mSDAG1YaV0Ly3w3i4J6rjjgKjO6zOk2beSeE0JpPU4SOkrG9q8RYrpTYJ5uzJR8nUii206dUhRL8PEKGtKLrm4ikss5OTlT8slrKV8DDyuFc_VbkNoKRbbuAAWowO6evrvRz52vLYaqAXM3y4mNMFE_Da34lUI6FOM8E1rM"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $3.99
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Fuji Apples</h3>
+<p class="text-on-surface-variant text-sm mb-4">Crisp &amp; Sweet</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 5 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A vibrant cluster of fresh, bright orange carrots with feathery green tops intact, lying on a clean white surface. High contrast and bright, even lighting emphasize the natural saturation and crunchiness. The aesthetic is extremely clean, showcasing high-end agricultural produce." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMJpkBGa0YMY9ta_IacQz-QFh2HqDWSff2AIAD5WG9l0Ve6HMIuvLqLPIi0FvfBtf4BaaRQ4--Ax8M29jkORpEfm34TAia5XfJDhl-PvBJv8qI5FOm1ud1pKvyEcT3SVw-H2HRcVtMX7w0spF0p7--PVJh5nk_s7cI3inM29osoLpEwNbZXWBFciZQwVwSovMuBpCAmJt09OLfCxtJFtwXa6slZlXmpwBAqXFYS6T2pccyhw7TurzO"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $1.49
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Baby Carrots</h3>
+<p class="text-on-surface-variant text-sm mb-4">Organic Bunch</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 6 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A minimalist arrangement of fresh lemon halves and whole lemons on a very light, airy background. The citrus skin glows with a vibrant yellow hue under pristine, high-key studio lighting. The overall feel is refreshing, zesty, and exceptionally clean, fitting a premium grocery context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAouRMLEA8iU8fGRjZk1H0RHXbg0B-BbSFQRGvjH-GASzNDBtJlH7HLVbHulmks6lfiCP3691inpQYhFcmAj5mDhb-AYzY7CwNz2hz5y7Ort1xHGpxwo_aeGQcyW8rpNJfD8P80Skgpi4YXox3IubdRvdG-vY6cO6LiSC8W3Mgl1HxWS7g5XOSJwswltmsGxigQz888a9dsKZOHSY3TPrQtqB9e661bVnIp_4Tpp0NDK4qakXm9Y4G-"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $2.99
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Meyer Lemons</h3>
+<p class="text-on-surface-variant text-sm mb-4">Citrus Fresh</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 7 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A close-up shot of a crusty artisanal sourdough bread loaf on a light wooden cutting board. Fine flour dusts the beautifully scored surface. Soft, bright, diffused lighting creates an inviting, warm atmosphere while maintaining a modern, high-end bakery aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7JMdbI6S-6WX6xMwK_YPZG1HZ0IQpxvg5KElGZ-N7WNsTDeet0G3Fka0oWQ4KK1UCiqHYgFdJwzN0yxxDZ0EGraGgjjNW7mzx7qh7SvuJKJtPjyfIBzNmVP0WXJLT3hujTmCMxMQ84IrjSOBS-eJCqP7jv9AxIHjFTTtlsnSdZbPsgGjKaDzAWzy7zY_A9CHCQmXqdfJkQfecLyAPMYM9Pcf9XplkI2WUURfcR9U4FWdHsdxbRoir"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $5.49
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Artisan Sourdough</h3>
+<p class="text-on-surface-variant text-sm mb-4">Fresh Baked Daily</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 8 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A pristine glass bottle of cold, fresh milk sitting on a pale, reflective surface. The lighting is ultra-clean and bright, creating a luminous, pure white aesthetic. Subtle condensation on the bottle suggests crisp coldness. The overall style is highly premium and minimalist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5GaYl_DzawASEABaFhz4utCvf82BMwo5LcunX0gxkuzpMeciYGJnTvHjnswIgaNcvhWcqspmj3-XMsyRdR5ux3MWOEVFdbdoxcth-89S_MwK7nUnoNaIiOCt7DWO-kyMqVDD2CuNdv5V-UWq7LD9e74U7CFlOplX_mO70fft2UGikL98KxyNoo4tD0CegeJTltw-K-mBwB9nG86tfAqZec6lEGL8YnVQIWuYQxhIFc7VGQk8Q6ytu"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $3.29
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Organic Whole Milk</h3>
+<p class="text-on-surface-variant text-sm mb-4">Grass-fed Dairy</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 9 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="Vibrant, fresh red strawberries in a small ceramic bowl on a clean, light-colored table. The strawberries are glossy and plump, with bright green leaves. The lighting is soft and natural, creating a high-key, cheerful, and premium food presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD30gYQ043l3LSylKJxFs5voIRRe16o00-4oqhTjAE6JBrMvCRJctQZ-hRs_oetfjefG7aKrB4Q20o8RMuLtyq12IzTnWEKswDy8jPCs4PpsBDVsC2cZLJuDwVLvqOFarg8IbN6yvRFVMtsSipTV1Xgvkj-8s0t4Qsj_klKJB5WqnwVfKfnnrBwg8FD_bT-OGpbt5jUv4PqQNriXrnrEQTx9oKKLZCs6yLevSOVl2ptj4fV1BgiW4aB"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $4.50
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Fresh Strawberries</h3>
+<p class="text-on-surface-variant text-sm mb-4">Sweet &amp; Juicy</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 10 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A beautiful block of aged cheddar cheese on a white marble slate. A sleek cheese knife rests nearby. The lighting is bright and clean, emphasizing the rich, warm yellow tones of the cheese against the cool, pristine background. A high-end, gourmet aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuehe5k3vYsf_L1fa-59Th5jUzawGsn9XuJeffM9ms5_cEPE_NvSha4PWo7hBobGNpEB1Z1say2sLoZ0W4mErC_4-2GYgwCvoM14gEuFx2pZSVOJvmtsskhfaLq143Ix5BVvUKV9oknXWzxPMbpr66cKIm30AAflQAIbu87dmp92UPpuvIbDR-7elXyTDlxHoWZHpjsNV3ZPNfEYO11qWS-ovFL8kkqUmfZpbGBZAJthktgFVa1mtL"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $6.99
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Aged Cheddar</h3>
+<p class="text-on-surface-variant text-sm mb-4">Gourmet Cheese</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 11 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A bundle of vibrant, fresh green asparagus tied with natural twine, resting on a white, slightly textured surface. High-key studio lighting brings out the crisp, vivid greens and highlights the fresh, natural moisture. The image exudes premium, organic quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbVBlwrPR8ffIIwCWpPKLAaJ8Mh2fqRfFx3Rr60RxwsiT_F2HX4PEqIzROMM3-vhuIB9dJdP85UznAkgNTft_xD-tX0pnY0KvM1NYMTwpdlyT9vNHWudLxgSY1WqOp6VCIs-pktTbPCyCpRoAMhR-zesOvPqHqo9jTNqnzqVle2zXKNirxJf9pnTgyK0PQwQw3lV3IiYObuzzOvE4R-7F6JNYYH9uN-W40bRybOwCc0ozBKjLQY3Sh"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $3.75
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Green Asparagus</h3>
+<p class="text-on-surface-variant text-sm mb-4">Farm Fresh</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+<!-- 12 -->
+<article class="glass-regular rounded-3xl p-4 flex flex-col shadow-xl transition-transform hover:-translate-y-2 duration-300">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-full object-cover" data-alt="A minimalist presentation of premium, free-range brown eggs in a pristine, molded paper carton. The background is a soft, warm off-white. Gentle, diffused lighting creates soft shadows, conveying a sense of wholesome, high-quality, organic farm produce in a modern setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBehd0YCidF5GbpkJCB0CpW2DzeQNS6j7YWhfzKY6_n4sMczvgTvh955v_twwPWMEkbcFNSmacnizfLuUIGIZMJbRePClPABYOFolBOJWaZ6yiMcAROU1iq9fvvSSNKcfKE4AQGHj-JdpbCgm6Dd0iYKc5CQIJtPzoyi7cEXTlUAFcyk_Y-L0wo7KOddNmDXXRNx_wthdsJDDiGtsoopCsBXf1A8g-VQyNdmTT1CF3BblhdtxbjbzzV"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest text-on-surface font-label-md text-label-md px-3 py-1 rounded-full shadow-md font-bold">
+                            $5.99
+                        </div>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1 line-clamp-1">Free Range Eggs</h3>
+<p class="text-on-surface-variant text-sm mb-4">Dozen</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md text-label-md shadow-lg flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+</article>
+</div>
+</div>
+</section>
+</body></html>

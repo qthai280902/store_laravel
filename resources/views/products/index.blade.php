@@ -1,44 +1,15 @@
 <x-layouts.app title="Sản phẩm - MiniMart">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mt-6">
-    <!-- Breadcrumbs & Header (Full Width) -->
-    <div class="col-span-1 md:col-span-12 mb-4">
-        <nav aria-label="Breadcrumb" class="flex text-on-surface-variant font-label-md text-label-md mb-2">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                <li class="inline-flex items-center">
-                    <a class="inline-flex items-center hover:text-primary transition-colors" href="{{ route('home') }}">Trang chủ</a>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                        <span class="material-symbols-outlined text-sm mx-1">chevron_right</span>
-                        <a class="hover:text-primary transition-colors" href="{{ route('products.index') }}">Danh mục</a>
-                    </div>
-                </li>
-                @if(request('category'))
-                <li aria-current="page">
-                    <div class="flex items-center">
-                        <span class="material-symbols-outlined text-sm mx-1">chevron_right</span>
-                        <span class="text-primary font-bold">{{ request('category') }}</span>
-                    </div>
-                </li>
-                @endif
-            </ol>
-        </nav>
-        <div class="flex justify-between items-end">
-            <div>
-                <h2 class="font-headline-lg text-headline-lg text-primary mb-1">Sản phẩm</h2>
-                <p class="font-body-lg text-body-lg text-on-surface-variant">Hiển thị {{ $products->total() }} sản phẩm</p>
-            </div>
-            <!-- Sorting Dropdown (Thin Glass) -->
-            <div class="relative glass-tier-2 rounded-lg px-4 py-2 flex items-center gap-2 cursor-pointer hover:bg-white/40 transition-colors">
-                <span class="font-label-md text-label-md text-on-surface">Sắp xếp: Đề xuất</span>
-                <span class="material-symbols-outlined text-on-surface">expand_more</span>
-            </div>
+    <div class="pt-8 pb-12 w-full flex justify-center">
+        <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-full px-12 py-4 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out inline-block">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-green-900 text-center">Sản phẩm</h1>
         </div>
     </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-6">
 
     <!-- Left Sidebar Filters (Thin Glass) -->
-    <aside class="col-span-1 md:col-span-3">
-        <div class="glass-tier-2 rounded-[20px] p-6 sticky top-[104px]">
+    <aside class="col-span-1">
+        <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-[2.5rem] p-6 sticky top-24 h-max">
             <h3 class="font-label-md text-label-md text-primary uppercase tracking-wider mb-4">Bộ lọc</h3>
             <!-- Category Filter -->
             <div class="mb-6">
@@ -81,8 +52,22 @@
     </aside>
 
     <!-- Product Grid (9 columns) -->
-    <div class="col-span-1 md:col-span-9">
-        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div class="col-span-1 md:col-span-3 bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-[2.5rem] p-8">
+        <div class="flex justify-end mb-6">
+            <div class="relative" x-data="{ sortOpen: false }">
+                <button @click="sortOpen = !sortOpen" class="bg-white/60 hover:bg-white/90 backdrop-blur-lg border border-white/80 shadow-sm text-green-900 rounded-full transition-all px-4 py-2 flex items-center gap-2 cursor-pointer">
+                    <span class="font-label-md text-label-md text-on-surface">Sắp xếp</span>
+                    <span class="material-symbols-outlined text-on-surface">expand_more</span>
+                </button>
+                <div x-show="sortOpen" @click.away="sortOpen = false" x-transition class="absolute right-0 bg-white shadow-xl rounded-xl mt-2 w-48 overflow-hidden border border-gray-100 z-50" style="display: none;">
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'newest']) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50">Mới nhất</a>
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50">Giá: Thấp đến Cao</a>
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50">Giá: Cao đến Thấp</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @forelse($products as $product)
                 <x-product-card :product="$product" />
             @empty
@@ -93,9 +78,61 @@
             @endforelse
         </div>
         
-        <div class="mt-8">
-            {{ $products->links() }}
-        </div>
+        @if($products->nextPageUrl())
+        <button id="loadMoreBtn" data-next-page="{{ $products->nextPageUrl() }}" class="mt-12 mx-auto px-8 py-3 bg-white/60 hover:bg-white/90 backdrop-blur-lg border border-white/80 shadow-sm text-green-900 rounded-full transition-all flex items-center justify-center font-bold">Xem thêm sản phẩm</button>
+        @endif
     </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const productGrid = document.getElementById('product-grid');
+
+            if (loadMoreBtn && productGrid) {
+                loadMoreBtn.addEventListener('click', function() {
+                    const nextPageUrl = this.getAttribute('data-next-page');
+                    if (!nextPageUrl) return;
+
+                    const originalText = this.innerText;
+                    this.innerText = 'Đang tải...';
+                    this.disabled = true;
+
+                    fetch(nextPageUrl, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        
+                        const newGrid = doc.getElementById('product-grid');
+                        if (newGrid) {
+                            // Find elements to append by their root tag/classes (assuming they are components)
+                            // or just take children of newGrid
+                            Array.from(newGrid.children).forEach(child => {
+                                productGrid.appendChild(child.cloneNode(true));
+                            });
+                        }
+
+                        const newLoadMoreBtn = doc.getElementById('loadMoreBtn');
+                        if (newLoadMoreBtn) {
+                            this.setAttribute('data-next-page', newLoadMoreBtn.getAttribute('data-next-page'));
+                            this.innerText = originalText;
+                            this.disabled = false;
+                        } else {
+                            this.style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error loading more products:', error);
+                        this.innerText = originalText;
+                        this.disabled = false;
+                    });
+                });
+            }
+        });
+    </script>
 </x-layouts.app>

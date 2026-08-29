@@ -25,7 +25,15 @@ class ProductController extends Controller
         $sortBy = $request->get('sort_by', 'created_at');
         $sortDir = $request->get('sort_dir', 'desc');
 
-        $products = $this->productService->getProducts($filters, $sortBy, $sortDir);
+        $query = \App\Models\Product::with(['category', 'variants'])->where('is_active', true);
+        if (isset($filters['category_id'])) {
+            $query->where('category_id', $filters['category_id']);
+        }
+        if (isset($filters['search'])) {
+            $query->where('name', 'like', '%'.$filters['search'].'%');
+        }
+        $query->orderBy($sortBy, $sortDir);
+        $products = $query->paginate(20);
 
         return view('products.index', compact('products'));
     }

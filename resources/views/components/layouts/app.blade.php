@@ -9,13 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-surface text-on-surface font-body-lg min-h-screen flex flex-col relative" x-data="{ mobileMenuOpen: false, megaMenuOpen: false }">
-    <!-- Ambient Background -->
-    <div class="ambient-bg">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-    </div>
+<body class="bg-gradient-to-br from-green-50/50 via-white to-orange-50/30 text-gray-800 antialiased font-sans min-h-screen flex flex-col relative overflow-x-hidden" x-data="{ mobileMenuOpen: false, megaMenuOpen: false }">
     
     <!-- Header (2 Rows) -->
     <header class="fixed top-0 w-full z-50 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-b-[1px] border-white/30 shadow-xl transition-all">
@@ -27,38 +21,36 @@
             </a>
             
             <!-- Search -->
-            <div class="hidden md:flex flex-1 max-w-xl mx-8 relative">
+            <div class="hidden md:flex flex-1 max-w-3xl mx-8 relative">
                 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
                 <form action="{{ route('products.search') }}" method="GET" class="w-full">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Tìm kiếm sản phẩm, danh mục..." class="w-full pl-10 pr-4 py-2 bg-white/60 backdrop-blur-md border border-outline-variant rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body-lg text-sm transition-all shadow-sm">
                 </form>
             </div>
 
-            <!-- Icons -->
-            <div class="flex gap-4 items-center">
+            <!-- Auth & Menu -->
+            <div class="flex items-center">
                 @auth
-                    <a href="{{ route('account.orders') }}" class="text-sm font-semibold text-primary hover:text-secondary transition-colors" title="Đơn hàng">Tài khoản</a>
+                    <a href="{{ route('account.orders') }}" class="flex items-center text-sm font-semibold text-primary hover:text-secondary transition-colors" title="Đơn hàng">Tài khoản</a>
                 @else
-                    <a href="{{ route('login') }}" class="text-sm font-semibold text-green-900 hover:text-green-700">Đăng nhập / Đăng ký</a>
+                    <a href="{{ route('login') }}" class="font-bold text-green-900 text-sm hover:text-green-700 transition-colors">Đăng nhập / Đăng ký</a>
                 @endauth
                 
-                <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-primary hover:text-secondary transition-colors cursor-pointer lg:hidden">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
-                <button @click="mobileMenuOpen = !mobileMenuOpen" class="hidden lg:block text-primary hover:text-secondary transition-colors cursor-pointer" title="Danh mục">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
+                <div class="h-5 w-px bg-gray-300 mx-4"></div>
+                
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="font-bold text-green-900 text-sm tracking-wider hover:text-green-700 transition-colors">MENU</button>
             </div>
         </div>
 
         <!-- Row 2: Sub Nav (Mega Menu) -->
         <div class="hidden lg:flex items-center justify-center px-4 sm:px-6 lg:px-8 h-12 gap-8 relative">
+            <a class="font-label-md transition-colors {{ request()->routeIs('home') ? 'text-green-700 font-bold' : 'text-gray-600 hover:text-green-700' }}" href="{{ route('home') }}">Trang chủ</a>
             <div @mouseenter="megaMenuOpen = true" @mouseleave="megaMenuOpen = false" class="h-full flex items-center">
-                <a href="{{ route('products.index') }}" class="font-label-md text-primary font-bold flex items-center gap-1 hover:text-secondary transition-colors">
+                <a href="{{ route('products.index') }}" class="font-label-md flex items-center gap-1 transition-colors {{ request()->routeIs('products.*') ? 'text-green-700 font-bold' : 'text-gray-600 hover:text-green-700' }}">
                     <span class="material-symbols-outlined text-[18px]">grid_view</span> Danh mục sản phẩm
                 </a>
                 <!-- Mega Menu Dropdown -->
-                <div x-show="megaMenuOpen" x-transition.opacity class="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl shadow-2xl border-t border-outline-variant/30 p-8 grid grid-cols-4 gap-8">
+                <div x-show="megaMenuOpen" x-transition.opacity class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[800px] bg-white/90 backdrop-blur-3xl shadow-2xl rounded-3xl p-8 z-50 grid grid-cols-4 gap-8">
                     @foreach(\App\Models\Category::take(4)->get() as $cat)
                         <div>
                             <a href="{{ route('products.index', ['category' => $cat->slug]) }}" class="font-label-md font-bold text-primary mb-3 block hover:underline">{{ $cat->name }}</a>
@@ -72,9 +64,9 @@
                 </div>
             </div>
             
-            <a class="font-label-md text-on-surface hover:text-primary transition-colors" href="{{ route('posts.index') }}">Blog</a>
-            <a class="font-label-md text-on-surface hover:text-primary transition-colors" href="#">Giới thiệu</a>
-            <a class="font-label-md text-on-surface hover:text-primary transition-colors" href="#">Hệ thống cửa hàng</a>
+            <a class="font-label-md transition-colors {{ request()->routeIs('posts.*') ? 'text-green-700 font-bold' : 'text-gray-600 hover:text-green-700' }}" href="{{ route('posts.index') }}">Blog</a>
+            <a class="font-label-md transition-colors {{ request()->routeIs('about') ? 'text-green-700 font-bold' : 'text-gray-600 hover:text-green-700' }}" href="{{ route('about') }}">Giới thiệu</a>
+            <a class="font-label-md transition-colors {{ request()->routeIs('stores') ? 'text-green-700 font-bold' : 'text-gray-600 hover:text-green-700' }}" href="{{ route('stores') }}">Hệ thống cửa hàng</a>
         </div>
     </header>
 
@@ -97,8 +89,8 @@
                 @endforeach
                 <hr class="my-4 border-outline-variant">
                 <a href="{{ route('posts.index') }}" class="p-3 rounded-xl hover:bg-surface-variant text-on-surface transition-colors font-label-md">Blog & Tin tức</a>
-                <a href="#" class="p-3 rounded-xl hover:bg-surface-variant text-on-surface transition-colors font-label-md">Giới thiệu</a>
-                <a href="#" class="p-3 rounded-xl hover:bg-surface-variant text-on-surface transition-colors font-label-md">Hệ thống cửa hàng</a>
+                <a href="{{ route('about') }}" class="p-3 rounded-xl hover:bg-surface-variant text-on-surface transition-colors font-label-md">Giới thiệu</a>
+                <a href="{{ route('stores') }}" class="p-3 rounded-xl hover:bg-surface-variant text-on-surface transition-colors font-label-md">Hệ thống cửa hàng</a>
             </div>
         </div>
     </div>
@@ -118,7 +110,7 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 translate-x-0"
          x-transition:leave-end="opacity-0 translate-x-10"
-         class="fixed top-24 right-4 z-[100] bg-white border border-outline-variant shadow-2xl rounded-2xl p-4 w-80"
+         class="fixed top-24 right-4 z-[100] bg-white/70 backdrop-blur-3xl border border-white/80 shadow-2xl ring-1 ring-white/50 rounded-3xl p-6 w-80"
          style="display: none;">
         
         <div class="flex items-start gap-4">
@@ -149,61 +141,95 @@
     </main>
     
     <!-- Footer -->
-    <footer class="w-full bg-surface-container dark:bg-surface-container-highest border-t border-outline-variant mt-12 py-12">
-        <div class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Cột 1: Liên hệ -->
-            <div class="flex flex-col gap-4">
-                <div class="font-display-lg text-primary text-2xl font-extrabold mb-2">MiniMart</div>
-                <p class="text-on-surface-variant font-body-lg text-sm flex items-start gap-2">
-                    <span class="material-symbols-outlined text-[18px] text-primary mt-0.5">location_on</span>
-                    123 Nguyễn Huệ, Quận 1, TP.HCM
-                </p>
-                <p class="text-on-surface-variant font-body-lg text-sm flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[18px] text-primary">call</span>
-                    Hotline: 1900 1234
-                </p>
-                <p class="text-on-surface-variant font-body-lg text-sm flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[18px] text-primary">mail</span>
-                    support@minimart.vn
-                </p>
+    <footer class="w-full bg-gray-100 border-t border-gray-200 mt-12 py-16">
+        <div class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <!-- Cột 1: Logo & Thông tin -->
+            <div class="flex flex-col gap-3">
+                <div class="text-2xl font-extrabold text-green-800 mb-2">MiniMart</div>
+                <p class="text-gray-600 text-sm leading-relaxed">Hệ thống siêu thị mini cung cấp nông sản sạch, thực phẩm hữu cơ chất lượng cao cho gia đình Việt.</p>
+                <div class="mt-3 space-y-2">
+                    <p class="text-gray-600 text-sm flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-green-600 mt-0.5 shrink-0">location_on</span>
+                        123 Nguyễn Huệ, Quận 1, TP.HCM
+                    </p>
+                    <p class="text-gray-600 text-sm flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-green-600 shrink-0">call</span>
+                        Hotline: 1900 1234
+                    </p>
+                    <p class="text-gray-600 text-sm flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-green-600 shrink-0">mail</span>
+                        support@minimart.vn
+                    </p>
+                </div>
             </div>
 
-            <!-- Cột 2: Về MiniMart -->
-            <div class="flex flex-col gap-4">
-                <h3 class="font-label-md text-label-md text-on-surface font-bold mb-2">Về MiniMart</h3>
-                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Giới thiệu</a>
-                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Nguồn gốc nông sản</a>
-                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Chứng nhận VietGAP/GlobalGAP</a>
+            <!-- Cột 2: Liên kết nhanh -->
+            <div class="flex flex-col gap-3">
+                <h3 class="font-bold text-gray-900 mb-2">Liên kết nhanh</h3>
+                <a href="{{ route('home') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Trang chủ</a>
+                <a href="{{ route('products.index') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Sản phẩm</a>
+                <a href="{{ route('posts.index') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Blog & Tin tức</a>
+                <a href="{{ route('about') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Giới thiệu</a>
+                <a href="{{ route('stores') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Hệ thống cửa hàng</a>
             </div>
 
-            <!-- Cột 3: Hỗ trợ khách hàng -->
-            <div class="flex flex-col gap-4">
-                <h3 class="font-label-md text-label-md text-on-surface font-bold mb-2">Hỗ trợ khách hàng</h3>
-                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Chính sách đổi trả</a>
-                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Chính sách giao hàng</a>
-                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-sm">Câu hỏi thường gặp</a>
+            <!-- Cột 3: Chính sách & Hỗ trợ -->
+            <div class="flex flex-col gap-3">
+                <h3 class="font-bold text-gray-900 mb-2">Chính sách & Hỗ trợ</h3>
+                <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách đổi trả 24h</a>
+                <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách giao hàng</a>
+                <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách bảo mật</a>
+                <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Điều khoản sử dụng</a>
+                <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Câu hỏi thường gặp</a>
             </div>
 
-            <!-- Cột 4: Mạng xã hội & Thanh toán -->
+            <!-- Cột 4: Đăng ký nhận tin & MXH -->
             <div class="flex flex-col gap-4">
-                <h3 class="font-label-md text-label-md text-on-surface font-bold mb-2">Kết nối & Thanh toán</h3>
-                <div class="flex items-center gap-4 mb-2">
-                    <a href="#" class="w-10 h-10 rounded-full glass-tier-2 flex items-center justify-center hover:bg-primary/20 text-primary transition-colors">
-                        <span class="font-bold">fb</span>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-full glass-tier-2 flex items-center justify-center hover:bg-primary/20 text-primary transition-colors">
-                        <span class="font-bold">tt</span>
-                    </a>
+                <h3 class="font-bold text-gray-900 mb-2">Đăng ký nhận tin</h3>
+                <p class="text-gray-600 text-sm">Nhận thông tin khuyến mãi và sản phẩm mới nhất từ MiniMart.</p>
+                <div class="flex gap-2">
+                    <input type="email" placeholder="Email của bạn" class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white">
+                    <button class="px-4 py-2.5 bg-green-600 text-white rounded-xl text-sm font-bold hover:bg-green-700 transition-colors shrink-0">Gửi</button>
+                </div>
+                <div class="mt-2">
+                    <p class="text-gray-500 text-xs font-semibold mb-2">Theo dõi chúng tôi</p>
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">fb</a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">tt</a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">ig</a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-green-700 hover:border-green-300 transition-colors text-xs font-bold">yt</a>
+                    </div>
                 </div>
                 <div class="flex items-center gap-2 mt-2">
-                    <div class="px-3 py-1 glass-tier-1 rounded text-xs font-bold text-primary border border-primary/20">MoMo</div>
-                    <div class="px-3 py-1 glass-tier-1 rounded text-xs font-bold text-primary border border-primary/20">VISA</div>
+                    <div class="px-3 py-1 bg-white rounded border border-gray-200 text-xs font-bold text-gray-700">MoMo</div>
+                    <div class="px-3 py-1 bg-white rounded border border-gray-200 text-xs font-bold text-gray-700">VISA</div>
+                    <div class="px-3 py-1 bg-white rounded border border-gray-200 text-xs font-bold text-gray-700">COD</div>
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-outline-variant/30 text-center">
-            <p class="text-on-surface-variant font-label-md text-xs opacity-80">© {{ date('Y') }} MiniMart Fresh. All rights reserved.</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-gray-300 text-center">
+            <p class="text-gray-500 text-xs">© {{ date('Y') }} MiniMart Fresh. Tất cả quyền được bảo lưu.</p>
         </div>
     </footer>
+
+    <!-- IntersectionObserver: Fade-in scroll effect -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.product-card, .fade-item');
+            elements.forEach(function(el) {
+                el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-1000', 'ease-out');
+            });
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            elements.forEach(function(el) { observer.observe(el); });
+        });
+    </script>
 </body>
 </html>
