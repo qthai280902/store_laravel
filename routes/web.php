@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout.index');
     Route::post('/checkout', [OrderController::class, 'place'])->name('checkout.place');
     Route::get('/checkout/success/{order}', [OrderController::class, 'success'])->name('checkout.success');
-    Route::get('/account/orders', [OrderController::class, 'account'])->name('account.orders');
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
 });
 
 use App\Http\Controllers\PostController;
@@ -47,3 +47,4 @@ Route::get('/blog/{slug}', [PostController::class, 'show'])->name('posts.show');
 
 Route::view('/gioi-thieu', 'about')->name('about');
 Route::view('/he-thong-cua-hang', 'stores')->name('stores');
+

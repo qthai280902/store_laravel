@@ -4,6 +4,8 @@
             activeStore: 1,
             searchQuery: '',
             selectedCity: 'all',
+            selectedCityName: 'Tất cả Tỉnh / Thành phố',
+            dropdownOpen: false,
             getMapUrl(id) {
                 const maps = {
                     1: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4602324217154!2d106.70114091533423!3d10.776019462145327!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f46b4122d1b%3A0xb36fc5b3f2c537d!2zTMOqIEzhu6NpLCBC4bq_biBOZ2jDqSwgUXXhuq1uIDEsIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1622340316656!5m2!1svi!2s',
@@ -14,7 +16,7 @@
             }
          }">
         
-        <div class="pt-8 pb-4 w-full flex flex-col items-center justify-center text-center">
+        <div class="pt-8 pb-4 w-full flex flex-col items-center justify-center text-center fade-item">
             <div class="w-max mx-auto bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-full px-10 py-3 mb-6">
                 <h1 class="text-3xl font-extrabold text-green-900">Hệ thống cửa hàng MiniMart</h1>
             </div>
@@ -23,23 +25,30 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Cột Trái: Google Maps (2 phần) -->
-            <div class="md:col-span-2 bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-2xl p-2 overflow-hidden">
+            <div class="md:col-span-2 bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-2xl p-2 overflow-hidden fade-item">
                 <iframe x-bind:src="getMapUrl(activeStore)" class="w-full h-[500px] rounded-2xl" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
 
             <!-- Cột Phải: Danh sách chi nhánh (1 phần) -->
-            <div class="space-y-4">
-                <div class="mb-4">
-                    <select x-model="selectedCity" class="w-full bg-white/50 backdrop-blur-md border border-white/80 rounded-full px-6 py-4 shadow-sm outline-none text-gray-800 font-medium cursor-pointer appearance-none">
-                        <option value="all">Tất cả Tỉnh / Thành phố</option>
-                        <option value="HCM">Hồ Chí Minh</option>
-                        <option value="HN">Hà Nội</option>
-                        <option value="DN">Đà Nẵng</option>
-                    </select>
+            <div class="space-y-4 fade-item">
+                <div class="mb-4 relative">
+                    <!-- Dropdown Button -->
+                    <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="w-full bg-white/50 backdrop-blur-md border border-white/80 rounded-full px-6 py-4 shadow-sm outline-none text-gray-800 font-medium flex justify-between items-center transition-all hover:bg-white/60">
+                        <span x-text="selectedCityName"></span>
+                        <span class="material-symbols-outlined transition-transform" :class="dropdownOpen ? 'rotate-180' : ''">expand_more</span>
+                    </button>
+                    <!-- Dropdown Panel -->
+                    <div x-show="dropdownOpen" x-transition.opacity.duration.300ms class="absolute left-0 right-0 mt-2 z-50 bg-white/30 backdrop-blur-2xl border border-white/60 shadow-[0_12px_40px_rgba(0,0,0,0.12)] ring-1 ring-white/50 rounded-2xl overflow-hidden py-2" style="display: none;">
+                        <button @click="selectedCity = 'all'; selectedCityName = 'Tất cả Tỉnh / Thành phố'; dropdownOpen = false" class="w-full text-left px-6 py-3 font-medium hover:bg-white/40 transition-colors" :class="selectedCity === 'all' ? 'text-green-700 bg-white/50' : 'text-gray-800'">Tất cả Tỉnh / Thành phố</button>
+                        <button @click="selectedCity = 'HCM'; selectedCityName = 'Hồ Chí Minh'; dropdownOpen = false" class="w-full text-left px-6 py-3 font-medium hover:bg-white/40 transition-colors" :class="selectedCity === 'HCM' ? 'text-green-700 bg-white/50' : 'text-gray-800'">Hồ Chí Minh</button>
+                        <button @click="selectedCity = 'HN'; selectedCityName = 'Hà Nội'; dropdownOpen = false" class="w-full text-left px-6 py-3 font-medium hover:bg-white/40 transition-colors" :class="selectedCity === 'HN' ? 'text-green-700 bg-white/50' : 'text-gray-800'">Hà Nội</button>
+                        <button @click="selectedCity = 'DN'; selectedCityName = 'Đà Nẵng'; dropdownOpen = false" class="w-full text-left px-6 py-3 font-medium hover:bg-white/40 transition-colors" :class="selectedCity === 'DN' ? 'text-green-700 bg-white/50' : 'text-gray-800'">Đà Nẵng</button>
+                    </div>
                 </div>
                 <input type="text" x-model="searchQuery" placeholder="Tìm theo quận, tên đường..." class="w-full bg-white/50 backdrop-blur-md border border-white/80 rounded-full px-6 py-4 shadow-sm mb-6 outline-none focus:ring-2 focus:ring-green-500">
                 <!-- Store 1 -->
-                <div data-city="HCM" x-show="(selectedCity === 'all' || selectedCity === 'HCM') && $el.innerText.toLowerCase().includes(searchQuery.toLowerCase())" @click="activeStore = 1" class="bg-white/60 backdrop-blur-lg rounded-2xl p-5 shadow-md border cursor-pointer transition-all duration-300" :class="activeStore === 1 ? 'border-green-500 shadow-xl bg-green-50/60' : 'border-white/50 hover:shadow-lg'">
+                <div data-city="HCM" x-show="(selectedCity === 'all' || selectedCity === 'HCM') && $el.innerText.toLowerCase().includes(searchQuery.toLowerCase())" @click="activeStore = 1" class="relative overflow-hidden bg-white/60 backdrop-blur-lg rounded-2xl p-5 shadow-md border cursor-pointer transition-all duration-300" :class="activeStore === 1 ? 'border-green-500 shadow-xl bg-green-50/60' : 'border-white/50 hover:shadow-lg'">
+                    <div class="absolute top-4 -right-10 w-40 rotate-45 bg-red-500/70 backdrop-blur-md border-b border-white/40 shadow-lg text-white text-xs font-bold py-1 text-center pointer-events-none z-10">Tạm đóng cửa</div>
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors" :class="activeStore === 1 ? 'bg-green-600 text-white' : 'bg-green-100 text-green-700'">
                             <span class="material-symbols-outlined text-[20px]">store</span>

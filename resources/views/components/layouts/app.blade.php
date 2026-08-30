@@ -8,7 +8,9 @@
     <title>{{ $title ?? 'MiniMart - Thực phẩm sạch cho gia đình' }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-gradient-to-br from-green-50/50 via-white to-orange-50/30 text-gray-800 antialiased font-sans min-h-screen flex flex-col relative overflow-x-hidden" x-data="{ mobileMenuOpen: false, megaMenuOpen: false }">
@@ -34,7 +36,7 @@
             <!-- Auth & Menu -->
             <div class="flex items-center">
                 @auth
-                    <a href="{{ route('account.orders') }}" class="flex items-center text-sm font-semibold text-primary hover:text-secondary transition-colors" title="Đơn hàng">Tài khoản</a>
+                    <a href="{{ route('profile') }}" class="flex items-center text-sm font-semibold text-primary hover:text-secondary transition-colors" title="Đơn hàng">Tài khoản</a>
                 @else
                     <a href="{{ route('login') }}" class="font-bold text-green-900 text-sm hover:text-green-700 transition-colors">Đăng nhập / Đăng ký</a>
                 @endauth
@@ -234,6 +236,25 @@
                 });
             }, { threshold: 0.1 });
             elements.forEach(function(el) { observer.observe(el); });
+        });
+    </script>
+    
+    <!-- Floating Cart Widget -->
+    <div x-data="{ cartCount: 0 }" class="fixed bottom-8 right-8 z-50">
+        <a href="{{ route('cart.index') }}" class="relative flex items-center justify-center w-16 h-16 bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.15)] ring-1 ring-white/50 rounded-[1.5rem] hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined text-[28px] text-green-900">shopping_cart</span>
+            <span x-show="cartCount > 0" class="absolute -bottom-2 -right-2 bg-green-600 text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full shadow-md border-2 border-white" x-text="cartCount"></span>
+        </a>
+    </div>
+
+    <!-- AOS Init -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 600,
+            easing: 'ease-out-cubic',
         });
     </script>
 </body>

@@ -17,7 +17,7 @@ class PaymentService
         $orderId = $order->id.'_'.time();
         $orderInfo = 'Thanh toan don hang #'.$order->id;
         $amount = (string) $order->total_amount;
-        $redirectUrl = route('account.orders');
+        $redirectUrl = route('profile');
         $ipnUrl = route('payment.momo-webhook');
         $extraData = '';
         $requestId = time().'';

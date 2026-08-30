@@ -86,7 +86,12 @@
                 @foreach($categories as $idx => $category)
                     <a href="{{ route('products.index', ['category' => $category->slug]) }}" 
                        x-show="showAll || {{ $idx }} < 4"
-                       x-transition
+                       x-transition:enter="transition ease-out duration-500"
+                       x-transition:enter-start="opacity-0 -translate-y-4 scale-[0.98]"
+                       x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                       x-transition:leave="transition ease-in duration-300"
+                       x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                       x-transition:leave-end="opacity-0 -translate-y-4 scale-[0.98]"
                        class="bg-white/50 backdrop-blur-xl border border-white/80 shadow-sm rounded-2xl p-6 flex flex-col items-center justify-center hover:bg-white/80 transition-all cursor-pointer group">
                         <span class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">{{ $icons[$idx % count($icons)] }}</span>
                         <span class="font-label-md text-label-md text-on-surface">{{ $category->name }}</span>

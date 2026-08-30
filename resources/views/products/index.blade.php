@@ -69,7 +69,9 @@
 
         <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @forelse($products as $product)
-                <x-product-card :product="$product" />
+                <div data-aos="fade-up">
+                    <x-product-card :product="$product" />
+                </div>
             @empty
                 <div class="col-span-full glass-tier-2 rounded-3xl p-12 text-center">
                     <h3 class="text-2xl font-bold text-primary mb-2">Không tìm thấy sản phẩm</h3>
@@ -79,7 +81,9 @@
         </div>
         
         @if($products->nextPageUrl())
-        <button id="loadMoreBtn" data-next-page="{{ $products->nextPageUrl() }}" class="mt-12 mx-auto px-8 py-3 bg-white/60 hover:bg-white/90 backdrop-blur-lg border border-white/80 shadow-sm text-green-900 rounded-full transition-all flex items-center justify-center font-bold">Xem thêm sản phẩm</button>
+        <div id="loadMoreBtn" data-next-page="{{ $products->nextPageUrl() }}" x-data x-intersect="$dispatch('trigger-load-more')" class="mt-12 mx-auto w-full flex items-center justify-center h-16">
+            <span class="material-symbols-outlined animate-spin text-green-600 text-3xl" id="loadMoreSpinner" style="display: none;">autorenew</span>
+        </div>
         @endif
     </div>
     </div>
@@ -88,15 +92,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             const loadMoreBtn = document.getElementById('loadMoreBtn');
             const productGrid = document.getElementById('product-grid');
+            const loadMoreSpinner = document.getElementById('loadMoreSpinner');
+            
+            let isLoading = false;
 
             if (loadMoreBtn && productGrid) {
-                loadMoreBtn.addEventListener('click', function() {
-                    const nextPageUrl = this.getAttribute('data-next-page');
+                window.addEventListener('trigger-load-more', function() {
+                    if (isLoading) return;
+                    const nextPageUrl = loadMoreBtn.getAttribute('data-next-page');
                     if (!nextPageUrl) return;
 
-                    const originalText = this.innerText;
-                    this.innerText = 'Đang tải...';
-                    this.disabled = true;
+                    isLoading = true;
+                    if(loadMoreSpinner) loadMoreSpinner.style.display = 'block';
 
                     fetch(nextPageUrl, {
                         headers: {
@@ -110,8 +117,6 @@
                         
                         const newGrid = doc.getElementById('product-grid');
                         if (newGrid) {
-                            // Find elements to append by their root tag/classes (assuming they are components)
-                            // or just take children of newGrid
                             Array.from(newGrid.children).forEach(child => {
                                 productGrid.appendChild(child.cloneNode(true));
                             });
@@ -119,17 +124,18 @@
 
                         const newLoadMoreBtn = doc.getElementById('loadMoreBtn');
                         if (newLoadMoreBtn) {
-                            this.setAttribute('data-next-page', newLoadMoreBtn.getAttribute('data-next-page'));
-                            this.innerText = originalText;
-                            this.disabled = false;
+                            loadMoreBtn.setAttribute('data-next-page', newLoadMoreBtn.getAttribute('data-next-page'));
+                            isLoading = false;
+                            if(loadMoreSpinner) loadMoreSpinner.style.display = 'none';
                         } else {
-                            this.style.display = 'none';
+                            loadMoreBtn.style.display = 'none';
+                            loadMoreBtn.removeAttribute('data-next-page');
                         }
                     })
                     .catch(error => {
                         console.error('Error loading more products:', error);
-                        this.innerText = originalText;
-                        this.disabled = false;
+                        isLoading = false;
+                        if(loadMoreSpinner) loadMoreSpinner.style.display = 'none';
                     });
                 });
             }

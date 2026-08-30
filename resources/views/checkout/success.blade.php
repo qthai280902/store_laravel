@@ -60,7 +60,7 @@
             
             <!-- Actions -->
             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
-                <a href="{{ route('account.orders') }}" class="inline-block bg-primary text-on-primary text-center font-label-md text-label-md px-8 py-4 rounded-full shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto">
+                <a href="{{ route('profile') }}" class="inline-block bg-primary text-on-primary text-center font-label-md text-label-md px-8 py-4 rounded-full shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto">
                     Theo dõi Đơn hàng
                 </a>
                 <a href="{{ route('products.index') }}" class="inline-block glass-tier-2 text-on-surface text-center font-label-md text-label-md px-8 py-4 rounded-full hover:bg-white/40 transition-all duration-300 w-full sm:w-auto">
