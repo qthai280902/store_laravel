@@ -73,7 +73,6 @@
                                 price: '{{ number_format($product->price ?? $product->base_price) }}', 
                                 image: '{{ $product->image_url ?? 'https://placehold.co/600x400/F5F5F5/00490e?text=' . urlencode($product->name) }}' 
                             });
-                            setTimeout(() => window.location.reload(), 4000);
                         }
                     });
                 ">

@@ -240,11 +240,43 @@
     </script>
     
     <!-- Floating Cart Widget -->
-    <div x-data="{ cartCount: 0 }" class="fixed bottom-8 right-8 z-50">
+    @php
+        $cartCount = count(session('cart', []));
+    @endphp
+    <div x-data="{ cartCount: {{ $cartCount }} }" 
+         @cart-added.window="cartCount++"
+         class="fixed bottom-8 right-8 z-50">
         <a href="{{ route('cart.index') }}" class="relative flex items-center justify-center w-16 h-16 bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.15)] ring-1 ring-white/50 rounded-[1.5rem] hover:scale-105 transition-transform">
             <span class="material-symbols-outlined text-[28px] text-green-900">shopping_cart</span>
             <span x-show="cartCount > 0" class="absolute -bottom-2 -right-2 bg-green-600 text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full shadow-md border-2 border-white" x-text="cartCount"></span>
         </a>
+    </div>
+
+    <!-- Toast Notification -->
+    <div x-data="{ show: false, item: {} }" 
+         @cart-added.window="
+            item = $event.detail;
+            show = true;
+            setTimeout(() => show = false, 3000);
+         "
+         class="fixed bottom-28 right-8 z-50"
+         x-show="show"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+         style="display: none;">
+        <div class="bg-white/90 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.15)] ring-1 ring-white/50 rounded-2xl p-4 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
+                <img :src="item.image" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <p class="text-sm font-bold text-green-900">Đã thêm vào giỏ!</p>
+                <p class="text-xs text-gray-600 line-clamp-1 w-48" x-text="item.name"></p>
+            </div>
+        </div>
     </div>
 
     <!-- AOS Init -->
