@@ -227,7 +227,7 @@ body {
 }
 @layer utilities {
     .liquid-glass-pane {
-        @apply bg-white/40 backdrop-blur-[40px] border border-white/60 shadow-[0_24px_80px_rgba(0,0,0,0.12)] ring-1 ring-white/50 rounded-[2.5rem] relative overflow-hidden;
+        @apply bg-white/40 backdrop-blur-[40px] border border-white/60 shadow-[0_24px_80px_rgba(0,0,0,0.12)] ring-1 ring-white/50 rounded-[2.5rem] relative overflow-clip;
         /* Tạo Highlight mô phỏng độ cong bề mặt kính */
         background-image: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.1) 100%);
     }
@@ -240,7 +240,7 @@ body {
 
 @layer utilities {
     .liquid-glass-pane {
-        @apply bg-white/40 backdrop-blur-[40px] border border-white/60 shadow-[0_24px_80px_rgba(0,0,0,0.12)] ring-1 ring-white/50 rounded-[2.5rem] relative overflow-hidden;
+        @apply bg-white/40 backdrop-blur-[40px] border border-white/60 shadow-[0_24px_80px_rgba(0,0,0,0.12)] ring-1 ring-white/50 rounded-[2.5rem] relative overflow-clip;
         background-image: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.1) 100%);
     }
     .liquid-glass-pane::before {

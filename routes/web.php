@@ -48,3 +48,12 @@ Route::get('/blog/{slug}', [PostController::class, 'show'])->name('posts.show');
 Route::view('/gioi-thieu', 'about')->name('about');
 Route::view('/he-thong-cua-hang', 'stores')->name('stores');
 
+// Admin Routes
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [\App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('admin.login.post');
+    
+    Route::middleware(['auth', \App\Http\Middleware\CheckAdminRole::class])->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
+    });
+});

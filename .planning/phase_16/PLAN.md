@@ -1,16 +1,20 @@
-# Phase 16: Tái cấu trúc UI - Đưa nội dung lên phiến Liquid Glass
+# KẾ HOẠCH PHASE 16: Khởi tạo hệ thống Admin và Tích hợp Kiến trúc UI Admin Liquid Glass V4
 
-## MỤC TIÊU
-Tái cấu trúc bố cục hiển thị của các trang nội dung chính (Danh sách sản phẩm, Chi tiết sản phẩm, Blog, Giới thiệu). Đưa toàn bộ khối nội dung đặt lên một phiến kính khổng lồ duy nhất mang vật liệu Liquid Glass, thay vì thả nổi trên nền hoặc sử dụng các card phân mảnh. Phải tuân thủ tuyệt đối quy tắc: TRANSPARENT + DEPTH + REFRACTION + HIGHLIGHT + MATERIAL RESPONSE.
+## 1. Khảo sát & Phân tích UI Kit
+- Đọc `master_layout_template_minimart/code.html`
+- Đọc `liquid_glass/DESIGN.md` và `liquid_logic_admin/DESIGN.md`
 
-## KẾ HOẠCH THỰC THI
-1. **app.css**: Thêm utility class `.liquid-glass-pane`.
-2. **app.blade.php**: Cập nhật background của `body` sang dạng dải màu gradient phức tạp để kính có thể khúc xạ.
-3. **Refactor Views**: Cập nhật các file:
-   - `products/index.blade.php`
-   - `products/show.blade.php`
-   - `blog/index.blade.php`
-   - `blog/show.blade.php`
-   - `about.blade.php`
-   Bọc toàn bộ nội dung trong class `liquid-glass-pane max-w-7xl mx-auto px-6 py-10 my-8`. Đảm bảo các thành phần bên trong phân tầng vật liệu (Layered Glass).
-4. **Build**: Chạy `npm run build`
+## 2. Thiết lập Kiến trúc Backend
+- Xây dựng Middleware `CheckAdminRole`.
+- Khởi tạo Route Group với prefix `/admin` trong `routes/web.php`.
+- Khởi tạo `AdminController` để xử lý logic Dashboard.
+- Cập nhật Auth để điều hướng Admin login.
+
+## 3. Khởi tạo Master Layout & Components
+- Tạo `resources/views/layouts/admin.blade.php`.
+- Chia nhỏ: `x-admin.sidebar`, `x-admin.topbar`.
+- Áp dụng vật liệu Kính lỏng (Liquid Glass V4): `backdrop-blur-*`, `bg-white/x`, `shadow-inner`.
+
+## 4. Triển khai Màn hình Cốt lõi
+- Admin Login (`login_minimart_admin_liquid_glass/code.html`)
+- Admin Dashboard (`t_ng_quan_minimart_admin_liquid_glass/code.html`)

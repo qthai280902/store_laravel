@@ -11,6 +11,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -46,9 +47,25 @@
         span.flatpickr-weekday {
             color: #064e3b !important;
         }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.25);
+        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-green-50 via-gray-50 to-green-100 text-gray-800 antialiased font-sans min-h-screen flex flex-col relative overflow-x-hidden" x-data="{ mobileMenuOpen: false, megaMenuOpen: false }">
+<body class="bg-gradient-to-br from-green-50/50 via-white to-orange-50/30 text-gray-800 antialiased font-sans min-h-screen flex flex-col relative overflow-x-clip" x-data="{ mobileMenuOpen: false, megaMenuOpen: false }">
     
     <!-- Header (2 Rows) -->
     <header class="fixed top-0 w-full z-50 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-b-[1px] border-white/30 shadow-xl transition-all">
@@ -71,7 +88,16 @@
             <!-- Auth & Menu -->
             <div class="flex items-center">
                 @auth
-                    <a href="{{ route('profile') }}" class="flex items-center text-sm font-semibold text-primary hover:text-secondary transition-colors" title="Đơn hàng">Tài khoản</a>
+                    <div class="flex items-center gap-4">
+                        @if(auth()->user()->role === 'admin')
+                            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-1 text-sm font-bold text-green-700 bg-green-100 px-3 py-1.5 rounded-full hover:bg-green-200 transition-colors" title="Quản trị">
+                                <span class="material-symbols-outlined text-[18px]">admin_panel_settings</span> Admin
+                            </a>
+                        @endif
+                        <a href="{{ route('profile') }}" class="flex items-center gap-1 text-sm font-semibold text-primary hover:text-secondary transition-colors" title="Tài khoản">
+                            <span class="material-symbols-outlined text-[20px]">person</span> Tài khoản
+                        </a>
+                    </div>
                 @else
                     <a href="{{ route('login') }}" class="font-bold text-green-900 text-sm hover:text-green-700 transition-colors">Đăng nhập / Đăng ký</a>
                 @endauth

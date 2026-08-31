@@ -70,7 +70,13 @@
                                 <span class="material-symbols-outlined text-[20px]">phone</span> {{ $user->phone ?? 'Chưa cập nhật' }}
                             </p>
                             <div class="mt-2 flex gap-4 justify-center md:justify-start">
-                                <span class="inline-block bg-white/60 backdrop-blur-md border border-green-200 text-green-800 rounded-full px-4 py-1 text-sm font-bold shadow-sm">Khách hàng</span>
+                                @if($user->role === 'admin')
+                                    <span class="inline-flex items-center gap-1 bg-red-500/10 backdrop-blur-md border border-red-200 text-red-700 rounded-full px-4 py-1 text-sm font-bold shadow-sm">
+                                        <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span> Quản trị viên
+                                    </span>
+                                @else
+                                    <span class="inline-block bg-white/60 backdrop-blur-md border border-green-200 text-green-800 rounded-full px-4 py-1 text-sm font-bold shadow-sm">Khách hàng</span>
+                                @endif
                             </div>
                         </div>
                     </section>
