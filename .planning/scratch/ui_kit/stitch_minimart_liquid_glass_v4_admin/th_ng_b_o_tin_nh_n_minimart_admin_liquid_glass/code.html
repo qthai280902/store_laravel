@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MiniMart Admin - Notifications Composer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffdbc8",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#ebf0e4",
+                        "primary": "#001902",
+                        "status-success": "#2b6b2c",
+                        "on-primary-container": "#6b9b65",
+                        "on-tertiary-fixed": "#3e001e",
+                        "on-primary-fixed": "#002203",
+                        "on-surface-variant": "#42493f",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "surface": "#f6fbef",
+                        "surface-bright": "#f6fbef",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#2f0015",
+                        "on-background": "#181d16",
+                        "secondary-container": "#ff9650",
+                        "border-subtle": "#c0c9bb",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c9bc",
+                        "surface-variant": "#dfe4d9",
+                        "inverse-surface": "#2d322a",
+                        "primary-fixed": "#bcf0b2",
+                        "tertiary-fixed": "#ffd9e2",
+                        "surface-container-low": "#f1f5e9",
+                        "on-surface": "#181d16",
+                        "surface-container-highest": "#dfe4d9",
+                        "surface-tint": "#3b6938",
+                        "on-tertiary-container": "#d86c92",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e5eade",
+                        "secondary": "#994700",
+                        "on-secondary-fixed": "#321300",
+                        "on-primary-fixed-variant": "#235022",
+                        "surface-dim": "#d7dcd0",
+                        "status-error": "#ba1a1a",
+                        "primary-fixed-dim": "#a0d498",
+                        "surface-admin": "#ffffff",
+                        "inverse-on-surface": "#eef2e7",
+                        "tertiary-fixed-dim": "#ffb0c8",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#72796e",
+                        "on-secondary-fixed-variant": "#743400",
+                        "tertiary-container": "#55002a",
+                        "background": "#f6fbef",
+                        "primary-container": "#003006",
+                        "on-tertiary-fixed-variant": "#7f244a",
+                        "on-tertiary": "#ffffff",
+                        "sidebar-glass": "rgba(255, 255, 255, 0.35)",
+                        "on-secondary-container": "#6f3200",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "inverse-primary": "#a0d498",
+                        "status-warning": "#994700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-height": "72px",
+                        "component-gap": "8px",
+                        "stack-gap": "16px",
+                        "margin-main": "32px",
+                        "gutter": "24px",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-sm": ["11px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "1.2", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f6fbef;
+            background-image: radial-gradient(at 0% 0%, hsla(113,44%,86%,1) 0px, transparent 50%),
+                              radial-gradient(at 100% 100%, hsla(109,56%,91%,1) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        
+        /* Glass Utilities */
+        .glass-ultra-thick {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(60px);
+            -webkit-backdrop-filter: blur(60px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        
+        .glass-regular {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .glass-thin {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="text-on-surface antialiased overflow-x-hidden min-h-screen">
+<!-- SideNavBar -->
+<nav class="hidden md:flex fixed left-0 top-0 h-screen w-sidebar-width flex-col py-8 px-4 z-50 glass-ultra-thick border-r border-white/70 shadow-md">
+<div class="mb-10 px-4">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">MiniMart</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Admin Panel</p>
+</div>
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Tổng quan
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                    Sản phẩm
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+                    Đơn hàng
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">group</span>
+                    Khách hàng
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">local_offer</span>
+                    Khuyến mãi
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+                    Giao/Nhận hàng
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">stars</span>
+                    Điểm thưởng
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+                    Công thức
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold border-r-4 border-primary bg-white/20 scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">article</span>
+                    Nội dung
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">reviews</span>
+                    Đánh giá
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Cài đặt
+                </a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<div class="md:ml-[260px] flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-0 md:left-[260px] h-header-height z-40 flex justify-between items-center px-gutter w-full bg-white/25 backdrop-blur-[30px] saturate-[180%] border-b border-white/90 shadow-sm">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full max-w-md focus-within:ring-2 focus-within:ring-primary rounded-xl">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white/50 border border-outline-variant rounded-xl text-body-md focus:outline-none focus:border-primary bg-transparent placeholder-on-surface-variant" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center justify-center w-1/3">
+<span class="font-headline-lg text-headline-lg text-primary">MiniMart Admin</span>
+</div>
+<div class="flex items-center justify-end gap-4 w-1/3">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-status-error rounded-full"></span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden border border-outline-variant cursor-pointer hover:ring-2 ring-primary transition-all">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of an administrator in a well-lit, modern office setting. The lighting is soft and natural, creating a welcoming yet corporate atmosphere. The person is smiling slightly, dressed in smart-casual attire. The color palette aligns with the light-mode UI, featuring soft whites, subtle greens, and crisp contrasts. The mood is confident and efficient." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVvyQNp3g-zNsm0mNyp-LcwwgqBrvpPavvhzyNg8q3J0BRDxcUKpUm4KmCOyaSK2a2I3-fqZyxuErairxN24GpTURJR3dE6mi-VyVakyUdl3xBDqo_KdiA4SmjIkKgZVNTW5s0yGBZX3Cl7w3R0ArxF6TuMWpNutHqMO3vwsDm_zKoAQZEdF8kJv8fSI5oIbjNuc2ycDx8lywr6SqXa2TMfLzSP3EI9PzmYzAy1OFJvbnrZPQ9F6dt"/>
+</div>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="flex-1 p-gutter pt-[calc(72px+24px)] flex flex-col xl:flex-row gap-gutter">
+<!-- Composer Panel -->
+<section class="flex-1 xl:w-1/3 flex flex-col gap-stack-gap">
+<div class="glass-regular rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-6">Compose Notification</h2>
+<form class="flex flex-col gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Audience Segment</label>
+<select class="w-full bg-white/80 border border-outline-variant rounded-xl px-4 py-3 text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary appearance-none">
+<option>All Customers</option>
+<option>VIP Members</option>
+<option>Inactive Users (30+ days)</option>
+<option>Recent Purchasers</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Notification Title</label>
+<input class="w-full bg-white/80 border border-outline-variant rounded-xl px-4 py-3 text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary placeholder-outline" placeholder="Enter an engaging title..." type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Message Body</label>
+<textarea class="w-full bg-white/80 border border-outline-variant rounded-xl px-4 py-3 text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-none placeholder-outline" placeholder="Write your message here..." rows="5"></textarea>
+</div>
+<div class="flex items-center justify-between mt-4">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Send as Push Notification</span>
+</label>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-full font-label-lg text-label-lg hover:bg-primary-container transition-colors shadow-md" type="button">
+                                Send Now
+                            </button>
+</div>
+</form>
+</div>
+</section>
+<!-- History Panel -->
+<section class="flex-1 xl:w-2/3 flex flex-col gap-stack-gap">
+<div class="bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-outline-variant overflow-hidden flex flex-col h-full">
+<div class="p-6 bg-surface-container border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm text-primary">Sent History</h2>
+<button class="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline">
+                            View All <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto p-4 flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="pb-3 pl-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Date</th>
+<th class="pb-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Title</th>
+<th class="pb-3 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Audience</th>
+<th class="pb-3 pr-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="glass-thin hover:bg-surface-container-low transition-colors group">
+<td class="py-4 pl-4 font-body-sm text-body-sm text-on-surface whitespace-nowrap">Today, 09:41 AM</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface font-medium truncate max-w-[200px]">Flash Sale Weekend!</td>
+<td class="py-4 px-4 font-body-sm text-body-sm text-on-surface-variant">All Customers</td>
+<td class="py-4 pr-4 text-right">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-status-success text-white">Delivered</span>
+</td>
+</tr>
+<tr class="glass-thin hover:bg-surface-container-low transition-colors group">
+<td class="py-4 pl-4 font-body-sm text-body-sm text-on-surface whitespace-nowrap">Yesterday, 14:30 PM</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface font-medium truncate max-w-[200px]">We Miss You - 10% Off</td>
+<td class="py-4 px-4 font-body-sm text-body-sm text-on-surface-variant">Inactive Users</td>
+<td class="py-4 pr-4 text-right">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-status-success text-white">Delivered</span>
+</td>
+</tr>
+<tr class="glass-thin hover:bg-surface-container-low transition-colors group">
+<td class="py-4 pl-4 font-body-sm text-body-sm text-on-surface whitespace-nowrap">Oct 24, 11:00 AM</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface font-medium truncate max-w-[200px]">System Maintenance Notice</td>
+<td class="py-4 px-4 font-body-sm text-body-sm text-on-surface-variant">All Customers</td>
+<td class="py-4 pr-4 text-right">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-status-success text-white">Delivered</span>
+</td>
+</tr>
+<tr class="glass-thin hover:bg-surface-container-low transition-colors group">
+<td class="py-4 pl-4 font-body-sm text-body-sm text-on-surface whitespace-nowrap">Oct 20, 16:15 PM</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface font-medium truncate max-w-[200px]">VIP Exclusive Sneak Peek</td>
+<td class="py-4 px-4 font-body-sm text-body-sm text-on-surface-variant">VIP Members</td>
+<td class="py-4 pr-4 text-right">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-status-error text-white">Failed</span>
+</td>
+</tr>
+<tr class="glass-thin hover:bg-surface-container-low transition-colors group">
+<td class="py-4 pl-4 font-body-sm text-body-sm text-on-surface whitespace-nowrap">Oct 18, 09:00 AM</td>
+<td class="py-4 px-4 font-body-md text-body-md text-on-surface font-medium truncate max-w-[200px]">New Organic Produce Arrived</td>
+<td class="py-4 px-4 font-body-sm text-body-sm text-on-surface-variant">Recent Purchasers</td>
+<td class="py-4 pr-4 text-right">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-status-success text-white">Delivered</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

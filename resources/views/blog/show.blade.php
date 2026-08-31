@@ -1,4 +1,5 @@
 <x-layouts.app title="{{ $post->title }} - MiniMart">
+    <div class="liquid-glass-pane max-w-7xl mx-auto px-4 sm:px-6 py-10 my-8">
     <article class="max-w-4xl mx-auto mt-8">
         <!-- Header -->
         <header class="mb-8 text-center">
@@ -40,4 +41,6 @@
             </a>
         </div>
     </article>
+    </div>
+    </div>
 </x-layouts.app>

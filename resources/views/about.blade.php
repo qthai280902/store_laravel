@@ -1,12 +1,13 @@
 <x-layouts.app title="Giới thiệu - MiniMart">
+    <div class="liquid-glass-pane max-w-7xl mx-auto px-6 py-10 my-8">
     <div class="max-w-7xl mx-auto px-4 py-12 space-y-12 pb-24">
         
         <div class="pt-8 pb-4 w-full flex justify-center">
-            <div class="w-max mx-auto bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-full px-10 py-3 mb-10"><h1 class="text-3xl font-extrabold text-green-900">Về MiniMart</h1></div>
+            <div class="w-max mx-auto bg-white/20 backdrop-blur-md border border-white/40 shadow-sm rounded-full px-10 py-3 mb-10"><h1 class="text-3xl font-extrabold text-green-900">Về MiniMart</h1></div>
         </div>
 
         <!-- Khối 1: Hành trình và Khát vọng -->
-        <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-3xl p-8 md:p-12 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out">
+        <div class="bg-white/20 backdrop-blur-md border border-white/40 shadow-sm rounded-3xl p-8 md:p-12 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out">
             <div class="max-w-5xl mx-auto">
                 <h2 class="text-3xl font-bold text-green-900 mb-8 flex items-center gap-3">
                     <span class="material-symbols-outlined text-4xl text-green-600">flag</span>
@@ -41,7 +42,7 @@
         </div>
 
         <!-- Khối 2: Sứ mệnh & Tầm nhìn -->
-        <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-3xl p-8 md:p-12 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out">
+        <div class="bg-white/20 backdrop-blur-md border border-white/40 shadow-sm rounded-3xl p-8 md:p-12 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out">
             <div class="flex items-center gap-4 mb-10">
                 <div class="w-12 h-12 rounded-2xl bg-green-100 text-green-700 flex items-center justify-center shrink-0">
                     <span class="material-symbols-outlined text-3xl">visibility</span>
@@ -72,7 +73,7 @@
         </div>
 
         <!-- Khối 3: Quy trình kiểm định chất lượng -->
-        <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-3xl p-8 md:p-12 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out">
+        <div class="bg-white/20 backdrop-blur-md border border-white/40 shadow-sm rounded-3xl p-8 md:p-12 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out">
             <div class="flex items-center gap-4 mb-6">
                 <div class="w-12 h-12 rounded-2xl bg-green-100 text-green-700 flex items-center justify-center shrink-0">
                     <span class="material-symbols-outlined text-3xl">verified_user</span>
@@ -104,7 +105,7 @@
         </div>
 
         <!-- Khối 4: Cam kết với khách hàng -->
-        <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-3xl p-8 md:p-12 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out">
+        <div class="bg-white/20 backdrop-blur-md border border-white/40 shadow-sm rounded-3xl p-8 md:p-12 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out">
             <div class="flex items-center gap-4 mb-10">
                 <div class="w-12 h-12 rounded-2xl bg-green-100 text-green-700 flex items-center justify-center shrink-0">
                     <span class="material-symbols-outlined text-3xl">handshake</span>
@@ -147,7 +148,7 @@
         </div>
 
         <!-- Khối Đánh giá từ khách hàng -->
-        <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-[2.5rem] p-8 md:p-12 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out mb-12">
+        <div class="bg-white/20 backdrop-blur-md border border-white/40 shadow-sm rounded-[2.5rem] p-8 md:p-12 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out mb-12">
             <div class="flex items-center gap-4 mb-10">
                 <div class="w-12 h-12 rounded-2xl bg-green-100 text-green-700 flex items-center justify-center shrink-0">
                     <span class="material-symbols-outlined text-3xl">reviews</span>
@@ -252,5 +253,7 @@
             </div>
         </div>
 
+    </div>
+    </div>
     </div>
 </x-layouts.app>

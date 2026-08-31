@@ -1,14 +1,15 @@
 <x-layouts.app title="Blog & Tin tức - MiniMart">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="liquid-glass-pane max-w-7xl mx-auto px-4 sm:px-6 py-10 my-8">
+    <div class="max-w-7xl mx-auto">
         <!-- Page Header -->
         <div class="pt-8 pb-4 w-full flex flex-col items-center justify-center text-center">
-            <div class="w-max mx-auto bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-full px-10 py-3 mb-6">
+            <div class="w-max mx-auto bg-white/20 backdrop-blur-md border border-white/40 shadow-sm rounded-full px-10 py-3 mb-6">
                 <h1 class="text-3xl font-extrabold text-green-900">Blog & Tin tức</h1>
             </div>
             <p class="text-gray-600 text-base mb-4">Cập nhật tin tức mới nhất, mẹo vặt dinh dưỡng và kiến thức hữu ích từ MiniMart.</p>
         </div>
 
-        <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-[2.5rem] p-8 md:p-12">
+        <div class="bg-white/20 backdrop-blur-md border border-white/40 shadow-sm rounded-[2.5rem] p-8 md:p-12">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Main List (col-span-2) -->
             <div class="lg:col-span-2 space-y-8">
@@ -67,7 +68,7 @@
 
             <!-- Sidebar (col-span-1) -->
             <div class="lg:col-span-1">
-                <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-gray-100 fade-item sticky top-28">
+                <div class="bg-white/30 backdrop-blur-md rounded-2xl p-6 border border-white/40 shadow-sm fade-item sticky top-28">
                     <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-green-600">trending_up</span>
                         Bài viết nổi bật
@@ -96,5 +97,6 @@
             </div>
             </div>
         </div>
+    </div>
     </div>
 </x-layouts.app>

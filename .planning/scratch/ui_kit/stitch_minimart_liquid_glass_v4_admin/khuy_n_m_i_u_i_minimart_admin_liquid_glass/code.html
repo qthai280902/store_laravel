@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Khuyến mãi - MiniMart Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffdbc8",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#ebf0e4",
+                        "primary": "#001902",
+                        "status-success": "#2b6b2c",
+                        "on-primary-container": "#6b9b65",
+                        "on-tertiary-fixed": "#3e001e",
+                        "on-primary-fixed": "#002203",
+                        "on-surface-variant": "#42493f",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "surface": "#f6fbef",
+                        "surface-bright": "#f6fbef",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#2f0015",
+                        "on-background": "#181d16",
+                        "secondary-container": "#ff9650",
+                        "border-subtle": "#c0c9bb",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c9bc",
+                        "surface-variant": "#dfe4d9",
+                        "inverse-surface": "#2d322a",
+                        "primary-fixed": "#bcf0b2",
+                        "tertiary-fixed": "#ffd9e2",
+                        "surface-container-low": "#f1f5e9",
+                        "on-surface": "#181d16",
+                        "surface-container-highest": "#dfe4d9",
+                        "surface-tint": "#3b6938",
+                        "on-tertiary-container": "#d86c92",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e5eade",
+                        "secondary": "#994700",
+                        "on-secondary-fixed": "#321300",
+                        "on-primary-fixed-variant": "#235022",
+                        "surface-dim": "#d7dcd0",
+                        "status-error": "#ba1a1a",
+                        "primary-fixed-dim": "#a0d498",
+                        "surface-admin": "#ffffff",
+                        "inverse-on-surface": "#eef2e7",
+                        "tertiary-fixed-dim": "#ffb0c8",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#72796e",
+                        "on-secondary-fixed-variant": "#743400",
+                        "tertiary-container": "#55002a",
+                        "background": "#f6fbef",
+                        "primary-container": "#003006",
+                        "on-tertiary-fixed-variant": "#7f244a",
+                        "on-tertiary": "#ffffff",
+                        "sidebar-glass": "rgba(255, 255, 255, 0.35)",
+                        "on-secondary-container": "#6f3200",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "inverse-primary": "#a0d498",
+                        "status-warning": "#994700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-height": "72px",
+                        "component-gap": "8px",
+                        "stack-gap": "16px",
+                        "margin-main": "32px",
+                        "gutter": "24px",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-sm": ["11px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "1.2", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            /* Ambient background */
+            background-color: #f6fbef;
+            background-image: radial-gradient(at 40% 20%, hsla(113,44%,79%,0.4) 0px, transparent 50%),
+                              radial-gradient(at 80% 0%, hsla(189,44%,79%,0.4) 0px, transparent 50%),
+                              radial-gradient(at 0% 50%, hsla(355,44%,79%,0.4) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="h-full text-on-surface antialiased overflow-hidden flex font-body-md">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-screen w-[260px] border-r border-white/70 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-r border-white/70 backdrop-blur-[40px] shadow-md flex flex-col h-full py-8 px-4 z-50">
+<div class="mb-8 px-2">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">MiniMart</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Admin Panel</p>
+</div>
+<ul class="space-y-1 flex-1 overflow-y-auto">
+<!-- Inactive -->
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined">dashboard</span> Tổng quan</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined">inventory_2</span> Sản phẩm</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined">shopping_cart</span> Đơn hàng</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined">group</span> Khách hàng</a></li>
+<!-- Active: Khuyến mãi maps to Deals/Promotions -->
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-primary font-bold border-r-4 border-primary bg-white/20 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_offer</span> Khuyến mãi</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined">local_shipping</span> Giao/Nhận hàng</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined">stars</span> Điểm thưởng</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined">receipt_long</span> Công thức</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined">article</span> Nội dung</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined">reviews</span> Đánh giá</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined">settings</span> Cài đặt</a></li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[260px] flex flex-col h-screen relative">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-[260px] h-16 border-b border-white/90 bg-white/25 backdrop-blur-[30px] saturate-[180%] border-b border-white/90 backdrop-blur-[30px] shadow-sm flex justify-between items-center px-gutter w-full z-40">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full max-w-md focus-within:ring-2 focus-within:ring-primary rounded-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white/50 border-none rounded-full font-body-sm text-body-sm placeholder:text-on-surface-variant/70 focus:ring-0 focus:outline-none" placeholder="Search deals..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface hover:bg-surface-container-high/50 rounded-full transition-colors focus-within:ring-2 focus-within:ring-primary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant cursor-pointer hover:ring-2 hover:ring-primary transition-all">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of an administrative user in a brightly lit modern office environment. High quality, clear, neutral lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_lVmIdm8109jzxSX9OTRwNm8m2uYgQS__Un2e7Lm_ZaHhY2zMziJfvjEGC6TlJkL2AwS72rJeSAQ2yG7ntXxB1xYwQsZLQK6nUxYHe6rZXGzo4SVxXNKWyZM46pp58bLCddUTaJb57SgjBwFgsrv7vd7Lz_eDxYnCPTafz7lah9RHcwCwLA7e4GYiEwqqOAcUL3499AeHzNdBDgJqCBlNL41NIR5VYmIdlqRsXEb3zkXwJ4t1nGBk"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 overflow-y-auto pt-[88px] px-margin-main pb-margin-main">
+<!-- Header Section -->
+<div class="flex justify-between items-center mb-stack-gap">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Weekly Deals Management</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage ongoing and upcoming promotional offers.</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-full font-label-lg text-label-lg hover:bg-primary-container transition-colors shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Add Deal
+                </button>
+</div>
+<!-- Bento Grid / Glass Cards Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Active Deal Card (Glassmorphism) -->
+<div class="bg-white/40 backdrop-blur-md rounded-[20px] p-4 border border-white/60 shadow-[0_4px_20px_rgba(0,0,0,0.05)] relative overflow-hidden group">
+<div class="absolute top-4 right-4 flex gap-2">
+<span class="bg-status-success text-on-primary px-2 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider">Active</span>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-20 h-20 rounded-xl overflow-hidden bg-white shrink-0 border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="High quality studio shot of a fresh organic grocery product basket isolated on white background. Bright lighting, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv99ggQTTNor4eVKsXPLUlgURQxdCHvRuLIFj0TDf5LjK7nclxN6r-H-5EDY_IheseftqOWVoxVEHAm1QBBd1pA0ABR3n2qs4-AdbvGb30jyFVWZegQS3olslp_s5-VHRKpPnO2MLq_tRX7N_-HAcv3r2QQOz1i7Jas8MBeIncAylUbpjTzBI3mmZ6GJSHGJn8VDL66R8d4l3B6Xb5-QZtkc0Tw9f3H9L89cLQ4JtrdIcmPP5ZtmV6"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1">Organic Produce Bundle</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Ends in 2 days</p>
+<span class="bg-secondary text-on-secondary px-3 py-1.5 rounded-full font-label-md text-label-md inline-block">25% OFF</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-white/50 flex justify-between items-center">
+<div class="font-label-sm text-label-sm text-on-surface-variant">Code: <span class="font-mono text-primary bg-white/50 px-2 py-0.5 rounded">ORG25</span></div>
+<button class="text-primary hover:bg-white/30 p-2 rounded-full transition-colors"><span class="material-symbols-outlined">edit</span></button>
+</div>
+</div>
+<!-- Scheduled Deal Card -->
+<div class="bg-white/40 backdrop-blur-md rounded-[20px] p-4 border border-white/60 shadow-[0_4px_20px_rgba(0,0,0,0.05)] relative overflow-hidden group">
+<div class="absolute top-4 right-4 flex gap-2">
+<span class="bg-status-warning text-on-primary px-2 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider">Scheduled</span>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-20 h-20 rounded-xl overflow-hidden bg-white shrink-0 border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="High quality studio shot of premium dairy milk bottles isolated on white background. Bright lighting, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuLCxqjEHw7f2Tx74gKTNLyAhTxbeHuzFHPDW_WNiTjLFn7tXkgS4E_GNd7u5KiGK0PbutL-aSEOHKJKk7Q3cuyaKHFkplL80QIzQf4yF4pzoVt0QSt_fNhI8T60gCc-y76ldKjbsiXMjhMb93pWqwG8XNEX8ryBF3v6S9QRX09sw6WRdV5rqoFJUVNCcBDBnKxFhswSol6e1IZkDzvkEgDGamc3FVPwRZk6oXmwFOAUS_AGQfsfKE"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1">Dairy Weekend Promo</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Starts Oct 12</p>
+<span class="bg-secondary text-on-secondary px-3 py-1.5 rounded-full font-label-md text-label-md inline-block">15% OFF</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-white/50 flex justify-between items-center">
+<div class="font-label-sm text-label-sm text-on-surface-variant">Code: <span class="font-mono text-primary bg-white/50 px-2 py-0.5 rounded">MILK15</span></div>
+<button class="text-primary hover:bg-white/30 p-2 rounded-full transition-colors"><span class="material-symbols-outlined">edit</span></button>
+</div>
+</div>
+<!-- Expired Deal Card -->
+<div class="bg-surface-variant/30 backdrop-blur-sm rounded-[20px] p-4 border border-outline-variant/30 relative overflow-hidden opacity-75">
+<div class="absolute top-4 right-4 flex gap-2">
+<span class="bg-outline text-on-primary px-2 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider">Expired</span>
+</div>
+<div class="flex gap-4 items-start grayscale">
+<div class="w-20 h-20 rounded-xl overflow-hidden bg-white shrink-0 border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="High quality studio shot of assorted bakery bread loaves isolated on white background. Bright lighting, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwVwGTi-AB-3aH1C_faoGoauzHultVa86WWU1TFqWAFOniY51vviWol_tOiP-V4mGpRzAxFN1NV0pwiQepOaqriNCLNhCwLo-wj1T8jAXsJUD8hKXzj5Evn0GcBNviZtz__NN3_ZBoo6YBH_N-UQkz7VHAPAcK6ZHSxAG6sd21M5ArTbj3yvIlENbCJbFv3S9t1BB1RdiWMOcoiVJtNca_JckI5f8zI7E4aL0pYFb8xM86AF0j3zG1"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1">Bakery Clearance</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Ended Oct 1</p>
+<span class="bg-secondary text-on-secondary px-3 py-1.5 rounded-full font-label-md text-label-md inline-block">50% OFF</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/20 flex justify-between items-center">
+<div class="font-label-sm text-label-sm text-on-surface-variant">Code: <span class="font-mono text-primary bg-surface/50 px-2 py-0.5 rounded">BAKE50</span></div>
+<button class="text-on-surface-variant hover:bg-white/30 p-2 rounded-full transition-colors"><span class="material-symbols-outlined">restart_alt</span></button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

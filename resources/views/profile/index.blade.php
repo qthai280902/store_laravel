@@ -115,33 +115,55 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Tên hiển thị</label>
-                                <input type="text" name="name" value="{{ $user->name }}" class="glass-tier-2 border border-outline-variant/30 rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-full transition-all">
+                                <input type="text" name="name" value="{{ $user->name }}" class="bg-white/70 backdrop-blur-md border-2 border-white/80 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] rounded-2xl px-6 py-4 text-gray-900 outline-none focus:bg-white focus:ring-2 focus:ring-green-500 w-full transition-all">
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Giới tính</label>
-                                <select name="gender" class="glass-tier-2 border border-outline-variant/30 rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-full transition-all appearance-none cursor-pointer">
-                                    <option value="" disabled {{ !$user->gender ? 'selected' : '' }}>Chọn giới tính</option>
-                                    <option value="Nam" {{ $user->gender == 'Nam' ? 'selected' : '' }}>Nam</option>
-                                    <option value="Nữ" {{ $user->gender == 'Nữ' ? 'selected' : '' }}>Nữ</option>
-                                    <option value="Khác" {{ $user->gender == 'Khác' ? 'selected' : '' }}>Khác</option>
-                                </select>
+                                <div x-data="{ open: false, selected: '{{ $user->gender ?? '' }}' }" class="relative">
+                                    <input type="hidden" name="gender" :value="selected">
+                                    <button @click="open = !open" type="button" class="bg-white/70 backdrop-blur-md border-2 border-white/80 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] rounded-2xl px-6 py-4 text-gray-900 outline-none focus:bg-white focus:ring-2 focus:ring-green-500 w-full transition-all text-left flex justify-between items-center cursor-pointer">
+                                        <span x-text="selected ? selected : 'Chọn giới tính'" :class="{'text-gray-500': !selected}"></span>
+                                        <span class="material-symbols-outlined text-gray-400 transition-transform duration-300" :class="{'rotate-180': open}">expand_more</span>
+                                    </button>
+                                    
+                                    <div x-show="open" @click.away="open = false" 
+                                         x-transition:enter="transition ease-out duration-200"
+                                         x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+                                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                                         x-transition:leave="transition ease-in duration-100"
+                                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                                         x-transition:leave-end="opacity-0 translate-y-2 scale-95"
+                                         class="absolute z-50 mt-2 w-full bg-white/70 backdrop-blur-[24px] border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden" style="display: none;">
+                                        <ul class="py-2">
+                                            <template x-for="option in ['Nam', 'Nữ', 'Khác']">
+                                                <li>
+                                                    <button type="button" @click="selected = option; open = false" 
+                                                            class="w-full text-left px-6 py-3 hover:bg-white/50 transition-colors text-gray-900 font-medium"
+                                                            :class="{'bg-green-600/10 text-green-900': selected === option}">
+                                                        <span x-text="option"></span>
+                                                    </button>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Ngày sinh</label>
-                                <input type="date" name="dob" value="{{ $user->dob }}" class="glass-tier-2 border border-outline-variant/30 rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-full transition-all">
+                                <input type="text" x-init="flatpickr($el, {dateFormat: 'Y-m-d', altInput: true, altFormat: 'd/m/Y'})" name="dob" value="{{ $user->dob }}" class="bg-white/70 backdrop-blur-md border-2 border-white/80 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] rounded-2xl px-6 py-4 text-gray-900 outline-none focus:bg-white focus:ring-2 focus:ring-green-500 w-full transition-all">
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Số điện thoại</label>
-                                <input type="tel" name="phone" value="{{ $user->phone }}" class="glass-tier-2 border border-outline-variant/30 rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-full transition-all">
+                                <input type="tel" name="phone" value="{{ $user->phone }}" class="bg-white/70 backdrop-blur-md border-2 border-white/80 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] rounded-2xl px-6 py-4 text-gray-900 outline-none focus:bg-white focus:ring-2 focus:ring-green-500 w-full transition-all">
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Địa chỉ</label>
-                            <input type="text" name="address" value="{{ $user->address }}" class="glass-tier-2 border border-outline-variant/30 rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-full transition-all">
+                            <input type="text" name="address" value="{{ $user->address }}" class="bg-white/70 backdrop-blur-md border-2 border-white/80 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] rounded-2xl px-6 py-4 text-gray-900 outline-none focus:bg-white focus:ring-2 focus:ring-green-500 w-full transition-all">
                         </div>
 
                         <div class="flex gap-4 pt-4 mt-6 border-t border-outline-variant/30">

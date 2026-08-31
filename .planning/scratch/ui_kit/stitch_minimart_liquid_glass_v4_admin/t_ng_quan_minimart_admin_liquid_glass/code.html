@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MiniMart Admin - Tổng quan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffdbc8",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#ebf0e4",
+                        "primary": "#001902",
+                        "status-success": "#2b6b2c",
+                        "on-primary-container": "#6b9b65",
+                        "on-tertiary-fixed": "#3e001e",
+                        "on-primary-fixed": "#002203",
+                        "on-surface-variant": "#42493f",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "surface": "#f6fbef",
+                        "surface-bright": "#f6fbef",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#2f0015",
+                        "on-background": "#181d16",
+                        "secondary-container": "#ff9650",
+                        "border-subtle": "#c0c9bb",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c9bc",
+                        "surface-variant": "#dfe4d9",
+                        "inverse-surface": "#2d322a",
+                        "primary-fixed": "#bcf0b2",
+                        "tertiary-fixed": "#ffd9e2",
+                        "surface-container-low": "#f1f5e9",
+                        "on-surface": "#181d16",
+                        "surface-container-highest": "#dfe4d9",
+                        "surface-tint": "#3b6938",
+                        "on-tertiary-container": "#d86c92",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e5eade",
+                        "secondary": "#994700",
+                        "on-secondary-fixed": "#321300",
+                        "on-primary-fixed-variant": "#235022",
+                        "surface-dim": "#d7dcd0",
+                        "status-error": "#ba1a1a",
+                        "primary-fixed-dim": "#a0d498",
+                        "surface-admin": "#ffffff",
+                        "inverse-on-surface": "#eef2e7",
+                        "tertiary-fixed-dim": "#ffb0c8",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#72796e",
+                        "on-secondary-fixed-variant": "#743400",
+                        "tertiary-container": "#55002a",
+                        "background": "#f6fbef",
+                        "primary-container": "#003006",
+                        "on-tertiary-fixed-variant": "#7f244a",
+                        "on-tertiary": "#ffffff",
+                        "sidebar-glass": "rgba(255, 255, 255, 0.35)",
+                        "on-secondary-container": "#6f3200",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "inverse-primary": "#a0d498",
+                        "status-warning": "#994700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-height": "72px",
+                        "component-gap": "8px",
+                        "stack-gap": "16px",
+                        "margin-main": "32px",
+                        "gutter": "24px",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-sm": ["11px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "1.2", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.03);
+        }
+        .ambient-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            background: linear-gradient(135deg, #f6fbef 0%, #eef2e7 100%);
+            overflow: hidden;
+        }
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4;
+            animation: float 20s infinite alternate;
+        }
+        .orb-1 { width: 400px; height: 400px; background: #bcf0b2; top: -100px; left: -100px; animation-delay: 0s; }
+        .orb-2 { width: 500px; height: 500px; background: #ffdbc8; bottom: -150px; right: 10%; animation-delay: -5s; }
+        .orb-3 { width: 300px; height: 300px; background: #ffd9e2; top: 30%; left: 50%; animation-delay: -10s; }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -50px) scale(1.1); }
+            100% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        /* Sidebar styles from JSON */
+        .sidebar-shell { @apply fixed left-0 top-0 h-screen w-[260px] border-r border-white/70 bg-white/35 backdrop-blur-[40px] saturate-[180%] shadow-md z-50 flex flex-col py-8 px-4; }
+        .topbar-shell { @apply fixed top-0 right-0 left-[260px] h-16 border-b border-white/90 bg-white/25 backdrop-blur-[30px] saturate-[180%] shadow-sm z-40 flex justify-between items-center px-gutter; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased overflow-x-hidden">
+<div class="ambient-bg">
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+</div>
+<!-- SideNavBar -->
+<nav class="sidebar-shell hidden md:flex">
+<div class="mb-10 px-4">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">MiniMart</h1>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Admin Panel</p>
+</div>
+<ul class="flex-1 space-y-2 overflow-y-auto pr-2">
+<!-- Active Tab: Tổng quan -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-r-full text-primary font-bold border-r-4 border-primary bg-white/20 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-md text-label-md">Tổng quan</span>
+</a>
+</li>
+<!-- Inactive Tabs -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Sản phẩm</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Đơn hàng</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Khách hàng</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">local_offer</span>
+<span class="font-label-md text-label-md">Khuyến mãi</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md text-label-md">Giao/Nhận hàng</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">stars</span>
+<span class="font-label-md text-label-md">Điểm thưởng</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Công thức</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">article</span>
+<span class="font-label-md text-label-md">Nội dung</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">reviews</span>
+<span class="font-label-md text-label-md">Đánh giá</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Cài đặt</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- TopNavBar -->
+<header class="topbar-shell hidden md:flex">
+<div class="flex items-center gap-4">
+<span class="font-headline-lg text-headline-lg text-primary">Tổng quan</span>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search Bar -->
+<div class="relative bg-white/50 backdrop-blur-md rounded-full px-4 py-2 border border-outline-variant focus-within:ring-2 focus-within:ring-primary flex items-center transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none outline-none text-body-sm font-body-sm text-on-surface placeholder-on-surface-variant/70 w-48 focus:ring-0 p-0" placeholder="Tìm kiếm..." type="text"/>
+</div>
+<!-- Actions -->
+<button class="p-2 text-on-surface hover:bg-surface-container-high/50 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<!-- Profile -->
+<button class="w-10 h-10 rounded-full overflow-hidden border-2 border-white/50 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a smiling administrator, bathed in soft, bright, high-key lighting indicative of a modern light-mode interface. The background is a subtle, out-of-focus modern office setting, echoing a sophisticated, corporate modern aesthetic with clean lines and a hint of warm, natural light filtering in." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjTp6X_UjjgoZu8rutN9Jpp20Bvo83nbBs4cJ5SDZjlepsk4WNmxcovWYvBTNUINWT3WAtRObRToTEGvseh1TaBWSU0HgvA4H1pk2ulOK3Mg8A_t9d6XJ46EOOxJaLm0nY-akGfFOl85HJsHpG3BGyAfpKOyvhLsN_I1un4LmXGCnycY7ofR9TOZc4vWgzQNya0vERml9JI7NK9d59T43WXl6sQBMU59si4JGSF0dc_kuSu9zB-FEt"/>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="md:ml-[260px] pt-[88px] p-6 min-h-screen">
+<!-- KPI Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- KPI 1 -->
+<div class="glass-card rounded-xl p-6 flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Doanh thu hôm nay</span>
+<div class="bg-white/80 rounded-full p-2 shadow-sm text-status-success">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="bg-white rounded-lg px-3 py-1 font-headline-lg text-headline-lg text-primary shadow-sm border border-outline-variant/30">24.5M</span>
+<span class="font-label-sm text-label-sm text-status-success bg-status-success/10 px-2 py-0.5 rounded-full">+12%</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="glass-card rounded-xl p-6 flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Đơn hàng mới</span>
+<div class="bg-white/80 rounded-full p-2 shadow-sm text-primary">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="bg-white rounded-lg px-3 py-1 font-headline-lg text-headline-lg text-primary shadow-sm border border-outline-variant/30">142</span>
+<span class="font-label-sm text-label-sm text-status-success bg-status-success/10 px-2 py-0.5 rounded-full">+5%</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="glass-card rounded-xl p-6 flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Sản phẩm sắp hết</span>
+<div class="bg-white/80 rounded-full p-2 shadow-sm text-status-warning">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="bg-white rounded-lg px-3 py-1 font-headline-lg text-headline-lg text-primary shadow-sm border border-outline-variant/30">18</span>
+<span class="font-label-sm text-label-sm text-status-error bg-status-error/10 px-2 py-0.5 rounded-full">-2</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="glass-card rounded-xl p-6 flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Khách hàng mới</span>
+<div class="bg-white/80 rounded-full p-2 shadow-sm text-secondary">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="bg-white rounded-lg px-3 py-1 font-headline-lg text-headline-lg text-primary shadow-sm border border-outline-variant/30">56</span>
+<span class="font-label-sm text-label-sm text-status-success bg-status-success/10 px-2 py-0.5 rounded-full">+18%</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Revenue Chart (Spans 2 columns) -->
+<div class="lg:col-span-2 glass-panel rounded-xl p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-sm text-headline-sm text-primary">Biểu đồ doanh thu</h2>
+<select class="bg-white/60 border-outline-variant rounded-md text-body-sm py-1 px-3 focus:ring-primary focus:border-primary">
+<option>7 ngày qua</option>
+<option>30 ngày qua</option>
+</select>
+</div>
+<div class="flex-1 bg-white/30 rounded-lg border border-white/50 flex items-end p-4 relative min-h-[300px]">
+<!-- Dummy Chart Representation -->
+<div class="absolute bottom-4 left-4 right-4 h-48 border-b border-l border-outline-variant/50 flex items-end justify-between px-2 pb-2">
+<div class="w-1/12 bg-primary-fixed/60 hover:bg-primary-fixed transition-colors rounded-t-sm h-[40%]"></div>
+<div class="w-1/12 bg-primary-fixed/60 hover:bg-primary-fixed transition-colors rounded-t-sm h-[60%]"></div>
+<div class="w-1/12 bg-primary-fixed/60 hover:bg-primary-fixed transition-colors rounded-t-sm h-[45%]"></div>
+<div class="w-1/12 bg-primary-fixed/60 hover:bg-primary-fixed transition-colors rounded-t-sm h-[80%]"></div>
+<div class="w-1/12 bg-primary-fixed/60 hover:bg-primary-fixed transition-colors rounded-t-sm h-[70%]"></div>
+<div class="w-1/12 bg-primary-fixed/60 hover:bg-primary-fixed transition-colors rounded-t-sm h-[95%]"></div>
+<div class="w-1/12 bg-primary-fixed/60 hover:bg-primary-fixed transition-colors rounded-t-sm h-[85%]"></div>
+</div>
+</div>
+</div>
+<!-- Low Stock List -->
+<div class="glass-panel rounded-xl p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-sm text-headline-sm text-primary">Sản phẩm sắp hết</h2>
+<button class="text-primary hover:text-primary-container font-label-sm text-label-sm uppercase">Xem tất cả</button>
+</div>
+<div class="flex-1 space-y-3 overflow-y-auto pr-2">
+<!-- Item 1 -->
+<div class="bg-white/40 border border-white/60 rounded-lg p-3 flex items-center gap-4 hover:bg-white/60 transition-colors cursor-pointer shadow-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-status-warning">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-primary line-clamp-1">Nước giải khát Cola 1.5L</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kho: <span class="text-status-error font-bold">5</span> / 100</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white/40 border border-white/60 rounded-lg p-3 flex items-center gap-4 hover:bg-white/60 transition-colors cursor-pointer shadow-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-status-warning">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-primary line-clamp-1">Gạo thơm ST25 5kg</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kho: <span class="text-status-error font-bold">2</span> / 50</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-white/40 border border-white/60 rounded-lg p-3 flex items-center gap-4 hover:bg-white/60 transition-colors cursor-pointer shadow-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-status-warning">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-primary line-clamp-1">Sữa tươi không đường 1L</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kho: <span class="text-status-warning font-bold">12</span> / 200</p>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-white/40 border border-white/60 rounded-lg p-3 flex items-center gap-4 hover:bg-white/60 transition-colors cursor-pointer shadow-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-status-warning">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-primary line-clamp-1">Dầu ăn đậu nành 1L</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kho: <span class="text-status-warning font-bold">15</span> / 150</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Orders Table (Spans full width below) -->
+<div class="lg:col-span-3 glass-panel rounded-xl overflow-hidden mt-2">
+<div class="p-6 border-b border-white/50 flex justify-between items-center bg-white/20">
+<h2 class="font-headline-sm text-headline-sm text-primary">Đơn hàng gần đây</h2>
+<button class="bg-white border border-primary text-primary rounded-full px-4 py-1.5 font-label-md text-label-md hover:bg-surface transition-colors">Xem tất cả</button>
+</div>
+<div class="overflow-x-auto p-4">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container/50 text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="p-4 rounded-tl-lg">Mã đơn</th>
+<th class="p-4">Khách hàng</th>
+<th class="p-4">Ngày đặt</th>
+<th class="p-4">Tổng tiền</th>
+<th class="p-4 rounded-tr-lg">Trạng thái</th>
+</tr>
+</thead>
+<tbody class="bg-white/60 backdrop-blur-md">
+<tr class="border-b border-outline-variant/30 hover:bg-white/80 transition-colors">
+<td class="p-4 font-body-md text-body-md font-semibold text-primary">#ORD-0921</td>
+<td class="p-4 font-body-md text-body-md">Nguyễn Văn A</td>
+<td class="p-4 font-body-sm text-body-sm text-on-surface-variant">10:45, 12/10/2023</td>
+<td class="p-4 font-body-md text-body-md font-semibold">450.000đ</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-status-success/20 text-status-success border border-status-success/30">Hoàn thành</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-white/80 transition-colors">
+<td class="p-4 font-body-md text-body-md font-semibold text-primary">#ORD-0920</td>
+<td class="p-4 font-body-md text-body-md">Trần Thị B</td>
+<td class="p-4 font-body-sm text-body-sm text-on-surface-variant">09:15, 12/10/2023</td>
+<td class="p-4 font-body-md text-body-md font-semibold">1.250.000đ</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-secondary-container/20 text-secondary border border-secondary/30">Đang giao</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-white/80 transition-colors">
+<td class="p-4 font-body-md text-body-md font-semibold text-primary">#ORD-0919</td>
+<td class="p-4 font-body-md text-body-md">Lê Văn C</td>
+<td class="p-4 font-body-sm text-body-sm text-on-surface-variant">18:30, 11/10/2023</td>
+<td class="p-4 font-body-md text-body-md font-semibold">320.000đ</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-status-warning/20 text-status-warning border border-status-warning/30">Chờ xử lý</span>
+</td>
+</tr>
+<tr class="hover:bg-white/80 transition-colors">
+<td class="p-4 font-body-md text-body-md font-semibold text-primary rounded-bl-lg">#ORD-0918</td>
+<td class="p-4 font-body-md text-body-md">Phạm Thị D</td>
+<td class="p-4 font-body-sm text-body-sm text-on-surface-variant">16:45, 11/10/2023</td>
+<td class="p-4 font-body-md text-body-md font-semibold">890.000đ</td>
+<td class="p-4 rounded-br-lg">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-status-error/20 text-status-error border border-status-error/30">Đã hủy</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</body></html>

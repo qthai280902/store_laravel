@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MiniMart Admin - Recipe Bundles Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#ffdbc8",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#ebf0e4",
+                      "primary": "#001902",
+                      "status-success": "#2b6b2c",
+                      "on-primary-container": "#6b9b65",
+                      "on-tertiary-fixed": "#3e001e",
+                      "on-primary-fixed": "#002203",
+                      "on-surface-variant": "#42493f",
+                      "error-container": "#ffdad6",
+                      "error": "#ba1a1a",
+                      "surface": "#f6fbef",
+                      "surface-bright": "#f6fbef",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#2f0015",
+                      "on-background": "#181d16",
+                      "secondary-container": "#ff9650",
+                      "border-subtle": "#c0c9bb",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c2c9bc",
+                      "surface-variant": "#dfe4d9",
+                      "inverse-surface": "#2d322a",
+                      "primary-fixed": "#bcf0b2",
+                      "tertiary-fixed": "#ffd9e2",
+                      "surface-container-low": "#f1f5e9",
+                      "on-surface": "#181d16",
+                      "surface-container-highest": "#dfe4d9",
+                      "surface-tint": "#3b6938",
+                      "on-tertiary-container": "#d86c92",
+                      "on-error": "#ffffff",
+                      "surface-container-high": "#e5eade",
+                      "secondary": "#994700",
+                      "on-secondary-fixed": "#321300",
+                      "on-primary-fixed-variant": "#235022",
+                      "surface-dim": "#d7dcd0",
+                      "status-error": "#ba1a1a",
+                      "primary-fixed-dim": "#a0d498",
+                      "surface-admin": "#ffffff",
+                      "inverse-on-surface": "#eef2e7",
+                      "tertiary-fixed-dim": "#ffb0c8",
+                      "surface-container-lowest": "#ffffff",
+                      "outline": "#72796e",
+                      "on-secondary-fixed-variant": "#743400",
+                      "tertiary-container": "#55002a",
+                      "background": "#f6fbef",
+                      "primary-container": "#003006",
+                      "on-tertiary-fixed-variant": "#7f244a",
+                      "on-tertiary": "#ffffff",
+                      "sidebar-glass": "rgba(255, 255, 255, 0.35)",
+                      "on-secondary-container": "#6f3200",
+                      "secondary-fixed-dim": "#ffb68b",
+                      "inverse-primary": "#a0d498",
+                      "status-warning": "#994700"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "header-height": "72px",
+                      "component-gap": "8px",
+                      "stack-gap": "16px",
+                      "margin-main": "32px",
+                      "gutter": "24px",
+                      "sidebar-width": "260px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ],
+                      "display-lg": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ],
+                      "headline-sm": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ],
+                      "body-sm": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ],
+                      "headline-lg": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ],
+                      "label-lg": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ],
+                      "label-md": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        body {
+            /* Ambient background */
+            background-color: #f6fbef;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(188, 240, 178, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(255, 219, 200, 0.4) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .recipe-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background min-h-screen">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-[260px] border-r border-white/70 bg-white/35 backdrop-blur-[40px] saturate-[180%] shadow-md z-50 flex flex-col py-8 px-4">
+<div class="mb-12 px-2">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">MiniMart</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Admin Panel</p>
+</div>
+<ul class="space-y-2 flex-grow overflow-y-auto">
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>Tổng quan</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>Sản phẩm</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>Đơn hàng</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="group">group</span>Khách hàng</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="local_offer">local_offer</span>Khuyến mãi</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>Giao/Nhận hàng</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="stars">stars</span>Điểm thưởng</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-white/20 scale-95 active:scale-90 transition-transform" href="#"><span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>Công thức</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="article">article</span>Nội dung</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="reviews">reviews</span>Đánh giá</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="settings">settings</span>Cài đặt</a></li>
+</ul>
+</nav>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-[260px] h-16 border-b border-white/90 bg-white/25 backdrop-blur-[30px] saturate-[180%] shadow-sm flex justify-between items-center px-gutter w-[calc(100%-260px)] z-40">
+<div class="flex items-center gap-4 focus-within:ring-2 focus-within:ring-primary rounded-lg px-3 py-1 bg-white/50 w-64 border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+<input class="bg-transparent border-none outline-none text-body-md w-full placeholder-on-surface-variant/70 focus:ring-0 px-0" placeholder="Search..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-high/50 rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A small, professional headshot of an administrator in a corporate setting, bright lighting, high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAES-rbbrzibLLkgtfi2zaH-9JyqjsmTCRHEAwzW0Tt_Bkxw6cdXk9UTTFD4Hi8CjCMAlp1fP_SIZCh12x3b2Id2Hnf2lLylBpq8SGt9q2SojMnPwwlD_jNEbid2uUB53RVqw77G9-qodZ2sM0XSdkX6X6Xw-Dm08kOLWXsh-ZKNDquGMG5myAoOhk87a-FuSssQB1XNz8yC3ngtWowpBXdR7XaG7ZaAdMU8YrKOpjZPBu6dtHA7JlE"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-[260px] pt-24 px-gutter pb-12 min-h-screen">
+<div class="max-w-7xl mx-auto">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Recipe Bundles</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage and organize recipe collections for customers.</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-full font-label-md text-label-md flex items-center gap-2 hover:bg-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Add Recipe
+                </button>
+</div>
+<!-- Recipe Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="recipe-card rounded-2xl overflow-hidden flex flex-col transition-transform hover:-translate-y-1 duration-300">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" data-alt="A beautifully styled flat lay of a fresh summer salad with cherry tomatoes, mozzarella, and basil on a rustic wooden table, bright natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzvHUQnmGsv9IpaO7e5HL5N1k9CVCuKBlc_PYLW2Jdqw1fJSR1MpRPT4W3WkBrNgjcfd2F981yvlU9pNM2O3tZWu60Aw6c2b6SPAIGyZGgma2thZN3eL1r5elZA2A-YRH3M3Zk8dkwhLns1KaccXuVWd9yGl421Gnu9T8z7NL_j79FT2c9HW3KEgTeRK4nY2U2PHoxfDdBASUoO-LB2tMuEEjlqFkzf4iNKHcx7r-2tU39-LUVp4ty"/>
+<div class="absolute top-4 right-4 bg-status-success text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wide shadow-sm">
+                            Active
+                        </div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-3">Summer Fresh Salad Bowl</h3>
+<div class="flex items-center gap-4 mb-6">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+                                15 Mins
+                            </div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="restaurant">restaurant</span>
+                                2 Servings
+                            </div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Bundle ID: #RB-1042</span>
+<button class="text-primary hover:text-primary-container p-1 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="recipe-card rounded-2xl overflow-hidden flex flex-col transition-transform hover:-translate-y-1 duration-300">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" data-alt="A comforting bowl of creamy tomato soup with a swirl of cream and fresh herbs on top, accompanied by a crispy grilled cheese sandwich, warm cozy lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNL92P0JjH00k2WvFjsvAsCykPn9l9XEIdxm0vmZ7vvJi4Lfs0KQmt7IlvqpbRDzCxa046O8hd4s96xy6GekR9tIGebhhX8gmsL1qY9rDrUQWe6JTmfCnq_FoCjKz4HhJSpj-GOWhGKEuQSG-inFlvouxxtnQcCKnqsT8zI4YZqY10b6fc7Pj2w_8R3PmoW2DHiwwvSjsh0CU4NJjLssxd1nTYtnQGMAgzc2hfGODLgimaZdDnsJj3"/>
+<div class="absolute top-4 right-4 bg-status-success text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wide shadow-sm">
+                            Active
+                        </div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-3">Classic Tomato Soup &amp; Grilled Cheese</h3>
+<div class="flex items-center gap-4 mb-6">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+                                25 Mins
+                            </div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="restaurant">restaurant</span>
+                                4 Servings
+                            </div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Bundle ID: #RB-1043</span>
+<button class="text-primary hover:text-primary-container p-1 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="recipe-card rounded-2xl overflow-hidden flex flex-col transition-transform hover:-translate-y-1 duration-300 opacity-75">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover grayscale" data-alt="A decadent dark chocolate lava cake fresh out of the oven with powdered sugar dusted on top and a scoop of vanilla ice cream melting slightly, moody dramatic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkjyOrrGO3XRBGNNDKNQvkupHKTTd60vLVcwOMjymCTrkWD6lwoOpvlKNkXm_ppJqZETJvpuNwIvRdEWznVBL-C5YVysd605rOK4VabYcJD71DYJHyRWzUp_ihXziBishds4iXYxP5W8FYybIeV4saCvmhv5_ibEtt8oQVn_VzXfBGJuas1mUh6_ODeZOuTuyTOFIP2IVxWvsSjp6G9pDog3NO2g9T1gVcnrK_4ndsju680KUkin7s"/>
+<div class="absolute top-4 right-4 bg-status-warning text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wide shadow-sm">
+                            Draft
+                        </div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-3 text-on-surface-variant">Decadent Lava Cake Trio</h3>
+<div class="flex items-center gap-4 mb-6">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+                                45 Mins
+                            </div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="restaurant">restaurant</span>
+                                6 Servings
+                            </div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Bundle ID: #RB-1044</span>
+<button class="text-primary hover:text-primary-container p-1 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

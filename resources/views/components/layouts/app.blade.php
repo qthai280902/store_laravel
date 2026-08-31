@@ -9,11 +9,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        /* Flatpickr Liquid Glass Theme Override */
+        .flatpickr-calendar {
+            background: rgba(255, 255, 255, 0.7) !important;
+            backdrop-filter: blur(24px) !important;
+            -webkit-backdrop-filter: blur(24px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+            border-radius: 1.5rem !important;
+            padding: 8px !important;
+        }
+        .flatpickr-calendar.arrowTop:before, .flatpickr-calendar.arrowTop:after,
+        .flatpickr-calendar.arrowBottom:before, .flatpickr-calendar.arrowBottom:after {
+            display: none !important; /* Hide arrows for a cleaner glass look */
+        }
+        .flatpickr-day.selected {
+            background: #166534 !important; /* text-green-800 equivalent */
+            border-color: #166534 !important;
+        }
+        .flatpickr-months .flatpickr-month {
+            background: transparent !important;
+            color: #064e3b !important; /* green-900 */
+        }
+        .flatpickr-current-month .flatpickr-monthDropdown-months {
+            background: transparent !important;
+        }
+        .flatpickr-weekdays {
+            background: transparent !important;
+        }
+        span.flatpickr-weekday {
+            color: #064e3b !important;
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-green-50/50 via-white to-orange-50/30 text-gray-800 antialiased font-sans min-h-screen flex flex-col relative overflow-x-hidden" x-data="{ mobileMenuOpen: false, megaMenuOpen: false }">
+<body class="bg-gradient-to-br from-green-50 via-gray-50 to-green-100 text-gray-800 antialiased font-sans min-h-screen flex flex-col relative overflow-x-hidden" x-data="{ mobileMenuOpen: false, megaMenuOpen: false }">
     
     <!-- Header (2 Rows) -->
     <header class="fixed top-0 w-full z-50 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-b-[1px] border-white/30 shadow-xl transition-all">

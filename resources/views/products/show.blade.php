@@ -1,5 +1,6 @@
 <x-layouts.app :title="$product->name . ' - MiniMart'">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="liquid-glass-pane max-w-7xl mx-auto px-4 sm:px-6 py-10 my-8">
+    <div class="max-w-7xl mx-auto">
         <!-- Breadcrumb -->
         <nav class="mb-8 text-sm text-gray-500">
             <a href="{{ route('home') }}" class="hover:text-green-700">Trang chủ</a>
@@ -57,7 +58,7 @@
                 <p class="text-gray-600 leading-relaxed mb-8">{{ $product->description }}</p>
 
                 <!-- Action Block -->
-                <div class="mt-auto bg-white/90 backdrop-blur-md rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <div class="mt-auto bg-white/30 backdrop-blur-md rounded-2xl p-6 border border-white/40 shadow-sm">
                     <div class="flex items-center gap-4 mb-4">
                         <label class="text-sm font-semibold text-gray-700">Số lượng:</label>
                         <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden" x-data="{ qty: 1 }">
@@ -90,7 +91,7 @@
                 <button @click="tab = 'reviews'" class="px-6 py-3 text-sm font-semibold transition-colors" :class="tab === 'reviews' ? 'text-green-700 border-b-2 border-green-700' : 'text-gray-500 hover:text-gray-700'">Đánh giá (128)</button>
             </div>
 
-            <div x-show="tab === 'description'" class="bg-white/90 backdrop-blur-md rounded-2xl p-8 border border-gray-100 shadow-sm">
+            <div x-show="tab === 'description'" class="bg-white/30 backdrop-blur-md rounded-2xl p-8 border border-white/40 shadow-sm">
                 <div class="prose max-w-none text-gray-700 leading-relaxed">
                     <p>{{ $product->description }}</p>
                     <h3 class="text-lg font-bold text-gray-900 mt-6 mb-3">Thông tin sản phẩm</h3>
@@ -103,9 +104,11 @@
                 </div>
             </div>
 
-            <div x-show="tab === 'reviews'" class="bg-white/90 backdrop-blur-md rounded-2xl p-8 border border-gray-100 shadow-sm">
+            <div x-show="tab === 'reviews'" class="bg-white/30 backdrop-blur-md rounded-2xl p-8 border border-white/40 shadow-sm">
                 <p class="text-gray-500 text-center py-8">Chưa có đánh giá nào cho sản phẩm này. Hãy là người đầu tiên!</p>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 </x-layouts.app>

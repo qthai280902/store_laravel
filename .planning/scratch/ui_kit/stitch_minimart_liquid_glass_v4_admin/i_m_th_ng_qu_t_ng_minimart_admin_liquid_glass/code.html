@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Loyalty &amp; Rewards Management - MiniMart Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffdbc8",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#ebf0e4",
+                        "primary": "#001902",
+                        "status-success": "#2b6b2c",
+                        "on-primary-container": "#6b9b65",
+                        "on-tertiary-fixed": "#3e001e",
+                        "on-primary-fixed": "#002203",
+                        "on-surface-variant": "#42493f",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "surface": "#f6fbef",
+                        "surface-bright": "#f6fbef",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#2f0015",
+                        "on-background": "#181d16",
+                        "secondary-container": "#ff9650",
+                        "border-subtle": "#c0c9bb",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c9bc",
+                        "surface-variant": "#dfe4d9",
+                        "inverse-surface": "#2d322a",
+                        "primary-fixed": "#bcf0b2",
+                        "tertiary-fixed": "#ffd9e2",
+                        "surface-container-low": "#f1f5e9",
+                        "on-surface": "#181d16",
+                        "surface-container-highest": "#dfe4d9",
+                        "surface-tint": "#3b6938",
+                        "on-tertiary-container": "#d86c92",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e5eade",
+                        "secondary": "#994700",
+                        "on-secondary-fixed": "#321300",
+                        "on-primary-fixed-variant": "#235022",
+                        "surface-dim": "#d7dcd0",
+                        "status-error": "#ba1a1a",
+                        "primary-fixed-dim": "#a0d498",
+                        "surface-admin": "#ffffff",
+                        "inverse-on-surface": "#eef2e7",
+                        "tertiary-fixed-dim": "#ffb0c8",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#72796e",
+                        "on-secondary-fixed-variant": "#743400",
+                        "tertiary-container": "#55002a",
+                        "background": "#f6fbef",
+                        "primary-container": "#003006",
+                        "on-tertiary-fixed-variant": "#7f244a",
+                        "on-tertiary": "#ffffff",
+                        "sidebar-glass": "rgba(255, 255, 255, 0.35)",
+                        "on-secondary-container": "#6f3200",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "inverse-primary": "#a0d498",
+                        "status-warning": "#994700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-height": "72px",
+                        "component-gap": "8px",
+                        "stack-gap": "16px",
+                        "margin-main": "32px",
+                        "gutter": "24px",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-sm": ["11px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "1.2", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f6fbef; /* surface */
+            /* Ambient background simulation */
+            background-image: radial-gradient(circle at 15% 50%, rgba(188, 240, 178, 0.4) 0%, transparent 50%),
+                              radial-gradient(circle at 85% 30%, rgba(255, 219, 200, 0.4) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+        /* Hide scrollbar for a cleaner look in the sidebar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="text-on-background font-body-md antialiased overflow-x-hidden min-h-screen">
+<!-- Ambient Background Container (Optional additional layer if needed, handled by body for now) -->
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-[260px] h-16 border-b border-white/90 bg-white/25 backdrop-blur-[30px] saturate-[180%] shadow-sm flex justify-between items-center px-gutter w-[calc(100%-260px)] z-40">
+<div class="flex items-center gap-component-gap">
+<h1 class="font-headline-lg text-headline-lg text-primary">MiniMart Admin</h1>
+</div>
+<div class="flex-1 max-w-md mx-8">
+<div class="relative focus-within:ring-2 focus-within:ring-primary rounded-xl bg-white border border-outline-variant transition-all">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-transparent border-none rounded-xl focus:ring-0 font-body-sm text-on-surface" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-stack-gap">
+<button class="p-2 hover:bg-surface-container-high/50 rounded-full transition-colors text-on-surface dark:text-on-surface-variant relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-status-error rounded-full"></span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A small, circular avatar image of a professional administrator, showing a neat headshot against a clean, light-mode background in the MiniMart admin dashboard context. The lighting is soft and flattering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvf5C2i6wXN_coCdHsZZVJyVF8ywyEnNcZWhWIsC6qHkvHWLJe2wcd0Cs0Z2KddWS4snLtz5VmOQ8-dzrJlpIrsYehfM7T4Qa4Yj4CRvPdCbfguyGPzJTV5ZelwzbIuiQHN8Hf9-M9-hYjJnvNdg1CDeffU0WwIVGVu15xkloyySTkX6pMs2y7RXMNWMrD1vLA8EzEf4Hre4wbP0GeAmRPaJYUwpHQB7wPNY9h_7H7jCjXdRFxUcl3"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-[260px] border-r border-white/70 bg-white/35 backdrop-blur-[40px] saturate-[180%] shadow-md z-50 flex flex-col py-8 px-4">
+<div class="mb-8 px-4">
+<div class="font-display-lg text-display-lg text-primary tracking-tight">MiniMart</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-1">Admin Panel</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar">
+<ul class="flex flex-col gap-2">
+<!-- Nav Items based on JSON -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                        Tổng quan
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                        Sản phẩm
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+                        Đơn hàng
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                        Khách hàng
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="local_offer">local_offer</span>
+                        Khuyến mãi
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+                        Giao/Nhận hàng
+                    </a>
+</li>
+<!-- Active Item: Điểm thưởng -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold border-r-4 border-primary bg-white/20 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="stars" data-weight="fill" style="font-variation-settings: 'FILL' 1;">stars</span>
+                        Điểm thưởng
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+                        Công thức
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="article">article</span>
+                        Nội dung
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="reviews">reviews</span>
+                        Đánh giá
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-label-md opacity-80 hover:bg-white/20 hover:text-primary transition-all duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                        Cài đặt
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-[260px] pt-header-height p-margin-main">
+<!-- Page Header & Tabs -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-stack-gap gap-stack-gap">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-2">Quản lý Điểm Thưởng</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Thiết lập quy tắc tích điểm và quản lý danh mục đổi thưởng.</p>
+</div>
+<!-- Glass-pill Tabs -->
+<div class="flex bg-white/30 backdrop-blur-md border border-white/60 p-1 rounded-full shadow-sm">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-colors">
+                    Quy tắc tích điểm
+                </button>
+<button class="px-6 py-2 rounded-full text-on-surface-variant font-label-md text-label-md hover:bg-white/50 transition-colors">
+                    Danh mục đổi thưởng
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout for Points Rules -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Main Rule Card -->
+<div class="md:col-span-2 bg-white/70 backdrop-blur-lg border border-white/80 rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.05)] p-gutter">
+<div class="flex justify-between items-center mb-stack-gap border-b border-outline-variant/30 pb-4">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="sync">sync</span>
+                        Tỷ lệ quy đổi cơ bản
+                    </h3>
+<button class="px-4 py-2 rounded-full bg-white border-[1.5px] border-primary text-primary font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+                        Chỉnh sửa
+                    </button>
+</div>
+<div class="flex flex-col md:flex-row gap-gutter items-center justify-center p-8 bg-surface-container-low rounded-xl">
+<div class="text-center">
+<div class="font-body-sm text-body-sm text-on-surface-variant mb-1">Chi tiêu (VND)</div>
+<div class="font-display-lg text-display-lg text-on-background">10,000</div>
+</div>
+<span class="material-symbols-outlined text-3xl text-outline" data-icon="arrow_forward">arrow_forward</span>
+<div class="text-center">
+<div class="font-body-sm text-body-sm text-on-surface-variant mb-1">Điểm nhận được</div>
+<div class="font-display-lg text-display-lg text-primary">1</div>
+</div>
+</div>
+</div>
+<!-- Stats/Summary Card -->
+<div class="bg-white/70 backdrop-blur-lg border border-white/80 rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.05)] p-gutter flex flex-col justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-stack-gap">Tổng quan hệ thống</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tổng điểm đã phát hành</span>
+<span class="font-headline-sm text-headline-sm text-on-background">2,450,000</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tỷ lệ đổi thưởng</span>
+<span class="font-headline-sm text-headline-sm text-status-success">18%</span>
+</div>
+</div>
+</div>
+<div class="mt-stack-gap p-4 bg-primary-container rounded-xl">
+<div class="font-label-md text-label-md text-on-primary-container mb-1">Trạng thái chương trình</div>
+<div class="font-headline-sm text-headline-sm text-on-primary-fixed">Đang hoạt động</div>
+</div>
+</div>
+<!-- Bonus Rules Table Card -->
+<div class="md:col-span-3 bg-white/70 backdrop-blur-lg border border-white/80 rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.05)] overflow-hidden">
+<div class="p-gutter border-b border-outline-variant/30 flex justify-between items-center bg-white/50">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Chương trình nhân điểm</h3>
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        Thêm chương trình
+                    </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container border-b border-outline-variant">
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Tên chương trình</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Điều kiện</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Hệ số</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Trạng thái</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Thao tác</th>
+</tr>
+</thead>
+<tbody class="bg-white">
+<tr class="border-b border-outline-variant/50 hover:bg-surface-container-lowest transition-colors">
+<td class="p-4">
+<div class="font-body-md text-body-md text-on-background font-medium">Sinh nhật khách hàng</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Áp dụng trong tháng sinh nhật</div>
+</td>
+<td class="p-4 font-body-sm text-body-sm text-on-surface">Mọi đơn hàng</td>
+<td class="p-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md">
+                                        x2 Điểm
+                                    </span>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container border border-outline-variant text-status-success font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+                                        Hoạt động
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/50 hover:bg-surface-container-lowest transition-colors">
+<td class="p-4">
+<div class="font-body-md text-body-md text-on-background font-medium">Happy Hour Cuối Tuần</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Thứ 7 &amp; CN, 18:00 - 22:00</div>
+</td>
+<td class="p-4 font-body-sm text-body-sm text-on-surface">Đơn &gt; 500k</td>
+<td class="p-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container font-label-md text-label-md">
+                                        +50 Điểm
+                                    </span>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container border border-outline-variant text-status-success font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+                                        Hoạt động
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</body></html>
