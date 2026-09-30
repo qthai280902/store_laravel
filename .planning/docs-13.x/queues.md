@@ -1502,6 +1502,7 @@ Typically, you should call the `route` method from the `boot` method of a servic
 use App\Concerns\RequiresVideo;
 use App\Jobs\ProcessPodcast;
 use App\Jobs\ProcessVideo;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Facades\Queue;
 
 /**
@@ -1511,6 +1512,7 @@ public function boot(): void
 {
     Queue::route(ProcessPodcast::class, connection: 'redis', queue: 'podcasts');
     Queue::route(RequiresVideo::class, queue: 'video');
+    Queue::route(ShouldBroadcast::class, queue: 'events');
 }
 ```
 
@@ -1524,7 +1526,7 @@ You may also route multiple job classes at once by passing an array to the `rout
 
 ```php
 Queue::route([
-    ProcessPodcast::class => ['podcasts', 'redis'], // Queue and connection
+    ProcessPodcast::class => ['redis', 'podcasts'], // Connection and queue
     ProcessVideo::class => 'videos', // Queue only (uses default connection)
 ]);
 ```
@@ -1675,6 +1677,24 @@ class ProcessPodcast implements ShouldQueue
 
 In this example, the job is released for ten seconds if the application is unable to obtain a Redis lock and will continue to be retried up to 25 times. However, the job will fail if three unhandled exceptions are thrown by the job.
 
+By default, an attempt that ends because the worker process crashed or was killed, such as when it runs out of memory, does not count towards the job's maximum number of exceptions. If you would like these attempts to count as an exception, you may add the `CountCrashesAsExceptions` attribute to your job class:
+
+```php
+use Illuminate\Queue\Attributes\CountCrashesAsExceptions;
+use Illuminate\Queue\Attributes\MaxExceptions;
+use Illuminate\Queue\Attributes\Tries;
+
+#[Tries(25)]
+#[MaxExceptions(3)]
+#[CountCrashesAsExceptions]
+class ProcessPodcast implements ShouldQueue
+{
+    // ...
+}
+```
+
+When this attribute is present, the worker stores a marker in your application's cache while the job is processing. If the marker still exists when the job is next attempted, the previous attempt is counted as an exception.
+
 <a name="stopping-retries-by-exception"></a>
 #### Stopping Retries by Exception
 
@@ -1773,6 +1793,8 @@ Laravel provides a fluent `onGroup` method to specify the message group ID when 
 ProcessOrder::dispatch($order)
     ->onGroup("customer-{$order->customer_id}");
 ```
+
+If you dispatch a job to an SQS FIFO queue without specifying a message group, Laravel will use the queue name as the message group ID.
 
 SQS FIFO queues support message deduplication to ensure exactly-once processing. Implement a `deduplicationId` method in your job class to provide a custom deduplication ID:
 
@@ -1916,7 +1938,7 @@ QUEUE_CONNECTION=failover
 
 Next, start at least one worker for each connection in your failover connection list:
 
-```bash
+```shell
 php artisan queue:work redis
 php artisan queue:work database
 ```
