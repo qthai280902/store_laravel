@@ -6,15 +6,15 @@
         @if($product->category)
             <div class="bg-tertiary text-on-tertiary font-label-md text-[9px] px-2 py-0.5 rounded-full shadow-sm">{{ $product->category->name }}</div>
         @endif
-        @if(rand(0,1) && $product->stock > 0)
-            <div class="bg-error text-onError font-label-md text-[9px] px-2 py-0.5 rounded-full shadow-sm">-20%</div>
+        @if($product->discount_percent && $product->stock > 0)
+            <div class="bg-error text-onError font-label-md text-[9px] px-2 py-0.5 rounded-full shadow-sm">-{{ $product->discount_percent }}%</div>
         @endif
     </div>
     
     <div class="mb-3 relative rounded-[1.5rem] overflow-hidden">
         <a href="{{ route('products.show', $product->slug) }}" class="block w-full">
             <div class="aspect-[16/9] w-full overflow-hidden bg-surface-variant">
-                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="{{ $product->image_url ?? 'https://placehold.co/600x400/F5F5F5/00490e?text=' . urlencode($product->name) }}" alt="{{ $product->name }}" loading="lazy"/>
+                <img class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-95" src="{{ $product->image_url ?? 'https://placehold.co/600x400/F5F5F5/00490e?text=' . urlencode($product->name) }}" alt="{{ $product->name }}" loading="lazy"/>
             </div>
         </a>
     </div>

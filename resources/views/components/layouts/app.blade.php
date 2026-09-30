@@ -243,11 +243,11 @@
                 <!-- Cột 3: Chính sách & Hỗ trợ -->
                 <div class="flex flex-col gap-3">
                     <h3 class="font-bold text-gray-900 mb-2">Chính sách & Hỗ trợ</h3>
-                    <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách đổi trả 24h</a>
-                    <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách giao hàng</a>
-                    <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách bảo mật</a>
-                    <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Điều khoản sử dụng</a>
-                    <a href="#" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Câu hỏi thường gặp</a>
+                    <a href="{{ route('pages.return-policy') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách đổi trả 24h</a>
+                    <a href="{{ route('pages.shipping-policy') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách giao hàng</a>
+                    <a href="{{ route('pages.privacy-policy') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Chính sách bảo mật</a>
+                    <a href="{{ route('pages.terms') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Điều khoản sử dụng</a>
+                    <a href="{{ route('pages.faq') }}" class="text-gray-600 hover:text-green-700 transition-colors text-sm">Câu hỏi thường gặp</a>
                 </div>
 
                 <!-- Cột 4: Đăng ký nhận tin & MXH -->

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -16,7 +16,7 @@ class HomeController extends Controller
             $featuredProducts = Product::inRandomOrder()->take(10)->get();
         }
         $flashSales = Product::inRandomOrder()->take(10)->get();
-        
+
         $categories = Category::all();
         $latestPosts = Post::where('is_published', true)->latest()->take(3)->get();
 

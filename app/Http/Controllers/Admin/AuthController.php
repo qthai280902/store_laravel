@@ -23,9 +23,11 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             if (Auth::user()->role === 'admin') {
                 $request->session()->regenerate();
+
                 return redirect()->intended('/admin');
             } else {
                 Auth::logout();
+
                 return back()->withErrors([
                     'email' => 'Tài khoản không có quyền truy cập Admin.',
                 ])->onlyInput('email');

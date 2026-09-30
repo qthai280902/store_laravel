@@ -78,3 +78,39 @@ it('fails to fetch inactive product', function () {
     expect(fn () => $service->getProductDetails('laravel-book'))
         ->toThrow(ModelNotFoundException::class);
 });
+
+it('can render product details page with gallery, specs, and reviews', function () {
+    $category = Category::create([
+        'name' => 'Trái cây',
+        'slug' => 'trai-cay',
+    ]);
+
+    $product = Product::create([
+        'category_id' => $category->id,
+        'name' => 'Táo Envy',
+        'slug' => 'tao-envy',
+        'sku' => 'MM-FRU-0001',
+        'brand' => 'Envy',
+        'origin' => 'New Zealand',
+        'weight' => '1kg',
+        'unit' => 'hộp',
+        'base_price' => 150000,
+        'original_price' => 180000,
+        'stock' => 25,
+        'images' => [
+            'https://images.unsplash.com/photo-1?w=800',
+            'https://images.unsplash.com/photo-2?w=800',
+            'https://images.unsplash.com/photo-3?w=800',
+            'https://images.unsplash.com/photo-4?w=800',
+            'https://images.unsplash.com/photo-5?w=800',
+        ],
+        'is_active' => true,
+    ]);
+
+    $response = $this->get(route('products.show', $product->slug));
+    $response->assertStatus(200);
+    $response->assertSee('Táo Envy');
+    $response->assertSee('MM-FRU-0001');
+    $response->assertSee('New Zealand');
+    $response->assertSee('Thông số kỹ thuật');
+});

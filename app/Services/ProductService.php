@@ -35,7 +35,7 @@ class ProductService
     {
         return Product::with(['category', 'variants' => function ($query) {
             $query->where('is_active', true);
-        }])
+        }, 'reviews.user'])
             ->where('slug', $slug)
             ->where('is_active', true)
             ->firstOrFail();

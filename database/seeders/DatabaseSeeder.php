@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,21 +16,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::updateOrCreate(
+        User::updateOrCreate(
             ['email' => 'thaib@example.com'],
             [
                 'name' => 'Nguyễn Quốc Thái',
-                'password' => \Illuminate\Support\Facades\Hash::make('password'),
+                'password' => Hash::make('password'),
                 'phone' => '0901234567',
                 'dob' => '2002-09-28',
                 'gender' => 'Nam',
-                'address' => 'TP. Hồ Chí Minh'
+                'address' => 'TP. Hồ Chí Minh',
+                'role' => 'admin',
             ]
         );
 
         $this->call([
             ProductSeeder::class,
             BlogSeeder::class,
+            ReviewSeeder::class,
         ]);
     }
 }

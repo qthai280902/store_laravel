@@ -7,10 +7,12 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Middleware\CheckAdminRole;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
     Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
+    Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('products.reviews.store');
 });
 
 Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
@@ -54,6 +57,15 @@ Route::get('/blog/{slug}', [PostController::class, 'show'])->name('posts.show');
 
 Route::view('/gioi-thieu', 'about')->name('about');
 Route::view('/he-thong-cua-hang', 'stores')->name('stores');
+
+// Policy & Support Pages
+Route::controller(PageController::class)->group(function () {
+    Route::get('/chinh-sach-doi-tra', 'returnPolicy')->name('pages.return-policy');
+    Route::get('/chinh-sach-giao-hang', 'shippingPolicy')->name('pages.shipping-policy');
+    Route::get('/chinh-sach-bao-mat', 'privacyPolicy')->name('pages.privacy-policy');
+    Route::get('/dieu-khoan-su-dung', 'terms')->name('pages.terms');
+    Route::get('/cau-hoi-thuong-gap', 'faq')->name('pages.faq');
+});
 
 // Admin Routes
 Route::prefix('admin')->group(function () {

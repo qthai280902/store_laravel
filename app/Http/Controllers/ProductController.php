@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -14,9 +16,9 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $filters = $request->only(['search']);
-        
+
         if ($request->has('category')) {
-            $category = \App\Models\Category::where('slug', $request->category)->first();
+            $category = Category::where('slug', $request->category)->first();
             if ($category) {
                 $filters['category_id'] = $category->id;
             }
@@ -25,14 +27,14 @@ class ProductController extends Controller
         $sortBy = $request->get('sort_by', 'created_at');
         $sortDir = $request->get('sort_dir', 'desc');
 
-        $query = \App\Models\Product::with(['category', 'variants'])->where('is_active', true);
+        $query = Product::with(['category', 'variants'])->where('is_active', true);
         if (isset($filters['category_id'])) {
             $query->where('category_id', $filters['category_id']);
         }
         if (isset($filters['search'])) {
             $query->where('name', 'like', '%'.$filters['search'].'%');
         }
-        $query->orderBy($sortBy, $sortDir);
+        $query->orderBy($sortBy, $sortDir)->orderBy('id', 'desc');
         $products = $query->paginate(20);
 
         return view('products.index', compact('products'));

@@ -110,14 +110,16 @@
             const loadMoreSpinner = document.getElementById('loadMoreSpinner');
             
             let isLoading = false;
+            const requestedPages = new Set();
 
             if (loadMoreBtn && productGrid) {
                 window.addEventListener('trigger-load-more', function() {
                     if (isLoading) return;
                     const nextPageUrl = loadMoreBtn.getAttribute('data-next-page');
-                    if (!nextPageUrl) return;
+                    if (!nextPageUrl || requestedPages.has(nextPageUrl)) return;
 
                     isLoading = true;
+                    requestedPages.add(nextPageUrl);
                     if(loadMoreSpinner) loadMoreSpinner.style.display = 'block';
 
                     fetch(nextPageUrl, {
@@ -132,19 +134,36 @@
                         
                         const newGrid = doc.getElementById('product-grid');
                         if (newGrid) {
+                            // Extract existing product links in grid to avoid any duplicate card
+                            const existingCardLinks = new Set(
+                                Array.from(productGrid.querySelectorAll('a[href*="/products/"]')).map(a => a.getAttribute('href'))
+                            );
+
                             Array.from(newGrid.children).forEach(child => {
-                                productGrid.appendChild(child.cloneNode(true));
+                                const cardLink = child.querySelector('a[href*="/products/"]')?.getAttribute('href');
+                                if (!cardLink || !existingCardLinks.has(cardLink)) {
+                                    productGrid.appendChild(child.cloneNode(true));
+                                    if (cardLink) existingCardLinks.add(cardLink);
+                                }
                             });
                         }
 
                         const newLoadMoreBtn = doc.getElementById('loadMoreBtn');
-                        if (newLoadMoreBtn) {
-                            loadMoreBtn.setAttribute('data-next-page', newLoadMoreBtn.getAttribute('data-next-page'));
+                        if (newLoadMoreBtn && newLoadMoreBtn.getAttribute('data-next-page')) {
+                            const newNextUrl = newLoadMoreBtn.getAttribute('data-next-page');
+                            if (newNextUrl !== nextPageUrl) {
+                                loadMoreBtn.setAttribute('data-next-page', newNextUrl);
+                            } else {
+                                loadMoreBtn.style.display = 'none';
+                                loadMoreBtn.removeAttribute('data-next-page');
+                            }
                             isLoading = false;
                             if(loadMoreSpinner) loadMoreSpinner.style.display = 'none';
                         } else {
                             loadMoreBtn.style.display = 'none';
                             loadMoreBtn.removeAttribute('data-next-page');
+                            isLoading = false;
+                            if(loadMoreSpinner) loadMoreSpinner.style.display = 'none';
                         }
                     })
                     .catch(error => {

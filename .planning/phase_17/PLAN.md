@@ -1,0 +1,171 @@
+# KẾ HOẠCH PHASE 17: Nâng cấp Dữ liệu Sản phẩm, Thư viện Ảnh đa góc độ & Tách Component Đánh giá
+
+## 1. MỤC TIÊU & YÊU CẦU KỸ THUẬT
+Nâng cấp dữ liệu sản phẩm chuẩn e-commerce thực tế:
+- Mở rộng schema `products` bổ sung các trường: `sku`, `origin`, `weight`, `images` (json tối thiểu 5 ảnh).
+- Tạo bảng `reviews` liên kết 1-n với `Product` và `User`.
+- Chuẩn hóa thư viện ảnh 5 góc nhìn/sản phẩm: bao bì mặt trước, mặt sau dinh dưỡng, góc nghiêng 45 độ, chi tiết chất liệu/kết cấu, ảnh đời thực/chế biến.
+- Cập nhật Seeders (`ProductSeeder`, `ReviewSeeder`, `DatabaseSeeder`) sinh dữ liệu thực tế phong phú.
+- Xây dựng các Blade Components độc lập tuân thủ vật liệu **Apple Liquid Glass V4**:
+  - `x-products.gallery`: Gallery đa ảnh với hiệu ứng chuyển ảnh Alpine.js, kính mờ, zoom nhẹ, thanh thumbnail phản quang.
+  - `x-products.specs`: Bảng thông số kỹ thuật dạng card kính lỏng, kèm điều hướng thương hiệu.
+  - `x-products.reviews`: Phân hệ đánh giá độc lập đọc trực tiếp từ database, thống kê điểm sao trung bình, thẻ đánh giá cá nhân và form gửi đánh giá nhanh.
+  - Cập nhật badges % giảm giá và cảnh báo tồn kho thời gian thực trong `products/show.blade.php`.
+
+---
+
+## 2. DATABASE SCHEMA & MODELS
+
+### 2.1. Migration cập nhật bảng `products`
+- Thêm cột:
+  - `sku` (`string`, `unique`, `nullable`)
+  - `origin` (`string`, `nullable`)
+  - `weight` (`string`, `nullable`)
+  - `images` (`json`, `nullable`)
+
+### 2.2. Migration & Model `Review`
+- Tạo migration `create_reviews_table`:
+  - `id`
+  - `product_id` (foreignId constrained on delete cascade)
+  - `user_id` (foreignId constrained on delete cascade)
+  - `rating` (`tinyInteger` 1-5)
+  - `comment` (`text`)
+  - `timestamps`
+- Model `Review`:
+  - `belongsTo(Product::class)`
+  - `belongsTo(User::class)`
+- Cập nhật Model `Product`:
+  - `hasMany(Review::class)`
+  - Cast `images` => `'array'`
+  - Accessor hoặc helper tính discount percentage, average rating, review count.
+- Cập nhật Model `User`:
+  - `hasMany(Review::class)`
+
+---
+
+## 3. SEEDER & DỮ LIỆU THỰC TẾ
+- Cập nhật `ProductSeeder`:
+  - Tạo mã `sku` chuẩn định dạng e-commerce (ví dụ `MM-VEG-001`, `MM-FRU-002`,...).
+  - Bổ sung `origin` (Đà Lạt - Việt Nam, New Zealand, Nhật Bản, Hàn Quốc, Mỹ, v.v.).
+  - Bổ sung `weight` (500g, 1kg, 250g, 1.2kg, v.v.).
+  - Bổ sung mảng `images` gồm 5 ảnh chất lượng cao phân chia theo từng danh mục/sản phẩm:
+    1. Ảnh chính diện bao bì
+    2. Mặt sau nhãn phụ / dinh dưỡng
+    3. Góc chụp nghiêng 45 độ
+    4. Cận cảnh độ tươi ngon / kết cấu
+    5. Ảnh sử dụng thực tế / bàn ăn
+- Tạo `ReviewSeeder`:
+  - Tạo các đánh giá ngẫu nhiên nhưng mang tính chân thực (4-5 sao chiếm đa số, bình luận tiếng Việt thực tế về độ tươi, đóng gói, giao hàng).
+  - Gắn vào các User có sẵn trong DB.
+
+---
+
+## 4. BLADE COMPONENTS & GIAO DIỆN LIQUID GLASS V4
+
+### 4.1. `resources/views/components/products/gallery.blade.php` (`x-products.gallery`)
+- Nhận prop `:product`.
+- Trích xuất mảng ảnh từ `$product->images` (nếu có) hoặc fallback `$product->image_url`.
+- Quản lý trạng thái bằng Alpine.js:
+  - `activeImage`: ảnh hiện tại đang xem.
+  - Thumbnail trượt ngang bên dưới với viền kính mỏng `ring-1 ring-white/60`, thumbnail đang chọn có viền `ring-2 ring-green-600/80 scale-105 shadow-md`.
+  - Ảnh chính có khung kính lỏng bo góc `rounded-3xl`, viền phản quang và hiệu ứng zoom mượt mà khi hover.
+
+### 4.2. `resources/views/components/products/specs.blade.php` (`x-products.specs`)
+- Nhận prop `:product`.
+- Hiển thị bảng thông số kỹ thuật rõ ràng trong thẻ kính lỏng `glass-card`:
+  - Thương hiệu (Brand)
+  - Xuất xứ (Origin)
+  - Quy cách / Khối lượng (Weight)
+  - Đơn vị tính (Unit)
+  - Mã sản phẩm (SKU)
+  - Tình trạng kho (Stock)
+- Các nút liên kết khám phá theo thương hiệu dạng viên thuốc kính lỏng.
+
+### 4.3. `resources/views/components/products/reviews.blade.php` (`x-products.reviews`)
+- Nhận prop `:product`.
+- Lấy danh sách reviews `$product->reviews()->with('user')->latest()->get()`.
+- Thống kê điểm trung bình (ví dụ `4.8/5`), thanh phân bố số sao (5 sao, 4 sao,...).
+- Danh sách thẻ nhận xét khách hàng: Avatar, Tên người dùng, Huy hiệu "Đã mua hàng", Số sao đánh giá, Thời gian nhận xét, Nội dung bình luận.
+- Form gửi đánh giá nhanh (kèm rating sao tương tác Alpine.js).
+
+### 4.4. Tinh chỉnh `resources/views/products/show.blade.php`
+- Huy hiệu % giảm giá dạng viên thuốc đỏ kính lỏng: `round(((original_price - price) / original_price) * 100)%`.
+- Cảnh báo tồn kho theo ngữ cảnh: "Chỉ còn X sản phẩm" nếu sắp hết hàng, hoặc "Còn hàng (X)" / "Tạm hết hàng".
+- Tích hợp 3 component mới vào layout trang sản phẩm.
+
+---
+
+## 5. THỰC THI & KIỂM THỬ
+1. Tạo và chạy migration.
+2. Cập nhật Model `Product`, `Review`, `User`.
+3. Viết và chạy `ReviewSeeder` + `ProductSeeder`.
+4. Viết các file Blade component và cập nhật `show.blade.php`.
+5. Chạy `npm run build` để biên dịch CSS.
+6. Chạy `vendor/bin/pint --dirty --format agent`.
+7. Kiểm thử các luồng hiển thị chi tiết sản phẩm.
+8. Cập nhật `walkthrough.md` và thông báo người dùng.
+
+---
+
+## 6. PHASE 17 (DEBUG & REFACTOR): KHẮC PHỤC LỖI HIỂN THỊ & CHUẨN HÓA DỮ LIỆU
+
+### 6.1. Root Causes & Action Plan
+1. **Lỗi gán sai ảnh theo danh mục & sản phẩm:**
+   - *Nguyên nhân:* `ProductSeeder.php` gán 1 pack ảnh chung cho toàn bộ danh mục mà không phân biệt tiểu mục (ví dụ 'Thịt cá' gồm cả thịt bò, heo, gia cầm và cá diêu hồng, cá hồi; 'Đồ gia dụng' bị gắn ảnh găng tay cao su cho nước lau kính).
+   - *Giải pháp:* Viết bộ quy tắc mapping ảnh theo từ khóa cụ thể trong tên sản phẩm (Fish -> Cá tươi, Beef -> Thịt bò, Poultry -> Thịt gà/vịt, Glass Cleaner -> Chai xịt kính, Detergent -> Nước giặt/rửa chén, Shampoos/Soaps -> Dầu gội/sữa tắm). Mỗi sản phẩm có đủ 5 góc ảnh đúng 100% ngữ cảnh.
+2. **Lỗi rung lắc / biến dạng ảnh (Mouseover jitter & zoom):**
+   - *Nguyên nhân:* `gallery.blade.php` bắt sự kiện `mousemove`, tính toán `transform-origin` và zoom `scale-125` liên tục gây giật lag.
+   - *Giải pháp:* Loại bỏ hoàn toàn sự kiện `mousemove` và các class co giãn đột ngột. Giữ khung ảnh chính tĩnh, rõ nét, bo góc `rounded-[2.5rem]` với viền kính phản quang. Chỉ đổi ảnh khi người dùng bấm vào thumbnail.
+3. **Lỗi bố cục co cụm xộc xệch tại `show.blade.php`:**
+   - *Nguyên nhân:* Cột Mô tả và Thông số kỹ thuật đang chia 50/50 cưỡng ép khiến nội dung bị co ngắn.
+   - *Giải pháp:* 
+     - Top Grid: 2 cột cân đối (Gallery 45-50%, Info 50-55%).
+     - Thông tin sản phẩm (`x-products.specs`): Trải rộng toàn màn hình (`max-w-7xl mx-auto`), thiết kế dạng bảng thông số ngang tối giản với 2 nút điều hướng kính lỏng ("Xem thêm ({Brand}) →" và "Xem tất cả →").
+     - Khối Mô tả: Thẻ kính độc lập, phân đoạn dễ đọc.
+     - Khối Đánh giá (`x-products.reviews`): Tách biệt ở dưới cùng.
+4. **Lỗi trùng lặp sản phẩm ngoài Catalog:**
+   - *Nguyên nhân:* Vòng lặp pad 30 sản phẩm trong `ProductSeeder` sinh ra các bản ghi trùng lặp `(Extra ...)`; đồng thời phân trang MySQL không có `id` tiebreaker; Infinite scroll thiếu cơ chế khóa URL đã tải và deduplicate DOM.
+   - *Giải pháp:*
+     - Loại bỏ việc lặp padding `(Extra ...)`. Tạo 200 sản phẩm hoàn toàn độc lập, khác biệt.
+     - Bổ sung `orderBy('id', 'desc')` trong query `ProductController.php`.
+     - Bổ sung deduplication Set và URL tracking trong script của `products/index.blade.php`.
+5. **Làm sạch Database & Build lại Assets:**
+   - Chạy `php artisan migrate:fresh --seed`
+   - Chạy `npm run build`
+   - Chạy `vendor/bin/pint --dirty --format agent`
+   - Chạy Pest test kiểm tra toàn diện.
+
+---
+
+## 7. PHASE 17.1: TRIỂN KHAI CÁC TRANG CHÍNH SÁCH & HỖ TRỢ, KẾT NỐI LIÊN KẾT FOOTER LIQUID GLASS
+
+### 7.1. Mục tiêu
+- Xóa bỏ các liên kết chết `href="#"` tại cột "Chính sách & Hỗ trợ" ở Footer.
+- Xây dựng hệ thống Controller, Routing và 5 Blade Views chuẩn phong cách Apple Liquid Glass V4.
+- Trang FAQ tích hợp Accordion tương tác đóng mở êm ái bằng Alpine.js với 4 danh mục câu hỏi thiết thực.
+
+### 7.2. Backend Controller & Routing
+- Controller: `app/Http/Controllers/PageController.php`:
+  - `returnPolicy()`: Trả về `pages.return-policy` (Chính sách đổi trả 24h)
+  - `shippingPolicy()`: Trả về `pages.shipping-policy` (Chính sách giao hàng & cước phí)
+  - `privacyPolicy()`: Trả về `pages.privacy-policy` (Chính sách bảo mật)
+  - `terms()`: Trả về `pages.terms` (Điều khoản sử dụng)
+  - `faq()`: Trả về `pages.faq` (Câu hỏi thường gặp)
+- Route group trong `routes/web.php` với prefix các slug tiếng Việt thân thiện chuẩn SEO.
+
+### 7.3. Thiết kế Blade Views (`resources/views/pages/`)
+- Áp dụng cấu trúc chuẩn vật liệu Liquid Glass:
+  - Khung phiến kính trung tâm `max-w-5xl mx-auto my-10 p-8 md:p-12`, cấu trúc `bg-white/40 backdrop-blur-3xl border border-white/70 shadow-[0_20px_50px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-[2.5rem]`.
+  - Header dạng viên thuốc kính phản quang bo tròn mềm mại.
+  - Phân mục H2, H3 có icon nhận diện và thẻ highlight ghi chú nổi bật.
+  - FAQ Accordion tương tác: Sử dụng Alpine.js (`x-data="{ active: null }"`), thanh câu hỏi phản hồi hiệu ứng kính khi active/hover.
+
+### 7.4. Kết nối Footer Links
+- Cập nhật `resources/views/components/layouts/app.blade.php` kết nối đầy đủ 5 route helpers:
+  - `route('pages.return-policy')`
+  - `route('pages.shipping-policy')`
+  - `route('pages.privacy-policy')`
+  - `route('pages.terms')`
+  - `route('pages.faq')`
+
+
