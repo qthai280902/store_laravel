@@ -228,3 +228,87 @@
 - **Biên dịch Assets:** `npm run build` hoàn tất sạch sẽ trong 3.23s (`app.css`, `app.js`).
 - **Kiểm tra Chuẩn Code (Laravel Pint):** `vendor/bin/pint --dirty --format agent` vượt qua chuẩn PSR-12 không có bất kỳ lỗi định dạng nào.
 - **Bộ Kiểm thử Tự động (Pest):** `php artisan test --compact`: **13/13 tests passed, 38 assertions (100% Passed)**.
+
+---
+
+## 8. PHASE 17.4: TÁI CẤU TRÚC GIAO DIỆN BLOG (DANH SÁCH & CHI TIẾT) THEO UI KIT APPLE LIQUID GLASS V4
+
+### 8.1. Khảo sát & Kế thừa UI Kit
+- Trích xuất toàn diện phong cách từ `.planning/scratch/ui_kit/blog_design`:
+  - `tin_t_c_m_o_v_t_minimart_blog_centered_layout/code.html` (Hero banner trung tâm, Category Filter Tabs, Blog Cards).
+  - `b_quy_t_b_o_qu_n_rau_c_t_i_ngon_minimart_blog/code.html` (Phiến kính trung tâm `liquid-glass-pane`, Cover Banner, Magazine Typography, Author Bio card, Related Articles).
+  - `liquid_glass/DESIGN.md` (Khúc xạ quang học, viền kép `border-t-[1.5px] border-white/80`, `ring-1 ring-white/50`, concentric squircle `rounded-[28px]`, Plus Jakarta Sans typography).
+
+### 8.2. Nâng cấp Database Schema & Controller Logic
+- **Migration & Model:**
+  - Tạo và chạy migration `2026_10_07_153909_add_author_and_read_time_to_posts_table.php` bổ sung 2 cột `author_name` và `read_time`.
+  - Cập nhật Model `Post`: Thêm `author_name`, `read_time` vào `$fillable`, xây dựng accessor `getImageUrlAttribute` tự động bọc `asset()` cho đường dẫn lưu trữ nội bộ `storage/blog/...`.
+- **Nâng cấp `PostController`:**
+  - Hỗ trợ bộ lọc danh mục động `?category=...` và thanh tìm kiếm từ khóa `?search=...`.
+  - Cơ chế **Hero Spotlight không trùng lặp**: Ở trang 1 khi xem tất cả bài viết, bài viết mới nhất được đặt làm Spotlight, danh sách lưới phía dưới tự động loại trừ ID của bài viết Spotlight (`where('id', '!=', $featuredPost->id)`).
+  - Tự động truy vấn 3 bài viết liên quan (`$relatedPosts`) cùng chuyên mục cho trang chi tiết.
+- **Làm giàu Dữ liệu Mẫu (`BlogSeeder`):**
+  - Tạo 8 bài viết chất lượng cao phân bổ đều qua 5 chủ đề thực tế (`Mẹo vặt nhà bếp`, `Dinh dưỡng & Sức khỏe`, `Chuyện Nông Trại MiniMart`, `Công thức nấu ăn`, `Khuyến mãi & Mùa vụ`).
+  - Tự động tải và đồng bộ 8 tệp ảnh thực tế độ nét cao (100KB – 540KB) vào `storage/app/public/blog/post-{1..8}.jpg`, 0 link placeholder.
+
+### 8.3. Tái cấu trúc Giao diện Danh sách (`blog/index.blade.php`)
+- **Breadcrumb:** Viên thuốc kính lỏng `bg-white/40 backdrop-blur-[20px] saturate-[180%] border border-white/60`.
+- **Editorial Header Banner:** Khung kính bo góc `rounded-[28px]` với badge pill `Chuyên mục Blog MiniMart` và hiệu ứng vệt sáng ambient accent.
+- **Hero Spotlight Card:** Thẻ tiêu điểm khổ lớn với ảnh 16:9 sắc nét, dải sáng highlight kính mép trên, 3 badges kính nổi (Chuyên mục, Thời gian đọc, Tiêu điểm tuần này), avatar tác giả và nút CTA đọc toàn bộ bài viết.
+- **Category Filter Deck:** Dải chọn chuyên mục dạng viên thuốc kính lỏng trượt ngang (`no-scrollbar`) kèm thanh tìm kiếm kính mờ. Tab active tone xanh ngọc lục bảo MiniMart `bg-emerald-800 text-white font-bold shadow-md`.
+- **Lưới Thẻ Bài viết (Blog Cards):**
+  - Lưới responsive 1 cột mobile, 2 cột tablet, 3 cột desktop.
+  - Thẻ kính Liquid Glass: `bg-white/40 backdrop-blur-2xl border border-white/60 shadow-[0_10px_30px_rgba(0,0,0,0.05)] ring-1 ring-white/50 rounded-3xl overflow-hidden hover:bg-white/60 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 group`.
+  - Khung ảnh tỷ lệ chuẩn, tag danh mục nổi trên ảnh, metadata ngày đăng và thời gian đọc, tiêu đề in đậm, trích dẫn súc tích, avatar tác giả và liên kết đọc tiếp.
+  - Phân trang chuẩn Liquid Glass đồng bộ.
+
+### 8.4. Tái cấu trúc Giao diện Chi tiết (`blog/show.blade.php`)
+- **Phiến kính Trung tâm:** Đặt trên khối kính nguyên khối `liquid-glass-pane max-w-5xl mx-auto my-8 p-6 sm:p-10 md:p-12 bg-white/40 backdrop-blur-3xl border border-white/70 shadow-[0_20px_50px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-[2.5rem]`.
+- **Hero Banner Khổ lớn:** Chiều cao 320px - 460px bo góc `rounded-[2rem]`, vệt sáng quét quang học trên mép và 3 badges nổi ở góc chân ảnh.
+- **Headline & Author Byline:** Tiêu đề lớn sắc nét, avatar tác giả có tích xanh `verified`, lượt xem và nút sao chép link tương tác một chạm.
+- **Editorial Typography (Prose):** Cấu hình `prose prose-lg prose-emerald max-w-none text-gray-700 leading-[1.8]`, tiêu đề H2/H3 có accent xanh MiniMart, Blockquote thẻ kính lỏng `bg-emerald-50/70 border-l-4 border-emerald-600 rounded-2xl p-6 md:p-8 italic`, ảnh chèn bài viết có bo góc `rounded-2xl` và viền kính mỏng.
+- **Author Bio Card:** Thẻ kính mờ hiển thị chi tiết tiểu sử tác giả, vai trò cố vấn ẩm thực và lời nhắn gửi.
+- **Bài viết Liên quan:** Lưới 3 thẻ gợi ý cùng chủ đề dưới chân trang theo chuẩn Blog Card mới.
+- **Nút Quay lại Blog:** Viên thuốc kính lỏng nổi bật `bg-white/80 hover:bg-white text-emerald-900 border border-white/90 shadow-md`.
+
+### 8.5. Kết quả Kiểm thử & Nghiệm thu
+- **Tự động hóa Kiểm thử (Pest Feature Test):** Tạo mới `tests/Feature/BlogPagesTest.php` với 6 test cases bao quát: tải trang thành công, không trùng lặp Hero Spotlight, lọc theo category, tìm kiếm bài viết, tải trang chi tiết kèm bài viết liên quan, xử lý 404 cho slug không hợp lệ.
+  - Tổng test suite toàn dự án: **19/19 tests passed, 63 assertions (100% Passed)**.
+- **Biên dịch Assets:** `npm run build` hoàn tất sạch sẽ trong 3.00s (`app.css`, `app.js`).
+- **Chuẩn hóa Code:** `vendor/bin/pint --dirty --format agent` hoàn tất chuẩn PSR-12 không có lỗi.
+
+---
+
+## 9. ĐỒNG BỘ TOÀN DIỆN HỆ THỐNG ĐIỀU HƯỚNG (BREADCRUMBS) & PHÂN TRANG KÍNH LỎNG (LIQUID GLASS PAGINATION)
+
+### 9.1. Chuẩn hóa Bộ Phân trang Kính Lỏng Toàn diện (Liquid Glass Pagination)
+- **Tệp tạo mới:** `resources/views/vendor/pagination/liquid-glass.blade.php`.
+- **Cấu hình toàn cục:** Khai báo `Paginator::defaultView('vendor.pagination.liquid-glass')` trong `AppServiceProvider::boot()`. Mọi phương thức `->links()` toàn hệ thống tự động kế thừa bộ phân trang kính lỏng.
+- **Quy chuẩn vật liệu:**
+  - Khung bao con nhộng kính: `inline-flex items-center gap-1.5 p-2 rounded-full bg-white/40 backdrop-blur-2xl border border-white/80 shadow-[0_8px_30px_rgba(0,0,0,0.06)] ring-1 ring-white/50`.
+  - Nút trang Active: `w-10 h-10 rounded-full bg-emerald-700 text-white font-extrabold text-sm shadow-md border border-emerald-500/40 select-none transform scale-105 ring-2 ring-emerald-500/30`.
+  - Nút trang Inactive: `w-10 h-10 rounded-full text-gray-700 font-semibold hover:bg-white/80 hover:text-emerald-900 border border-transparent hover:border-white/80 hover:shadow-xs active:scale-95 transition-all`.
+  - Nút mũi tên Previous/Next: Icon Material Symbols bo tròn tương tác nhạy bén (`hover:scale-105 active:scale-95`). Khi disabled: xám mờ tinh tế với `cursor-not-allowed`.
+
+### 9.2. Đồng bộ 100% Thanh Điều Hướng (Multi-Pill Breadcrumb Trail) Toàn Hệ Thống
+- **Thống nhất quy chuẩn Breadcrumb:**
+  - Định dạng chuỗi viên thuốc kính lỏng lơ lửng: `px-3.5 py-1.5 rounded-full bg-white/50 hover:bg-white text-gray-700 transition-colors shadow-xs border border-white/70 flex items-center gap-1.5 font-medium hover:shadow-sm`.
+  - Mục `Trang chủ` luôn có biểu tượng Home: `<span class="material-symbols-outlined text-[18px]">home</span>`.
+  - Dấu phân cách thống nhất toàn bộ bằng chevron kính mờ: `<span class="material-symbols-outlined text-gray-400 text-sm select-none">chevron_right</span>` (thay thế triệt để các dấu gạch chéo `/` thô sơ).
+  - Mục trang hiện tại: Viên thuốc xanh ngọc lục bảo nổi bật `bg-emerald-100/70 border border-emerald-200/60 text-emerald-950 font-bold truncate shadow-xs`.
+- **Các trang đã được rà soát và đồng bộ:**
+  1. `products/show.blade.php`: Thay thế hoàn toàn capsule đơn lẻ bằng chuỗi Multi-Pills đồng nhất với Blog Show.
+  2. `products/index.blade.php`: Bổ sung Breadcrumb Multi-Pills nhận diện danh mục động.
+  3. `products/search.blade.php`: Bổ sung Breadcrumb Multi-Pills hiển thị từ khóa tìm kiếm.
+  4. `blog/index.blade.php`: Cập nhật Multi-Pills nhận diện danh mục và từ khóa tìm kiếm bài viết.
+  5. `blog/show.blade.php`: Hoàn thiện hiệu ứng hover, shadow và icon select-none.
+  6. `cart/index.blade.php`: Bổ sung Breadcrumb Multi-Pills Giỏ hàng.
+  7. `checkout/index.blade.php`: Bổ sung Breadcrumb Multi-Pills chuỗi Trang chủ -> Giỏ hàng -> Thanh toán.
+  8. `pages/faq.blade.php`, `privacy-policy.blade.php`, `terms.blade.php`, `return-policy.blade.php`, `shipping-policy.blade.php`: Chuyển đổi 100% sang chuẩn Multi-Pill.
+  9. `about.blade.php`, `stores.blade.php`: Bổ sung thanh điều hướng về trang chủ đồng bộ.
+
+### 9.3. Kết quả Kiểm thử & Nghiệm thu
+- **Tự động hóa Kiểm thử (Pest Feature Test):** `php artisan test --compact`: **19/19 tests passed, 63 assertions (100% Passed)**.
+- **Biên dịch Frontend:** `npm run build` biên dịch sạch sẽ trong 1.03s.
+- **Chuẩn hóa Code:** `vendor/bin/pint --dirty --format agent` hoàn tất chuẩn PSR-12 không phát sinh lỗi.
+

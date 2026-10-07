@@ -10,12 +10,17 @@
                 return matchCat && matchSearch;
             }
          }">
-        <!-- Breadcrumb -->
-        <div class="glass-thin rounded-2xl py-2 px-5 flex items-center gap-2 text-gray-500 text-sm w-fit mb-6 bg-white/40 backdrop-blur-md border border-white/60 shadow-sm">
-            <a class="hover:text-green-700 transition-colors" href="{{ route('home') }}">Trang chủ</a>
-            <span class="text-gray-400">/</span>
-            <span class="text-green-900 font-semibold">Câu hỏi thường gặp</span>
-        </div>
+        <!-- Breadcrumb Trail (Liquid Glass Multi-Pills) -->
+        <nav class="flex items-center gap-2 mb-6 text-gray-500 text-sm overflow-x-auto whitespace-nowrap py-1 no-scrollbar">
+            <a class="px-3.5 py-1.5 rounded-full bg-white/50 hover:bg-white text-gray-700 transition-colors shadow-xs border border-white/70 flex items-center gap-1.5 font-medium hover:shadow-sm" href="{{ route('home') }}">
+                <span class="material-symbols-outlined text-[18px]">home</span>
+                Trang chủ
+            </a>
+            <span class="material-symbols-outlined text-gray-400 text-sm select-none">chevron_right</span>
+            <span class="px-3.5 py-1.5 rounded-full bg-emerald-100/70 border border-emerald-200/60 text-emerald-950 font-bold truncate shadow-xs">
+                Câu hỏi thường gặp
+            </span>
+        </nav>
 
         <!-- Pill Header -->
         <div class="pt-2 pb-8 w-full flex justify-center">

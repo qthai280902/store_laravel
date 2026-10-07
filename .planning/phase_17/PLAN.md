@@ -228,7 +228,36 @@ Nâng cấp dữ liệu sản phẩm chuẩn e-commerce thực tế:
    - Chạy `php artisan migrate:fresh --seed`.
    - Chạy `npm run build` và Pest feature tests.
 
+---
 
+## 11. PHASE 17.4: TÁI CẤU TRÚC GIAO DIỆN BLOG (DANH SÁCH & CHI TIẾT) THEO UI KIT APPLE LIQUID GLASS V4
 
-
-
+### 11.1. Mục tiêu Kỹ thuật
+Khảo sát và chuyển đổi toàn diện giao diện Blog (`resources/views/blog/index.blade.php` và `resources/views/blog/show.blade.php`) theo đúng bộ thiết kế mẫu tại `.planning/scratch/ui_kit/blog_design`, bảo toàn phân bổ lưới responsive và luồng dữ liệu Eloquent, đồng thời nâng cấp toàn bộ visual sang chuẩn Apple Liquid Glass V4:
+1. **Khảo sát UI Kit:**
+   - Index mẫu: `.planning/scratch/ui_kit/blog_design/tin_t_c_m_o_v_t_minimart_blog_centered_layout/code.html`
+   - Show mẫu: `.planning/scratch/ui_kit/blog_design/b_quy_t_b_o_qu_n_rau_c_t_i_ngon_minimart_blog/code.html`
+   - Design System: `.planning/scratch/ui_kit/blog_design/liquid_glass/DESIGN.md`
+2. **Nâng cấp Controller (`PostController.php`):**
+   - Hỗ trợ lọc theo danh mục `?category=` và truyền `$categories`, `$selectedCategory`, `$featuredPost` vào view index.
+   - Truy vấn và truyền `$relatedPosts` (3 bài viết cùng chuyên mục) vào view show.
+3. **Tái thiết kế `resources/views/blog/index.blade.php`:**
+   - Hero Header trung tâm phong cách e-magazine với badge pill `Chuyên mục Blog MiniMart` và hiệu ứng vệt sáng ambient accent.
+   - Thẻ Featured Spotlight lớn cho bài viết nổi bật đầu trang.
+   - Thanh bộ lọc chủ đề Category Filter Bar dạng viên thuốc kính lỏng trượt ngang (`rounded-full p-1.5 flex gap-2`), tab active tone xanh ngọc lục bảo MiniMart (`bg-emerald-800 text-white shadow-md`).
+   - Lưới thẻ bài viết chuẩn Blog Card Liquid Glass:
+     - Thẻ kính: `bg-white/40 backdrop-blur-2xl border border-white/60 shadow-[0_10px_30px_rgba(0,0,0,0.05)] ring-1 ring-white/50 rounded-3xl overflow-hidden hover:bg-white/60 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300`.
+     - Tag danh mục kính lỏng nổi trên góc ảnh, metadata ngày đăng và thời gian đọc, tóm tắt nội dung 3 dòng, chân thẻ có avatar/tác giả và nút đọc tiếp.
+   - Phân trang chuẩn Liquid Glass đồng bộ.
+4. **Tái thiết kế `resources/views/blog/show.blade.php`:**
+   - Toàn bộ bài viết đặt trên phiến kính trung tâm `liquid-glass-pane max-w-5xl mx-auto my-8 p-6 md:p-12 rounded-[2.5rem] bg-white/40 backdrop-blur-3xl border border-white/70 shadow-[0_20px_50px_rgba(0,0,0,0.08)] ring-1 ring-white/50`.
+   - Breadcrumb Trail dạng viên thuốc kính lỏng.
+   - Khung ảnh đại diện Hero Banner bo góc `rounded-[2rem]` kèm vệt sáng phản quang trên mép và badges nổi (Chuyên mục, Thời gian đọc, Ngày đăng).
+   - Headline lớn & Byline tác giả chuyên nghiệp có tích xanh `verified`.
+   - Nội dung bài viết (Prose): `prose prose-lg prose-emerald max-w-none text-gray-700 leading-[1.8]`, tiêu đề H2/H3 có accent xanh MiniMart, Blockquote thẻ kính mờ `bg-emerald-500/10 backdrop-blur-xl border border-emerald-500/20 rounded-2xl p-6 md:p-8`, ảnh chèn bài viết có viền kính mỏng.
+   - Hộp tiểu sử tác giả (Author Bio Box) kính lỏng kèm nút chia sẻ / sao chép liên kết.
+   - Cụm 3 bài viết liên quan (Related Articles) dưới chân trang tuân thủ chuẩn thẻ Blog Card mới.
+5. **Kiểm thử & Biên dịch:**
+   - Biên dịch `npm run build`.
+   - Chuẩn hóa định dạng `vendor/bin/pint --dirty --format agent`.
+   - Viết test case bổ sung trong `tests/Feature/BlogPagesTest.php` và chạy `php artisan test --compact`.

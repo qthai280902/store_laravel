@@ -1,5 +1,29 @@
 <x-layouts.app title="Sản phẩm - MiniMart">
-    <div class="pt-8 pb-12 w-full flex justify-center">
+    <!-- Breadcrumb Trail (Liquid Glass Multi-Pills) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <nav class="flex items-center gap-2 text-gray-500 text-sm overflow-x-auto whitespace-nowrap py-1 no-scrollbar">
+            <a class="px-3.5 py-1.5 rounded-full bg-white/50 hover:bg-white text-gray-700 transition-colors shadow-xs border border-white/70 flex items-center gap-1.5 font-medium hover:shadow-sm" href="{{ route('home') }}">
+                <span class="material-symbols-outlined text-[18px]">home</span>
+                Trang chủ
+            </a>
+            <span class="material-symbols-outlined text-gray-400 text-sm select-none">chevron_right</span>
+            @if(request('category'))
+                <a class="px-3.5 py-1.5 rounded-full bg-white/50 hover:bg-white text-gray-700 transition-colors shadow-xs border border-white/70 font-medium hover:shadow-sm" href="{{ route('products.index') }}">
+                    Sản phẩm
+                </a>
+                <span class="material-symbols-outlined text-gray-400 text-sm select-none">chevron_right</span>
+                <span class="px-3.5 py-1.5 rounded-full bg-emerald-100/70 border border-emerald-200/60 text-emerald-950 font-bold truncate shadow-xs">
+                    {{ \App\Models\Category::where('slug', request('category'))->value('name') ?? request('category') }}
+                </span>
+            @else
+                <span class="px-3.5 py-1.5 rounded-full bg-emerald-100/70 border border-emerald-200/60 text-emerald-950 font-bold truncate shadow-xs">
+                    Tất cả sản phẩm
+                </span>
+            @endif
+        </nav>
+    </div>
+
+    <div class="pt-4 pb-10 w-full flex justify-center">
         <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-full px-12 py-4 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out inline-block">
             <h1 class="text-3xl md:text-4xl font-extrabold text-green-900 text-center">Sản phẩm</h1>
         </div>

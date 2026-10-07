@@ -1,5 +1,19 @@
 <x-layouts.app title="Giới thiệu - MiniMart">
-    <div class="liquid-glass-pane max-w-7xl mx-auto px-6 py-10 my-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <!-- Breadcrumb Trail (Liquid Glass Multi-Pills) -->
+        <nav class="flex items-center gap-2 mb-2 text-gray-500 text-sm overflow-x-auto whitespace-nowrap py-1 no-scrollbar">
+            <a class="px-3.5 py-1.5 rounded-full bg-white/50 hover:bg-white text-gray-700 transition-colors shadow-xs border border-white/70 flex items-center gap-1.5 font-medium hover:shadow-sm" href="{{ route('home') }}">
+                <span class="material-symbols-outlined text-[18px]">home</span>
+                Trang chủ
+            </a>
+            <span class="material-symbols-outlined text-gray-400 text-sm select-none">chevron_right</span>
+            <span class="px-3.5 py-1.5 rounded-full bg-emerald-100/70 border border-emerald-200/60 text-emerald-950 font-bold truncate shadow-xs">
+                Về MiniMart
+            </span>
+        </nav>
+    </div>
+
+    <div class="liquid-glass-pane max-w-7xl mx-auto px-6 py-10 my-4">
     <div class="max-w-7xl mx-auto px-4 py-12 space-y-12 pb-24">
         
         <div class="pt-8 pb-4 w-full flex justify-center">

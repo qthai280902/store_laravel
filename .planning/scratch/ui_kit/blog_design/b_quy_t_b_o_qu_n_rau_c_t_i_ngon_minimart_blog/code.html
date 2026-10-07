@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MiniMart - Master Layout Template</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#aef4a5",
+                        "on-secondary-fixed-variant": "#743400",
+                        "on-primary-fixed": "#002203",
+                        "on-primary-fixed-variant": "#0e5217",
+                        "on-primary-container": "#76b970",
+                        "on-background": "#181d16",
+                        "tertiary-container": "#741a41",
+                        "on-surface": "#181d16",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e0e4d9",
+                        "surface-container-highest": "#e0e4d9",
+                        "surface-bright": "#f7fbf0",
+                        "secondary": "#994700",
+                        "surface-container-low": "#f1f5ea",
+                        "error": "#ba1a1a",
+                        "background": "#f7fbf0",
+                        "on-tertiary-fixed": "#3e001d",
+                        "on-tertiary-fixed-variant": "#7f234a",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c0c9bb",
+                        "secondary-container": "#ff9650",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#6f3200",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#2b6b2c",
+                        "on-surface-variant": "#41493e",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "surface-dim": "#d7dbd1",
+                        "surface-container": "#ebefe5",
+                        "primary": "#003006",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb0c8",
+                        "tertiary": "#56002b",
+                        "outline": "#717a6d",
+                        "secondary-fixed": "#ffdbc8",
+                        "inverse-on-surface": "#eef2e7",
+                        "on-secondary-fixed": "#321300",
+                        "primary-fixed-dim": "#92d78b",
+                        "primary-container": "#00490e",
+                        "surface": "#f7fbf0",
+                        "surface-container-high": "#e6eadf",
+                        "tertiary-fixed": "#ffd9e2",
+                        "on-tertiary-container": "#f985ad",
+                        "inverse-surface": "#2d322b",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#92d78b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "base_unit": "8px",
+                        "margin_desktop": "40px",
+                        "max_width": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f7fbf0;
+            overflow-x: hidden;
+        }
+        
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background-color: #f7fbf0;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out alternate;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: #92d78b; /* primary-fixed-dim */
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 600px;
+            height: 600px;
+            background: #ffb68b; /* secondary-fixed-dim */
+            bottom: -200px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: #ffb0c8; /* tertiary-fixed-dim */
+            top: 40%;
+            left: 40%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 30px) scale(1.1); }
+            100% { transform: translate(-30px, 80px) scale(0.9); }
+        }
+
+        .glass-regular {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-thin {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<meta content="web_standard" name="shell-type"/></head>
+<body class="text-on-background font-body-lg text-body-lg antialiased flex flex-col min-h-screen">
+<!-- Ambient Background -->
+<div class="ambient-bg">
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+</div>
+<!-- Header (TopNavBar from JSON) -->
+<header class="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-gutter max-w-max_width mx-auto h-20 bg-white/35 backdrop-blur-[40px] saturate-[180%] border-t-[1.5px] border-white/80 border-x-[1px] border-b-[1px] border-white/30 shadow-xl transition-all duration-300">
+<div class="flex items-center gap-base_unit">
+<span class="font-display-lg text-display-lg font-extrabold text-primary dark:text-primary-fixed-dim tracking-tight">MiniMart</span>
+</div>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Categories</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Deals</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Fresh</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Organic</a>
+</nav>
+<!-- Search Bar -->
+<div class="hidden lg:flex items-center bg-white rounded-[12px] border border-outline-variant px-4 py-2 w-64 shadow-sm transition-all focus-within:ring-2 focus-within:ring-primary-fixed-dim">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none outline-none text-on-surface w-full font-label-md text-label-md placeholder-outline placeholder:font-normal focus:ring-0 p-0 h-6" placeholder="Search..." type="text"/>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4 text-primary dark:text-primary-fixed-dim">
+<button class="hover:text-primary transition-colors duration-200 p-2 rounded-full hover:bg-white/50">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="hover:text-primary transition-colors duration-200 p-2 rounded-full hover:bg-white/50">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+</div>
+</header>
+<!-- Main Content Wrapper (Accounts for fixed header) -->
+<main class="flex-grow pt-24 px-4 md:px-margin_desktop lg:px-0 w-full max-w-max_width mx-auto flex flex-col gap-gutter z-10 pb-20 relative"><div class="flex flex-col w-full relative">
+<!-- Top Reading Progress Indicator -->
+<div class="fixed top-0 left-0 w-full h-[3.5px] bg-transparent z-50 pointer-events-none">
+<div class="h-full bg-primary-container transition-[width] duration-150 ease-out" id="readingProgressBar" style="width: 38%;"></div>
+</div>
+<!-- Breadcrumb Trail -->
+<nav class="flex items-center gap-2 mb-6 text-on-surface-variant font-label-md text-label-md overflow-x-auto whitespace-nowrap py-1">
+<a class="px-3 py-1.5 rounded-full bg-surface-container-lowest/60 hover:bg-surface-container-lowest text-on-surface transition-colors shadow-sm" href="#">Trang chủ</a>
+<span class="material-symbols-outlined text-outline text-sm">chevron_right</span>
+<a class="px-3 py-1.5 rounded-full bg-surface-container-lowest/60 hover:bg-surface-container-lowest text-on-surface transition-colors shadow-sm" href="#">Góc ẩm thực &amp; Mẹo vặt</a>
+<span class="material-symbols-outlined text-outline text-sm">chevron_right</span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container-high/80 text-on-surface font-semibold truncate max-w-xs md:max-w-md">Bí quyết bảo quản rau củ tươi ngon cả tuần</span>
+</nav>
+<!-- Hero Banner -->
+<section class="relative w-full max-w-5xl mx-auto rounded-[20px] overflow-hidden shadow-xl bg-surface-container-high">
+<div class="relative w-full h-[320px] sm:h-[400px] md:h-[460px]">
+<img class="w-full h-full object-cover select-none" data-alt="Abundant fresh culinary harvest laid out on an artisanal wooden kitchen counter, including bright red vine tomatoes, crisp carrots, ripe halved avocados, aromatic rosemary, kale, and artisan bread, flooded in soft, natural morning sunlight through a wide window." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-_qX_CqnKA7wz4ChYe_6RUOZ9x2cd6sIb3hIQ9Zl7LTw9yIU0Fg3elHHKaPmA4a-whMzgEwbgwlm7GtGxfNxWo6ibj5-Kjpr4N1FXknFZkEYMJv8kbXVlnoc6E6qtwtuVTaL17N2UIkdRXU5Q9mmuK4eUGbhugLVdRi7tcXjnvabPM3b6RblvrrYleXdXcHd53wqE3LS2FmfqG0OyCcumicpnH9NQPxb1yLJbmQA"/>
+<!-- Bottom Vignette / Glass Badges Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent flex items-end p-6 md:p-8">
+<div class="flex flex-wrap items-center gap-3">
+<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-md backdrop-blur-md">
+<span class="material-symbols-outlined text-sm">eco</span>
+            Mẹo vặt nhà bếp
+          </span>
+<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest/80 text-on-surface font-label-md text-label-md backdrop-blur-md shadow-sm">
+<span class="material-symbols-outlined text-sm text-secondary">schedule</span>
+            5 phút đọc
+          </span>
+<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-lowest/80 text-on-surface font-label-md text-label-md backdrop-blur-md shadow-sm">
+<span class="material-symbols-outlined text-sm text-outline">calendar_today</span>
+            24 Tháng 10, 2024
+          </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Headline & Byline Header Block -->
+<header class="w-full max-w-[720px] mx-auto pt-10 pb-6 text-left">
+<p class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Bí quyết bảo quản thực phẩm tươi sống</p>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight leading-tight">
+      7 Bí quyết giữ rau củ quả luôn tươi xanh mọng nước suốt 7 ngày trong tủ lạnh
+    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-4 leading-relaxed">
+      Tiết kiệm chi phí, giảm lãng phí thực phẩm và luôn sẵn sàng cho những bữa ăn tươi ngon tròn vị mỗi ngày với những kinh nghiệm thực tế từ MiniMart.
+    </p>
+<!-- Byline Row -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-8 pt-6 border-t border-surface-variant/80">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-primary-fixed-dim ring-2 ring-surface-container-lowest shadow-sm flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up professional portrait of a smiling female culinary nutritionist wearing an apron in a bright clean kitchen setup." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc_SUnCaRawsfCOWOAf5zOSI7wFSdVm8SUI3skwMHORcF3kpb-LrFi3p7eF_vBTey8gRC7bFKHf6QoCXVviWyQmVTPEfsNzXOcF7Dp7Q_krEVj8BRLGZttBYlpnaC67ixBcg8VxhmOqL8eH0NvRjspT-IpqZRHiCxkecOUbnDT_RTkYS9-yAefJHYiTjJ4RXo64UDQchwqn4bwTzwlHwqzHC7ImVBp8JM9TueN_9s"/>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-on-surface font-bold">Thùy Linh</span>
+<span class="material-symbols-outlined text-primary text-base" title="Chuyên gia xác thực">verified</span>
+</div>
+<p class="font-label-md text-xs text-on-surface-variant">Chuyên gia Dinh dưỡng MiniMart • 1.4k lượt xem</p>
+</div>
+</div>
+<!-- Mobile Fast Share Row -->
+<div class="flex md:hidden items-center gap-2 pt-2 sm:pt-0">
+<button aria-label="Chia sẻ qua Facebook" class="w-9 h-9 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-sm">share</span>
+</button>
+<button aria-label="Lưu bài viết" class="w-9 h-9 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-sm">bookmark</span>
+</button>
+<button aria-label="Thích bài viết" class="w-9 h-9 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center hover:bg-tertiary-container hover:text-on-tertiary transition-colors">
+<span class="material-symbols-outlined text-sm">favorite</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Editorial Reading Stage + Floating Desktop Rail -->
+<section class="relative w-full max-w-[720px] mx-auto pb-12">
+<!-- Desktop Sticky Side Utility Rail -->
+<aside class="hidden md:flex flex-col gap-3.5 absolute -left-20 lg:-left-24 top-6 z-20 p-2 rounded-full bg-surface-container-lowest/80 backdrop-blur-xl shadow-lg border border-surface-container-lowest items-center">
+<button aria-label="Chia sẻ Facebook" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-primary hover:bg-primary transition-all duration-200 transform hover:scale-105" title="Chia sẻ Facebook">
+<span class="material-symbols-outlined text-lg">share</span>
+</button>
+<button aria-label="Sao chép liên kết" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-primary hover:bg-primary transition-all duration-200 transform hover:scale-105" id="copyLinkBtn" title="Sao chép liên kết">
+<span class="material-symbols-outlined text-lg">link</span>
+</button>
+<div class="w-5 h-[1px] bg-outline-variant/60"></div>
+<button aria-label="Lưu bài viết" class="flex flex-col items-center justify-center w-10 h-12 rounded-full text-on-surface-variant hover:text-primary transition-all group" id="bookmarkBtn">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">bookmark</span>
+<span class="font-label-md text-[11px] leading-tight font-bold">142</span>
+</button>
+<button aria-label="Yêu thích bài viết" class="flex flex-col items-center justify-center w-10 h-12 rounded-full text-on-surface-variant hover:text-tertiary-container transition-all group" id="likeBtn">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform text-tertiary-container">favorite</span>
+<span class="font-label-md text-[11px] leading-tight font-bold text-on-surface">89</span>
+</button>
+</aside>
+<!-- Main High-Legibility Editorial Copy -->
+<article class="w-full text-on-surface font-body-lg text-body-lg leading-[1.8] space-y-7">
+<p class="first-letter:font-headline-lg first-letter:text-5xl first-letter:font-bold first-letter:text-primary first-letter:float-left first-letter:mr-3 first-letter:leading-none text-on-surface">
+        Mua sắm rau củ tươi mỗi cuối tuần là thói quen lành mạnh, nhưng không ít gia đình phải ngậm ngùi vứt bỏ những bó rau úa vàng hay những quả cà chua bị nhũn hỏng chỉ sau 2-3 ngày. Vấn đề không nằm ở chất lượng nông sản lúc bạn mua, mà chính là cách bạn kiểm soát độ ẩm và nhiệt độ trong môi trường nhân tạo của gian bếp.
+      </p>
+<div class="space-y-3 pt-2">
+<h2 class="font-headline-lg text-2xl text-on-surface font-bold tracking-tight flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary inline-block"></span>
+          1. Nguyên tắc vàng: Không rửa rau củ trước khi cho vào tủ lạnh
+        </h2>
+<p>
+          Rất nhiều người có thói quen rửa sạch tất cả nông sản ngay sau khi đi siêu thị về để tiện chế biến. Tuy nhiên, độ ẩm còn sót lại trên phiến lá chính là chất xúc tác sinh học hoàn hảo cho vi khuẩn và nấm mốc sinh sôi với tốc độ chóng mặt. Nước làm mềm lớp biểu bì bảo vệ tự nhiên của thực vật, biến rau thơm hay xà lách giòn trở nên úng nhũn chỉ sau 48 giờ.
+        </p>
+<p class="bg-surface-container-low p-4 rounded-xl text-on-surface-variant text-base">
+<strong>Mẹo nhỏ từ đầu bếp:</strong> Hãy chỉ rửa rau củ ngay trước khi bạn bắt đầu chế biến nấu nướng. Nếu bắt buộc phải sơ chế trước, hãy sử dụng rổ quay ly tâm để làm khô hoàn toàn trước khi đóng gói.
+        </p>
+</div>
+<div class="space-y-3 pt-2">
+<h2 class="font-headline-lg text-2xl text-on-surface font-bold tracking-tight flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary inline-block"></span>
+          2. Phân loại theo nhóm "Khí Ethylene" — Tránh hiện tượng chín ép
+        </h2>
+<p>
+          Ethylene là một loại hormone thực vật dạng khí tự nhiên do một số loại trái cây phát ra khi chín, đóng vai trò kích thích quá trình lão hóa của các mô tế bào xung quanh. Khi đặt chuối, táo hay bơ cạnh các loại rau lá xanh nhạy cảm như cải bó xôi hay bông cải xanh, khí ethylene sẽ biến lá xanh thành màu nâu vàng chỉ trong chớp mắt.
+        </p>
+<ul class="list-disc list-inside space-y-1.5 pl-2 text-on-surface-variant">
+<li><strong>Nhóm sản sinh Ethylene cao:</strong> Chuối chín, táo, lê, cà chua, quả bơ, dưa gang.</li>
+<li><strong>Nhóm nhạy cảm với Ethylene:</strong> Rau xà lách, dưa leo, cà rốt, cải thìa, măng tây, súp lơ.</li>
+</ul>
+</div>
+<!-- Pull Quote Callout Block -->
+<blockquote class="bg-surface-container-low rounded-2xl p-6 md:p-8 my-8 shadow-sm">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary text-3xl select-none">format_quote</span>
+<div>
+<p class="font-headline-lg text-xl md:text-2xl text-primary font-semibold leading-snug italic mb-3">
+              "Rau củ giống như những sinh thể vẫn đang tiếp tục hít thở sau thu hoạch. Giữ độ ẩm phù hợp và độ thông thoáng cần thiết chính là chìa khóa vàng giúp duy trì trọn vẹn dưỡng chất và độ giòn ngọt tự nhiên."
+            </p>
+<cite class="not-italic font-label-md text-label-md text-on-surface-variant font-bold block">
+              — Đội ngũ Giám sát Nông trại MiniMart Green
+            </cite>
+</div>
+</div>
+</blockquote>
+<div class="space-y-3 pt-2">
+<h2 class="font-headline-lg text-2xl text-on-surface font-bold tracking-tight flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary inline-block"></span>
+          3. Tận dụng hộp thủy tinh và khăn giấy hút ẩm chuyên dụng
+        </h2>
+<p>
+          Đối với các loại rau gia vị như ngò rí, húng quế, hương thảo và hành lá, cách bảo quản tối ưu nhất là phương pháp "ủ khô". Bọc nhẹ rau trong một lớp khăn giấy thực phẩm sạch không mùi, sau đó đặt vào hộp kín làm bằng thủy tinh chịu lực hoặc nhựa không chứa BPA. Khăn giấy sẽ đóng vai trò như một bộ đệm hút ẩm kép: hấp thụ độ ngưng tụ thừa nhưng vẫn duy trì độ ẩm không khí cần thiết cho lá cây.
+        </p>
+</div>
+<!-- Inline Editorial Image -->
+<figure class="my-8 rounded-[16px] overflow-hidden shadow-md bg-surface-container-high">
+<div class="w-full h-80 sm:h-96">
+<img class="w-full h-full object-cover select-none" data-alt="Top down overhead culinary photo of a woman in an apron chopping fresh greens, kale and herbs on a sturdy wooden cutting board, with transparent glass meal prep storage boxes containing herbs and vegetables neatly lined on a marble kitchen island." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJRxWrqMDf81NwoNJQglYd-9xBIQUxYIDGwDlO_kjR7nwBupKbsLwQlPmt9P723LVA3LTnXTb2KYl8Ch-g2GO60rQ6YGZfBLObk0WK7BCNmD4I_kyiOHzmxgp5oUS2SGlQLSbgmfT8UBJRLJAkpdcsQ3kOfrqnHUDiR46BctfdJ-dBMW5xg86H432ASAGHbhtioPbMIT64rVoxC1vec78PSWXPTfj7Hp_hr0AIKWg"/>
+</div>
+<figcaption class="p-4 bg-surface-container-low text-on-surface-variant font-label-md text-label-md italic text-center">
+          Hình ảnh: Sắp xếp các loại rau thơm và củ quả mọng vào hộp kính có lót giấy sáp thấm ẩm giúp kéo dài độ tươi ngon thêm 4–5 ngày mà không làm mất chất dinh dưỡng.
+        </figcaption>
+</figure>
+<div class="space-y-3 pt-2">
+<h2 class="font-headline-lg text-2xl text-on-surface font-bold tracking-tight flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary inline-block"></span>
+          4. Điều chỉnh nhiệt độ và phân tầng ngăn chứa chuyên biệt
+        </h2>
+<p>
+          Tủ lạnh hiện đại thường được chia thành nhiều vùng nhiệt độ khác nhau. Ngăn hộc dưới cùng (Crisper Drawer) thường có độ ẩm cao nhất (khoảng 80-90%), lý tưởng cho các loại rau lá mỏng dễ héo. Ngược lại, các loại củ cứng cáp như cà rốt, củ dền hay bí ngòi nên được đặt ở các kệ trung tâm nơi luồng khí mát lưu thông đều đặn ở mức 3°C – 5°C.
+        </p>
+</div>
+<div class="space-y-3 pt-2">
+<h2 class="font-headline-lg text-2xl text-on-surface font-bold tracking-tight flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary inline-block"></span>
+          Lời kết: Sống xanh và tiết kiệm bắt đầu từ gian bếp của bạn
+        </h2>
+<p>
+          Bảo quản thực phẩm đúng cách không chỉ là câu chuyện bảo vệ ngân sách chi tiêu hàng tuần của gia đình, mà còn là hành động thiết thực thể hiện sự trân trọng công sức của người nông dân và tôn trọng tài nguyên môi trường. Hãy thử áp dụng ngay 3 trong số 7 mẹo trên vào lần đi chợ tới tại MiniMart để tự mình cảm nhận sự khác biệt của những bữa cơm gia đình tươi mới!
+        </p>
+</div>
+<!-- Tags Row -->
+<div class="pt-8 pb-4 flex flex-wrap gap-2 border-t border-surface-variant">
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface-variant font-label-md text-label-md cursor-pointer transition-colors">#BảoQuảnThựcPhẩm</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface-variant font-label-md text-label-md cursor-pointer transition-colors">#MẹoNhàBếp</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface-variant font-label-md text-label-md cursor-pointer transition-colors">#RauCủOrganic</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface-variant font-label-md text-label-md cursor-pointer transition-colors">#SốngXanh</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface-variant font-label-md text-label-md cursor-pointer transition-colors">#MiniMartTips</span>
+</div>
+</article>
+<!-- Author Bio Card -->
+<section class="mt-12 rounded-[20px] p-6 sm:p-8 bg-surface-container-lowest/80 backdrop-blur-2xl shadow-md flex flex-col sm:flex-row items-center sm:items-start gap-6">
+<div class="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Portrait of chef Tran Thuy Linh wearing a culinary apron, warm friendly smile, blurred soft green natural restaurant kitchen background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiahH6RbvPv-yia-NzZ6wniQMq_TPKZW-9ekdjk4KkbbUzjyGvLo0JgHSFRy4nGtipETfemk4-FHuB2qi3JJe3JGL4YDoeQ9_Ci0itFmzCpZYQb-mnnVAVj5AYKgtSim6z7qIl7Dz4PCtFX_BmhRNqJyX7UiqLjBO33gI9fqivAlpjEkiR2K2QiCVsNYeFZVdmYSzh0ok-SDLO7a-7tFyV59H0FllZaks7zqWlE7c"/>
+</div>
+<div class="flex flex-col text-center sm:text-left">
+<div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+<h3 class="font-headline-lg text-xl text-on-surface font-bold">Trần Thùy Linh</h3>
+<span class="font-label-md text-label-md text-secondary font-semibold">Bếp trưởng &amp; Cố vấn Ẩm thực tại MiniMart</span>
+</div>
+<p class="font-body-lg text-base text-on-surface-variant leading-relaxed mb-4">
+          Đam mê chia sẻ công thức nấu ăn lành mạnh và các giải pháp đi chợ thông minh, bền vững cho gia đình hiện đại. Luôn tin rằng một gian bếp ngăn nắp là khởi nguồn của sức khỏe dài lâu.
+        </p>
+<div>
+<a class="inline-flex items-center gap-1.5 text-primary font-label-md text-label-md font-bold hover:underline" href="#">
+            Xem tất cả 28 bài viết của Thùy Linh
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+</section>
+<!-- Related Articles Grid Section -->
+<section class="w-full max-w-5xl mx-auto pt-8 pb-14">
+<div class="flex items-center justify-between mb-8">
+<div>
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider block mb-1">Cẩm nang nấu nướng</span>
+<h2 class="font-headline-lg text-2xl md:text-3xl text-on-surface font-bold">Bài viết cùng chủ đề</h2>
+</div>
+<a class="hidden sm:inline-flex items-center gap-1 text-primary font-label-md text-label-md font-bold hover:underline" href="#">
+        Xem tất cả bài viết
+        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<article class="group flex flex-col rounded-[20px] overflow-hidden bg-surface-container-lowest/80 backdrop-blur-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative h-48 w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Vibrant glass bottles of cold-pressed green and orange fresh fruit juices on a bright sunny kitchen table surrounded by fresh oranges and spinach leaves." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLszwcpDzZrJVRGVPwhsIwpx3PGYdRhnNNZy-MZUJiQDWy4knfgQKZhfN0YtPMTq8-xvIW2vjGU9jLRBL9htxta-RUYJmMqY2l5gfUxOIWY1_OJIpYww9af6bWYSgb9fjh4qiyUJkShb_dlgofcFZ1PjILhlewZPUwozufCkmEYotm-fnNDnbHBj8h39iSFlxAe_vIJes8Vs_Xncu7-abIwgnnw4vpc0brZVZSU3g"/>
+<span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-xs font-bold shadow-sm">
+            Công thức
+          </span>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md text-xs mb-2.5">
+<span>22/10/2024</span>
+<span>•</span>
+<span>4 phút đọc</span>
+</div>
+<h3 class="font-headline-lg text-lg text-on-surface font-bold leading-snug group-hover:text-primary transition-colors">
+              5 Công thức nước ép thanh lọc cơ thể từ rau củ tươi
+            </h3>
+<p class="font-body-lg text-sm text-on-surface-variant mt-2 line-clamp-2">
+              Bổ sung vitamin tự nhiên mỗi sáng giúp tăng cường đề kháng và làm sáng da hiệu quả với nguyên liệu hữu cơ có sẵn.
+            </p>
+</div>
+<div class="pt-4 mt-2">
+<span class="text-primary font-label-md text-label-md font-bold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+              Đọc tiếp <span class="material-symbols-outlined text-sm">east</span>
+</span>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="group flex flex-col rounded-[20px] overflow-hidden bg-surface-container-lowest/80 backdrop-blur-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative h-48 w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Rustic golden crispy sourdough artisan bread cut in halves with visible airy honeycomb crumbs resting on a baker wooden board in morning glow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKSKFHN0tZCM7hbQhgkLtajiikgEW_luuU1R1Ysu1mf__g8yneI2SUFeMfHX_YJ3AsMclRTlFZhV_8jbf4Jfz4u3wnTQUjcjD8mW-KxwNzH-2-2dYxaPMwmQlM9tX1Uq32J1bltCgpYwH7VcKDk6qhbHrQ7GCfYhry72X46NZTghKryQHlOBlz3fVlmIekkiBaD3Flfu408lydmN0nmzluzWK7Wt8q76L9ZZuDVls"/>
+<span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-xs font-bold shadow-sm">
+            Kiến thức
+          </span>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md text-xs mb-2.5">
+<span>20/10/2024</span>
+<span>•</span>
+<span>6 phút đọc</span>
+</div>
+<h3 class="font-headline-lg text-lg text-on-surface font-bold leading-snug group-hover:text-primary transition-colors">
+              Cách bảo quản bánh mì men tự nhiên giòn rụm không bị mốc
+            </h3>
+<p class="font-body-lg text-sm text-on-surface-variant mt-2 line-clamp-2">
+              Khám phá giải pháp cấp đông bánh mì lát và kỹ thuật hâm nóng bằng nồi chiên không dầu giữ trọn lớp vỏ giòn tan đặc trưng.
+            </p>
+</div>
+<div class="pt-4 mt-2">
+<span class="text-primary font-label-md text-label-md font-bold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+              Đọc tiếp <span class="material-symbols-outlined text-sm">east</span>
+</span>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="group flex flex-col rounded-[20px] overflow-hidden bg-surface-container-lowest/80 backdrop-blur-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+<div class="relative h-48 w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Neat rustic grocery pantry shelf with organic jars, fresh seasonal fruits, ceramic bowls of lemons, garlic and cold-pressed extra virgin olive oil." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7wQj3rdobzbEYLCZpKDdNG5jQ1I8bttui8CuKB2Sb1_vHDBl1oz4GmoUhq2k4D0p9RnqXdG6xKyzrM7waVPfPj-GhCEng10Z1lCPEiljv8w0G1ZNpWnJoIH-Sh-dZli_e_LRp9nyS8ME2i2prRhsQDCvIukAHs6o11rmLLfjTIH2bvgNjvMtW96KGTGHqeUxM3VOk-nVa4O9DViLRY8xcGFACyT2WFn4vQdOmFEs"/>
+<span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-xs font-bold shadow-sm">
+            Đi chợ
+          </span>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md text-xs mb-2.5">
+<span>18/10/2024</span>
+<span>•</span>
+<span>5 phút đọc</span>
+</div>
+<h3 class="font-headline-lg text-lg text-on-surface font-bold leading-snug group-hover:text-primary transition-colors">
+              Cẩm nang chọn trái cây theo mùa chuẩn sạch và an toàn
+            </h3>
+<p class="font-body-lg text-sm text-on-surface-variant mt-2 line-clamp-2">
+              Nhận diện hoa quả thu hoạch tự nhiên thông qua màu cuống, độ đàn hồi tự nhiên và mùi hương mộc mạc thơm lành.
+            </p>
+</div>
+<div class="pt-4 mt-2">
+<span class="text-primary font-label-md text-label-md font-bold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+              Đọc tiếp <span class="material-symbols-outlined text-sm">east</span>
+</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Newsletter Signup Band -->
+<section class="w-full max-w-5xl mx-auto my-6 rounded-[24px] p-8 md:p-12 bg-surface-container-high/60 backdrop-blur-2xl shadow-lg relative overflow-hidden">
+<div class="relative z-10 max-w-2xl mx-auto text-center">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary flex items-center justify-center mx-auto mb-4 shadow-sm">
+<span class="material-symbols-outlined text-2xl">mark_email_unread</span>
+</div>
+<h3 class="font-headline-lg text-2xl md:text-3xl text-on-surface font-bold">
+        Nhận cẩm nang dinh dưỡng &amp; mẹo vặt hàng tuần
+      </h3>
+<p class="font-body-lg text-base text-on-surface-variant mt-3 mb-6">
+        Đăng ký nhận bản tin để không bỏ lỡ các ưu đãi tươi ngon mới nhất và bí quyết chăm sóc sức khỏe cho cả gia đình.
+      </p>
+<form class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" id="newsletterForm" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đăng ký nhận bản tin MiniMart!');">
+<div class="relative flex-grow">
+<input class="w-full h-12 px-4 rounded-[12px] bg-surface-container-lowest text-on-surface font-label-md text-label-md placeholder-outline focus:outline-none shadow-sm" placeholder="Nhập địa chỉ email của bạn..." required="" type="email"/>
+</div>
+<button class="h-12 px-8 rounded-full bg-primary text-on-primary font-label-md text-label-md font-bold shadow-md hover:bg-primary-container transition-all flex items-center justify-center gap-2 flex-shrink-0" type="submit">
+<span>Đăng ký ngay</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</form>
+<p class="font-label-md text-xs text-on-surface-variant mt-3">Cam kết không spam. Bạn có thể hủy đăng ký bất cứ lúc nào.</p>
+</div>
+</section>
+</div>
+<script>
+  // Dynamic Scroll-based Reading Progress Calculation
+  window.addEventListener('scroll', () => {
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docHeight > 0) {
+      const scrollPercent = (window.scrollY / docHeight) * 100;
+      const bar = document.getElementById('readingProgressBar');
+      if (bar) {
+        bar.style.width = Math.min(100, Math.max(0, scrollPercent)) + '%';
+      }
+    }
+  });
+
+  // Simple Micro-interaction: Copy Link Toast
+  const copyBtn = document.getElementById('copyLinkBtn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard?.writeText(window.location.href);
+      const icon = copyBtn.querySelector('span');
+      if (icon) {
+        icon.textContent = 'done';
+        setTimeout(() => { icon.textContent = 'link'; }, 2000);
+      }
+    });
+  }
+
+  // Simple Micro-interaction: Bookmark state toggle
+  const bookmarkBtn = document.getElementById('bookmarkBtn');
+  if (bookmarkBtn) {
+    bookmarkBtn.addEventListener('click', () => {
+      const icon = bookmarkBtn.querySelector('span.material-symbols-outlined');
+      const counter = bookmarkBtn.querySelector('span.font-label-md');
+      if (icon && counter) {
+        const isFilled = icon.classList.contains('filled');
+        if (isFilled) {
+          icon.classList.remove('filled');
+          counter.textContent = '142';
+        } else {
+          icon.classList.add('filled');
+          counter.textContent = '143';
+        }
+      }
+    });
+  }
+
+  // Simple Micro-interaction: Like state toggle
+  const likeBtn = document.getElementById('likeBtn');
+  if (likeBtn) {
+    likeBtn.addEventListener('click', () => {
+      const icon = likeBtn.querySelector('span.material-symbols-outlined');
+      const counter = likeBtn.querySelector('span.font-label-md');
+      if (icon && counter) {
+        const isFilled = icon.classList.contains('filled');
+        if (isFilled) {
+          icon.classList.remove('filled');
+          counter.textContent = '89';
+        } else {
+          icon.classList.add('filled');
+          counter.textContent = '90';
+        }
+      }
+    });
+  }
+</script></main>
+<!-- Footer (From JSON) -->
+<footer class="w-full py-margin_desktop px-gutter flex flex-col md:flex-row justify-between items-start max-w-max_width mx-auto bg-surface-container dark:bg-surface-container-highest border-t border-outline-variant z-10 relative">
+<div class="mb-8 md:mb-0">
+<span class="font-headline-lg text-primary block mb-4">MiniMart</span>
+<p class="font-label-md text-label-md text-on-surface-variant">© 2024 MiniMart Fresh. All rights reserved.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-6 md:gap-gutter w-full md:w-auto">
+<nav class="flex flex-col gap-3">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">About Us</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Sustainability</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Store Locator</a>
+</nav>
+<nav class="flex flex-col gap-3">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+</nav>
+</div>
+</footer>
+<script>
+        // Simple script to add slight scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('bg-white/60');
+                header.classList.remove('bg-white/35');
+            } else {
+                header.classList.add('bg-white/35');
+                header.classList.remove('bg-white/60');
+            }
+        });
+    </script>
+</body></html>

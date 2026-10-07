@@ -1,4 +1,17 @@
 <x-layouts.app title="Giỏ Hàng Của Bạn - MiniMart">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <!-- Breadcrumb Trail (Liquid Glass Multi-Pills) -->
+        <nav class="flex items-center gap-2 mb-6 text-gray-500 text-sm overflow-x-auto whitespace-nowrap py-1 no-scrollbar">
+            <a class="px-3.5 py-1.5 rounded-full bg-white/50 hover:bg-white text-gray-700 transition-colors shadow-xs border border-white/70 flex items-center gap-1.5 font-medium hover:shadow-sm" href="{{ route('home') }}">
+                <span class="material-symbols-outlined text-[18px]">home</span>
+                Trang chủ
+            </a>
+            <span class="material-symbols-outlined text-gray-400 text-sm select-none">chevron_right</span>
+            <span class="px-3.5 py-1.5 rounded-full bg-emerald-100/70 border border-emerald-200/60 text-emerald-950 font-bold truncate shadow-xs">
+                Giỏ hàng của bạn
+            </span>
+        </nav>
+
         <h1 class="font-headline-lg text-headline-lg md:font-headline-lg text-headline-lg mb-8 text-primary">Giỏ Hàng Của Bạn</h1>
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Cart Items List -->
@@ -81,4 +94,5 @@
                 </div>
             @endif
         </div>
+    </div>
 </x-layouts.app>

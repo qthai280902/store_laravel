@@ -1,17 +1,26 @@
 <x-layouts.app :title="$product->name . ' - MiniMart'">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
         
-        <!-- Breadcrumb (Liquid Glass Capsule) -->
-        <nav class="inline-flex items-center gap-2 bg-white/50 backdrop-blur-md border border-white/80 shadow-xs px-5 py-2 rounded-full text-xs font-semibold text-gray-500">
-            <a href="{{ route('home') }}" class="hover:text-green-800 transition-colors">Trang chủ</a>
-            <span class="text-gray-300">/</span>
-            <a href="{{ route('products.index') }}" class="hover:text-green-800 transition-colors">Sản phẩm</a>
+        <!-- Breadcrumb Trail (Liquid Glass Multi-Pills) -->
+        <nav class="flex items-center gap-2 text-gray-500 text-sm overflow-x-auto whitespace-nowrap py-1 no-scrollbar">
+            <a class="px-3.5 py-1.5 rounded-full bg-white/50 hover:bg-white text-gray-700 transition-colors shadow-xs border border-white/70 flex items-center gap-1.5 font-medium hover:shadow-sm" href="{{ route('home') }}">
+                <span class="material-symbols-outlined text-[18px]">home</span>
+                Trang chủ
+            </a>
+            <span class="material-symbols-outlined text-gray-400 text-sm select-none">chevron_right</span>
+            <a class="px-3.5 py-1.5 rounded-full bg-white/50 hover:bg-white text-gray-700 transition-colors shadow-xs border border-white/70 font-medium hover:shadow-sm" href="{{ route('products.index') }}">
+                Sản phẩm
+            </a>
             @if($product->category)
-                <span class="text-gray-300">/</span>
-                <a href="{{ route('products.index', ['category' => $product->category->slug]) }}" class="hover:text-green-800 transition-colors">{{ $product->category->name }}</a>
+                <span class="material-symbols-outlined text-gray-400 text-sm select-none">chevron_right</span>
+                <a class="px-3.5 py-1.5 rounded-full bg-white/50 hover:bg-white text-gray-700 transition-colors shadow-xs border border-white/70 font-medium hover:shadow-sm" href="{{ route('products.index', ['category' => $product->category->slug]) }}">
+                    {{ $product->category->name }}
+                </a>
             @endif
-            <span class="text-gray-300">/</span>
-            <span class="text-gray-900 font-bold truncate max-w-xs">{{ $product->name }}</span>
+            <span class="material-symbols-outlined text-gray-400 text-sm select-none">chevron_right</span>
+            <span class="px-3.5 py-1.5 rounded-full bg-emerald-100/70 border border-emerald-200/60 text-emerald-950 font-bold truncate max-w-xs md:max-w-md shadow-xs">
+                {{ $product->name }}
+            </span>
         </nav>
 
         <!-- KHU VỰC TRÊN (TOP GRID): Cân đối 2 Cột Gallery & Thông Tin -->
