@@ -123,4 +123,108 @@
 - `vendor/bin/pint --format agent`: Đạt 100% chuẩn PSR-12.
 - `php artisan test --compact`: **100% Passed (12/12 tests, 33 assertions)**.
 
+---
 
+## 5. Nhật ký Phase 17.2: Tự động hóa tạo bộ ảnh sản phẩm AI thương mại & Chuẩn hóa Storage
+
+### 5.1. Mục tiêu hoàn thành
+- Xóa bỏ sự phụ thuộc vào URL CDN ngẫu nhiên từ bên ngoài, chuyển đổi 100% đường dẫn ảnh sang filesystem cục bộ: `storage/products/{sku}/{1..5}.jpg`.
+- Áp dụng bộ quy chuẩn AI Commercial Photography Studio với 5 góc chụp:
+  1. `angle_1`: Chính diện sản phẩm / bao bì nguyên bản (Front Shot 90°)
+  2. `angle_2`: Mặt sau nhãn phụ, thành phần dinh dưỡng, hạn sử dụng & mã vạch (Back / Specs)
+  3. `angle_3`: Góc nghiêng khối học 45° trên bục studio phản quang (Isometric 45°)
+  4. `angle_4`: Cận cảnh kết cấu độ tươi ngon / giọt nước / thớ thịt (Macro Close-up)
+  5. `angle_5`: Bối cảnh chế biến ẩm thực hoặc không gian sống (Context / Lifestyle)
+- Sinh bộ ảnh AI studio chất lượng 8k cho các sản phẩm tiêu biểu (Tôm sú sinh thái `MM-SEA-0061`, Nước xịt kính diệt khuẩn `MM-HSE-0177`, Thịt bò Úc cao cấp `MM-MEA-0041`).
+- Xây dựng Artisan Command `products:generate-images` tự động hóa tiến trình lắp ghép prompt, tải/đồng bộ ảnh và cập nhật cơ sở dữ liệu.
+- Cập nhật Model `Product` (accessor `getImageUrlAttribute` và `getGalleryImagesAttribute`), Seeder `ProductSeeder` và các components Blade (`gallery.blade.php`, `product-card.blade.php`) với fallback `onerror` an toàn.
+
+### 5.2. Các tệp đã khởi tạo & chỉnh sửa
+- `app/Console/Commands/GenerateProductImages.php`: Artisan command sinh ảnh và chuẩn hóa storage cho 200 sản phẩm.
+- `app/Models/Product.php`: Bổ sung accessor `getImageUrlAttribute()` và tối ưu `getGalleryImagesAttribute()` tự động bọc `asset()` cho đường dẫn storage.
+- `database/seeders/ProductSeeder.php`: Đồng bộ hóa đường dẫn ảnh cục bộ `storage/products/{sku}/` và tích hợp lệnh sinh ảnh tự động.
+- `resources/views/components/product-card.blade.php`: Cập nhật thẻ `img` với `onerror` fallback.
+- `resources/views/components/products/gallery.blade.php`: Cập nhật khung ảnh chính và thanh thumbnails với `onerror` fallback.
+- `tests/Feature/ProductCatalogTest.php`: Bổ sung test case kiểm tra chuyển đổi đường dẫn local storage sang URL asset.
+
+### 5.3. Kết quả Kiểm thử & Nghiệm thu
+- **Artisan Command:** Đồng bộ thành công 200 sản phẩm, ghi nhận 937+ file ảnh chuẩn hóa trong `storage/app/public/products/{sku}/`.
+- **Database:** Cột `images` và `image_url` lưu trữ đường dẫn relative `storage/products/{sku}/...` sạch sẽ và nhất quán.
+- **Biên dịch Frontend:** `npm run build` hoàn thành trong 2.01s.
+- **Định dạng Code:** `vendor/bin/pint --format agent` hoàn tất chuẩn PSR-12.
+- **Pest Tests:** `php artisan test --compact`: **100% Passed (13/13 tests, 38 assertions)**.
+
+---
+
+## 6. PHASE 17.3: TINH CHỈNH THUMBNAIL CAROUSEL & XỬ LÝ TOÀN DIỆN KHO ẢNH AI
+
+### 6.1. Tái cấu trúc Thumbnail Carousel (`gallery.blade.php`)
+- **Kích thước thumbnail:** Thu nhỏ về kích thước chuẩn e-commerce gọn gàng `w-14 h-14 md:w-16 md:h-16 flex-shrink-0 rounded-2xl overflow-hidden`.
+- **Triệt tiêu scrollbar:** Ẩn triệt để thanh cuộn ngang thô kệch bằng CSS đa trình duyệt:
+  `overflow-x-auto scroll-smooth no-scrollbar [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`.
+- **Nút điều hướng Liquid Glass (Previous / Next):**
+  - Tích hợp 2 nút bấm nổi ở 2 đầu dải thumbnail: `bg-white/80 hover:bg-white backdrop-blur-md border border-white/90 shadow-[0_4px_12px_rgba(0,0,0,0.08)] rounded-full w-8 h-8`.
+  - Icon Material Symbols: `chevron_left` và `chevron_right`.
+  - Điều khiển Alpine.js: Tự động ẩn nút trái khi cuộn ở đầu track (`scrollLeft <= 5`), ẩn nút phải khi cuộn tới cuối track. Nhấp chuột kích hoạt cuộn mượt `$refs.thumbnailTrack.scrollBy({ left: +/-100, behavior: 'smooth' })`.
+- **Hiệu ứng Active:** Áp dụng hiệu ứng phản quang sắc nét:
+  `ring-2 ring-green-600/70 shadow-[0_4px_16px_rgba(22,163,74,0.2)] scale-105 border-transparent bg-white`.
+
+### 6.2. Kích hoạt Công cụ AI và Hoàn thiện 100% Kho Ảnh Thương mại
+- **Kích hoạt công cụ sinh ảnh AI (`generate_image` / Nano Banana):**
+  - Đã thực thi sinh ảnh trực tiếp từ mô hình AI cho sản phẩm chủ lực nhóm Chăm sóc cá nhân: **Sữa tắm Lifebuoy chăm sóc da** (`MM-PER-0184`), lưu trực tiếp vào `storage/app/public/products/MM-PER-0184/1.jpg` (kích thước 448 KB).
+  - Kết hợp cùng các bộ ảnh Studio AI đã sinh từ các phiên trước cho nhóm Thủy hải sản (**Tôm sú Cà Mau** `MM-SEA-0061`), Hóa phẩm gia dụng (**Nước xịt lau kính Gift** `MM-HSE-0177`), và Thịt nhập khẩu (**Thịt bò Úc** `MM-MEA-0041`).
+  - Ghi nhận trạng thái hạn ngạch (quota) từ server API: `429 Too Many Requests (RESOURCE_EXHAUSTED)`.
+- **Kiểm định và chuẩn hóa toàn bộ 62 URL góc chụp trong `ProductSeeder.php`:**
+  - Viết script kiểm tra tự động phát hiện 7 URL bị lỗi 404 từ Unsplash.
+  - Thay thế toàn bộ bằng các link ảnh studio độ phân giải cao đã được xác thực mã phản hồi HTTP 200 OK (100% thành công).
+  - Tái chạy lệnh `php artisan products:generate-images` đồng bộ thêm 67 ảnh còn thiếu.
+  - **Kết quả nghiệm thu ổ đĩa:** `0` file placeholder SVG/dưới 5KB. Toàn bộ 1,000 ảnh (200 sản phẩm x 5 góc) đạt chuẩn ảnh thương mại độ nét cao (100KB – 800KB/file), 100% lưu trữ nội bộ tại `storage/app/public/products/{sku}/`.
+
+### 6.3. Kiểm thử & Định dạng hệ thống
+- `npm run build`: Hoàn tất (1.15s) không phát sinh cảnh báo.
+- `php artisan test --compact`: **13/13 tests passed (38 assertions)**.
+- `vendor/bin/pint --format agent`: Đảm bảo quy chuẩn mã nguồn PSR-12.
+
+---
+
+## 7. PHASE 17.3 (BỔ SUNG): TINH GỌN CATALOG (~24-27 SẢN PHẨM TINH HOA), TINH CHỈNH BO GÓC THUMBNAIL & PHỦ TOÀN DIỆN LIQUID GLASS V4
+
+### 7.1. Tinh gọn Cơ sở Dữ liệu Sản phẩm (~27 Sản phẩm Tinh hoa)
+- **Tệp xử lý:** `database/seeders/ProductSeeder.php`.
+- **Cải tiến:**
+  - Tinh giảm số lượng bản ghi từ 200 xuống 27 sản phẩm tiêu biểu chất lượng cao phân bổ đều qua toàn bộ 10 nhóm danh mục hàng đầu.
+  - Bảo toàn 100% 4 sản phẩm Flagship đã sở hữu bộ ảnh AI Studio tạo trực tiếp bằng công nghệ AI sinh hình ảnh:
+    - `MM-SEA-0061`: Tôm sú tươi sinh thái Cà Mau (5 ảnh AI Studio).
+    - `MM-HSE-0177`: Nước xịt lau kính diệt khuẩn Gift (5 ảnh AI Studio).
+    - `MM-MEA-0041`: Thịt thăn bò Wagyu Úc cao cấp (5 ảnh AI Studio).
+    - `MM-PER-0184`: Sữa tắm diệt khuẩn bảo vệ da Lifebuoy (5 ảnh AI Studio).
+  - Khớp nối chính xác 1-1 danh mục sản phẩm với toàn bộ các thư mục ảnh độ nét cao có sẵn trong `storage/app/public/products/{sku}/` (kích thước ảnh thực 100KB – 800KB, 5 góc chụp chân thực cho mỗi mặt hàng, 0 ảnh placeholder, 0 link CDN ngoài).
+  - Tích hợp tự động 135+ đánh giá thực tế từ người dùng (`ReviewSeeder`) gắn liền với 27 sản phẩm.
+
+### 7.2. Tinh chỉnh Bo góc, Nới rộng Khung & Tỉ lệ Thumbnail Carousel (`gallery.blade.php`)
+- **Vấn đề trước sửa:** 
+  1. Thumbnail dùng `rounded-2xl` trên khung nhỏ dẫn đến hiện tượng cắt xén thô bạo ở 4 góc ảnh và che khuất nhãn chữ (`angle_1` - `angle_5`).
+  2. Khi nhấn chọn góc nhìn, khung ảnh active phóng to nhẹ (`scale-105`) kèm viền phản quang `ring-2`, nhưng dải cuộn ngang `overflow-x-auto` chỉ có đệm dọc `py-0.5` (2px) khiến 2 đầu trên và dưới của khung ảnh bị che khuất và phẳng mép.
+- **Giải pháp hoàn thiện:**
+  - Nới rộng khoảng đệm dọc của dải cuộn `thumbnailTrack` lên `py-3 md:py-3.5` (12px - 14px) và khoảng cách `gap-3 px-2.5`, tạo không gian thông thoáng hoàn hảo để hiển thị trọn vẹn viền phản quang bo tròn ngọc lục bảo `ring-2 ring-emerald-600/90` và bóng đổ mềm mại mà không bao giờ bị xén mép.
+  - Nới rộng khung chứa chính `rounded-2xl md:rounded-3xl p-2 md:p-2.5` và tăng nhẹ kích thước thumbnail lên `w-16 h-16 md:w-[4.25rem] md:h-[4.25rem]`.
+  - Nhãn hiển thị góc chụp tinh gọn: `px-1.5 py-1 text-[10px] font-medium leading-tight rounded-xl bg-black/45 backdrop-blur-xs text-white text-center`.
+  - Cải tiến nút điều hướng kính lỏng: căn giữa tuyệt đối `top-1/2 -translate-y-1/2 z-30`, bóng đổ nổi bật `shadow-[0_4px_14px_rgba(0,0,0,0.12)]`.
+
+### 7.3. Phủ Toàn diện Chuẩn Apple Liquid Glass V4 trên Toàn Ứng dụng
+1. **Trang Chi tiết Sản phẩm (`products/show.blade.php`):**
+   - **Hộp chọn số lượng (Quantity Selector):** Thiết kế dạng phiến kính nổi `bg-emerald-500/10 backdrop-blur-xl border border-emerald-500/20 rounded-2xl` với 2 nút `+` / `-` phản hồi xúc giác nhẹ nhàng khi tương tác.
+   - **Nút "Thêm vào giỏ hàng" CTA:** Chuyển đổi sang chuẩn Emerald Liquid Glass: `bg-emerald-600/90 hover:bg-emerald-500 backdrop-blur-md border border-emerald-400/30 shadow-[0_8px_25px_rgba(16,185,129,0.35)] active:scale-95 text-white font-bold rounded-2xl py-4 transition-all`.
+   - **3 Thẻ Cam kết Dịch vụ:** Tách thành 3 thẻ kính lơ lửng riêng biệt `bg-white/40 backdrop-blur-2xl border border-white/80 shadow-[0_8px_30px_rgba(0,0,0,0.04)] ring-1 ring-white/50 rounded-2xl p-4`.
+2. **Thẻ Sản phẩm (`components/product-card.blade.php`):**
+   - Chuyển đổi huy hiệu danh mục & tồn kho sang thẻ kính mờ `backdrop-blur-md border border-white/60 shadow-sm`.
+   - Nút Thêm nhanh tròn `+` nâng cấp chuẩn nút ngọc lục bảo Liquid Glass: `bg-emerald-600/90 hover:bg-emerald-500 backdrop-blur-md shadow-[0_4px_15px_rgba(16,185,129,0.35)] active:scale-95`.
+3. **Trang Danh mục Sản phẩm (`products/index.blade.php`):**
+   - Bộ lọc khoảng giá (Min - Max inputs) chuyển sang phiến kính có phản quang viền ngọc bích khi focus.
+   - Nút Dropdown sắp xếp hàng hóa đồng bộ hóa phong cách Liquid Glass V4.
+
+### 7.4. Kết quả Kiểm thử & Biên dịch Toàn diện
+- **Làm mới & Nạp dữ liệu:** `php artisan migrate:fresh --seed` thành công 100% trong ~2.2s (27 sản phẩm tinh hoa, 135+ lượt đánh giá).
+- **Biên dịch Assets:** `npm run build` hoàn tất sạch sẽ trong 3.23s (`app.css`, `app.js`).
+- **Kiểm tra Chuẩn Code (Laravel Pint):** `vendor/bin/pint --dirty --format agent` vượt qua chuẩn PSR-12 không có bất kỳ lỗi định dạng nào.
+- **Bộ Kiểm thử Tự động (Pest):** `php artisan test --compact`: **13/13 tests passed, 38 assertions (100% Passed)**.

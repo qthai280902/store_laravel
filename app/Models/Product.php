@@ -64,19 +64,39 @@ class Product extends Model
     }
 
     /**
+     * Get primary image URL, handling local storage paths with asset().
+     */
+    public function getImageUrlAttribute(?string $value): ?string
+    {
+        if (! $value) {
+            return null;
+        }
+
+        if (str_starts_with($value, 'http://') || str_starts_with($value, 'https://')) {
+            return $value;
+        }
+
+        return asset($value);
+    }
+
+    /**
      * Get list of gallery images, ensuring at least one image is returned.
      */
     public function getGalleryImagesAttribute(): array
     {
-        if (is_array($this->images) && count($this->images) > 0) {
-            return $this->images;
+        $list = (is_array($this->images) && count($this->images) > 0)
+            ? $this->images
+            : ($this->attributes['image_url'] ?? null ? [$this->attributes['image_url']] : []);
+
+        if (empty($list)) {
+            return ['https://picsum.photos/seed/'.$this->slug.'/800/800'];
         }
 
-        if ($this->image_url) {
-            return [$this->image_url];
-        }
-
-        return ['https://picsum.photos/seed/'.$this->slug.'/800/800'];
+        return array_map(function ($img) {
+            return (str_starts_with($img, 'http://') || str_starts_with($img, 'https://'))
+                ? $img
+                : asset($img);
+        }, $list);
     }
 
     /**

@@ -28,6 +28,21 @@ class DatabaseSeeder extends Seeder
                 'role' => 'admin',
             ]
         );
+        User::updateOrCreate(
+            // 1. Điều kiện tìm kiếm (WHERE)
+            ['email' => 'thai@gmail.com'],
+
+            // 2. Dữ liệu cần tạo mới hoặc cập nhật
+            [
+                'name' => 'Nguyễn Quốc Thái',
+                'password' => '123456', // Model User đã có 'password' => 'hashed'
+                'phone' => '0901234567',
+                'dob' => '2002-09-28',
+                'gender' => 'Nam',
+                'address' => 'TP. Hồ Chí Minh',
+                'role' => 'user',
+            ]
+        );
 
         $this->call([
             ProductSeeder::class,

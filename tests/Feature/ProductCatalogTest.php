@@ -114,3 +114,35 @@ it('can render product details page with gallery, specs, and reviews', function 
     $response->assertSee('New Zealand');
     $response->assertSee('Thông số kỹ thuật');
 });
+
+it('resolves local storage image paths with asset helper', function () {
+    $category = Category::create([
+        'name' => 'Thủy hải sản',
+        'slug' => 'thuy-hai-san',
+    ]);
+
+    $product = Product::create([
+        'category_id' => $category->id,
+        'name' => 'Tôm sú tươi sinh thái Cà Mau',
+        'slug' => 'tom-su-tuoi-sinh-thai-ca-mau',
+        'sku' => 'MM-SEA-0061',
+        'image_url' => 'storage/products/MM-SEA-0061/1.jpg',
+        'images' => [
+            'storage/products/MM-SEA-0061/1.jpg',
+            'storage/products/MM-SEA-0061/2.jpg',
+            'storage/products/MM-SEA-0061/3.jpg',
+            'storage/products/MM-SEA-0061/4.jpg',
+            'storage/products/MM-SEA-0061/5.jpg',
+        ],
+        'base_price' => 280000,
+        'is_active' => true,
+    ]);
+
+    expect($product->image_url)->toContain('storage/products/MM-SEA-0061/1.jpg');
+    expect($product->gallery_images)->toHaveCount(5);
+    expect($product->gallery_images[0])->toContain('storage/products/MM-SEA-0061/1.jpg');
+
+    $response = $this->get(route('products.show', $product->slug));
+    $response->assertStatus(200);
+    $response->assertSee('storage/products/MM-SEA-0061/1.jpg');
+});

@@ -7,9 +7,9 @@
     
     <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mt-6">
 
-    <!-- Left Sidebar Filters (Thin Glass) -->
+    <!-- Left Sidebar Filters (Liquid Glass V4) -->
     <aside class="col-span-1">
-        <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-[2.5rem] p-6 sticky top-[150px] h-max max-h-[calc(100vh-180px)] overflow-y-auto custom-scrollbar">
+        <div class="bg-white/40 backdrop-blur-2xl border border-white/70 shadow-[0_12px_40px_rgba(0,0,0,0.06)] ring-1 ring-white/50 rounded-3xl p-6 sticky top-[150px] h-max max-h-[calc(100vh-180px)] overflow-y-auto custom-scrollbar">
             <h3 class="font-label-md text-label-md text-primary uppercase tracking-wider mb-4">Bộ lọc</h3>
             <!-- Category Filter -->
             <div class="mb-6" x-data="{ catOpen: true }">
@@ -44,9 +44,9 @@
                 </button>
                 <div x-show="priceOpen" x-collapse>
                     <div class="flex gap-2 items-center pb-2">
-                        <input class="w-full bg-white border border-outline-variant rounded-xl px-3 py-2 text-on-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Từ" type="number"/>
+                        <input class="w-full bg-white/60 backdrop-blur-md border border-white/80 rounded-xl px-3 py-2 text-on-surface focus:ring-2 focus:ring-emerald-500 shadow-inner outline-none transition-all" placeholder="Từ" type="number"/>
                         <span class="text-on-surface-variant">-</span>
-                        <input class="w-full bg-white border border-outline-variant rounded-xl px-3 py-2 text-on-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Đến" type="number"/>
+                        <input class="w-full bg-white/60 backdrop-blur-md border border-white/80 rounded-xl px-3 py-2 text-on-surface focus:ring-2 focus:ring-emerald-500 shadow-inner outline-none transition-all" placeholder="Đến" type="number"/>
                     </div>
                 </div>
             </div>
@@ -58,8 +58,8 @@
                 </button>
                 <div x-show="typeOpen" x-collapse>
                     <div class="flex flex-wrap gap-2 pb-2">
-                        <button class="px-4 py-1.5 bg-primary-container text-on-primary-container font-label-md text-label-md rounded-full shadow-sm transition-transform active:scale-95">Hữu cơ</button>
-                        <button class="px-4 py-1.5 glass-tier-2 text-on-surface font-label-md text-label-md rounded-full hover:bg-white/40 transition-all active:scale-95">Thông thường</button>
+                        <button class="px-4 py-1.5 bg-emerald-600/90 text-white font-label-md text-label-md rounded-full shadow-xs transition-transform active:scale-95">Hữu cơ</button>
+                        <button class="px-4 py-1.5 bg-white/50 backdrop-blur-md border border-white/80 text-on-surface font-label-md text-label-md rounded-full hover:bg-white/80 transition-all active:scale-95">Thông thường</button>
                     </div>
                 </div>
             </div>
@@ -70,14 +70,14 @@
     <div class="col-span-1 md:col-span-4 bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-[2.5rem] p-8">
         <div class="flex justify-end mb-6">
             <div class="relative" x-data="{ sortOpen: false }">
-                <button @click="sortOpen = !sortOpen" class="bg-white/60 hover:bg-white/90 backdrop-blur-lg border border-white/80 shadow-sm text-green-900 rounded-full transition-all px-4 py-2 flex items-center gap-2 cursor-pointer">
-                    <span class="font-label-md text-label-md text-on-surface">Sắp xếp</span>
+                <button @click="sortOpen = !sortOpen" class="bg-white/70 hover:bg-white/95 backdrop-blur-xl border border-white/80 shadow-[0_4px_16px_rgba(0,0,0,0.04)] text-emerald-950 rounded-full transition-all px-4 py-2 flex items-center gap-2 cursor-pointer">
+                    <span class="font-label-md text-label-md text-on-surface font-semibold">Sắp xếp</span>
                     <span class="material-symbols-outlined text-on-surface">expand_more</span>
                 </button>
-                <div x-show="sortOpen" @click.away="sortOpen = false" x-transition class="absolute right-0 bg-white shadow-xl rounded-xl mt-2 w-48 overflow-hidden border border-gray-100 z-50" style="display: none;">
-                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'newest']) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50">Mới nhất</a>
-                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50">Giá: Thấp đến Cao</a>
-                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50">Giá: Cao đến Thấp</a>
+                <div x-show="sortOpen" @click.away="sortOpen = false" x-transition class="absolute right-0 bg-white/80 backdrop-blur-2xl border border-white/80 shadow-[0_12px_40px_rgba(0,0,0,0.12)] ring-1 ring-white/50 rounded-2xl mt-2 w-52 overflow-hidden z-50 p-1.5" style="display: none;">
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'newest']) }}" class="block px-3.5 py-2 text-sm text-gray-700 hover:text-emerald-800 hover:bg-white/80 rounded-xl transition-all font-medium">Mới nhất</a>
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}" class="block px-3.5 py-2 text-sm text-gray-700 hover:text-emerald-800 hover:bg-white/80 rounded-xl transition-all font-medium">Giá: Thấp đến Cao</a>
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}" class="block px-3.5 py-2 text-sm text-gray-700 hover:text-emerald-800 hover:bg-white/80 rounded-xl transition-all font-medium">Giá: Cao đến Thấp</a>
                 </div>
             </div>
         </div>

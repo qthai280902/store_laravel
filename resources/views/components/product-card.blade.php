@@ -1,20 +1,24 @@
 @props(['product'])
 
 <div class="product-card bg-white/50 backdrop-blur-3xl border border-white/80 shadow-[0_8px_30px_rgba(0,0,0,0.06)] ring-1 ring-white/50 rounded-[2rem] p-4 flex flex-col relative overflow-hidden group h-full {{ $product->stock == 0 ? 'opacity-50' : '' }}">
-    <!-- Sale Tag & Category -->
-    <div class="absolute top-3 left-3 flex flex-col gap-1 z-10">
+    <!-- Sale Tag & Category (Liquid Glass Pills) -->
+    <div class="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
         @if($product->category)
-            <div class="bg-tertiary text-on-tertiary font-label-md text-[9px] px-2 py-0.5 rounded-full shadow-sm">{{ $product->category->name }}</div>
+            <div class="bg-white/70 backdrop-blur-md border border-white/80 text-emerald-950 font-label-md text-[9px] font-bold px-2.5 py-0.5 rounded-full shadow-xs">{{ $product->category->name }}</div>
         @endif
         @if($product->discount_percent && $product->stock > 0)
-            <div class="bg-error text-onError font-label-md text-[9px] px-2 py-0.5 rounded-full shadow-sm">-{{ $product->discount_percent }}%</div>
+            <div class="bg-red-500/80 backdrop-blur-md border border-red-300/60 text-white font-label-md text-[9px] font-extrabold px-2.5 py-0.5 rounded-full shadow-xs">-{{ $product->discount_percent }}%</div>
         @endif
     </div>
     
     <div class="mb-3 relative rounded-[1.5rem] overflow-hidden">
         <a href="{{ route('products.show', $product->slug) }}" class="block w-full">
             <div class="aspect-[16/9] w-full overflow-hidden bg-surface-variant">
-                <img class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-95" src="{{ $product->image_url ?? 'https://placehold.co/600x400/F5F5F5/00490e?text=' . urlencode($product->name) }}" alt="{{ $product->name }}" loading="lazy"/>
+                <img class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-95" 
+                     src="{{ $product->image_url ?? 'https://placehold.co/600x400/f0fdf4/166534?text=' . urlencode($product->name) }}" 
+                     alt="{{ $product->name }}" 
+                     onerror="this.src='https://placehold.co/600x400/f0fdf4/166534?text=MiniMart+Fresh'"
+                     loading="lazy"/>
             </div>
         </a>
     </div>
@@ -24,9 +28,9 @@
         <div class="flex justify-between items-center mb-1">
             <span class="text-gray-500 text-xs font-medium">{{ $product->brand ?? 'No Brand' }}</span>
             @if($product->stock == 0)
-                <span class="bg-red-100 text-red-600 px-2 py-1 text-[10px] font-bold rounded-full">Hết hàng</span>
+                <span class="bg-red-500/15 backdrop-blur-md border border-red-400/30 text-red-700 px-2 py-0.5 text-[10px] font-bold rounded-full shadow-xs">Hết hàng</span>
             @else
-                <span class="bg-green-100 text-green-800 px-2 py-1 text-[10px] font-bold rounded-full">Còn hàng</span>
+                <span class="bg-emerald-500/15 backdrop-blur-md border border-emerald-400/40 text-emerald-900 px-2 py-0.5 text-[10px] font-bold rounded-full shadow-xs">Còn hàng</span>
             @endif
         </div>
 
@@ -48,15 +52,15 @@
         @if($product->stock == 0)
             <button 
                 type="button" 
-                class="w-8 h-8 flex-none flex items-center justify-center rounded-full bg-gray-300 text-gray-500 shadow-sm cursor-not-allowed" 
+                class="w-8 h-8 flex-none flex items-center justify-center rounded-full bg-gray-200/80 text-gray-400 border border-gray-300/40 shadow-xs cursor-not-allowed" 
                 title="Hết hàng"
                 @click.prevent="alert('Sản phẩm hết hàng, vui lòng quay lại sau')">
-                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">add</span>
             </button>
         @else
             <button 
                 type="button" 
-                class="w-8 h-8 flex-none flex items-center justify-center rounded-full bg-green-600 text-white hover:bg-green-500 shadow-sm transition-colors cursor-pointer" 
+                class="w-8 h-8 flex-none flex items-center justify-center rounded-full bg-emerald-600/90 hover:bg-emerald-600 backdrop-blur-md text-white shadow-[0_4px_12px_rgba(16,185,129,0.3)] ring-1 ring-white/40 active:scale-95 transition-all cursor-pointer" 
                 title="Thêm vào giỏ"
                 @click.prevent="
                     fetch('{{ route('cart.add') }}', {
@@ -76,7 +80,7 @@
                         }
                     });
                 ">
-                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">add</span>
             </button>
         @endif
     </div>

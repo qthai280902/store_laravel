@@ -168,4 +168,67 @@ Nâng cấp dữ liệu sản phẩm chuẩn e-commerce thực tế:
   - `route('pages.terms')`
   - `route('pages.faq')`
 
+---
+
+## 8. PHASE 17.2: TỰ ĐỘNG HÓA TẠO BỘ ẢNH SẢN PHẨM THƯƠNG MẠI THỰC TẾ BẰNG CÔNG CỤ AI (NANO BANANA / IMAGEN) & CHUẨN HÓA STORAGE
+
+### 8.1. Mục tiêu
+- Xóa bỏ hoàn toàn URL CDN bên ngoài, đưa 100% hình ảnh sản phẩm về lưu trữ cục bộ trong Laravel filesystem (`storage/app/public/products/{sku}/`).
+- Ứng dụng quy chuẩn nhiếp ảnh thương mại AI Commercial Studio Photography với 5 góc chụp chân thực:
+  1. `angle_1`: Chính diện (Front Shot 90°)
+  2. `angle_2`: Mặt sau nhãn phụ, thông số dinh dưỡng & hạn sử dụng (Back / Specs)
+  3. `angle_3`: Góc nghiêng khối học 45° (Isometric 45°)
+  4. `angle_4`: Cận cảnh kết cấu thớ thịt, vỏ quả, bọt xà phòng (Macro Close-up)
+  5. `angle_5`: Bối cảnh chế biến ẩm thực hoặc không gian sống (Context / Lifestyle)
+- Xây dựng Artisan Command `products:generate-images` tự động sinh prompt và đồng bộ hóa thư viện ảnh vào storage.
+- Cập nhật Model `Product`, Seeder `ProductSeeder` và các Blade components (`gallery.blade.php`, `product-card.blade.php`) phục vụ ảnh chuẩn qua `asset()`.
+
+---
+
+## 9. PHASE 17.3: TÁI THIẾT KẾ THUMBNAIL CAROUSEL & TRIỂN KHAI THỰC CHẤT CÔNG CỤ AI TẠO ẢNH TOÀN BỘ DANH MỤC
+
+### 9.1. Mục tiêu
+1. **Khắc phục triệt để lỗi UI Thumbnail Gallery:**
+   - Thu nhỏ kích thước thumbnail về chuẩn e-commerce: `w-14 h-14 md:w-16 md:h-16 flex-shrink-0 rounded-2xl overflow-hidden`.
+   - Triệt tiêu scrollbar ngang mặc định của trình duyệt bằng CSS tiện ích `no-scrollbar [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`.
+   - Bổ sung 2 nút điều hướng kính lỏng (Liquid Glass Navigation Buttons) ở 2 đầu thanh thumbnail với icon `chevron_left` và `chevron_right`.
+   - Điều khiển cuộn mượt qua Alpine.js (`$refs.thumbnailTrack.scrollBy({ left: +/-100, behavior: 'smooth' })`), tự động ẩn/hiện nút khi ở đầu hoặc cuối dải ảnh.
+   - Thể hiện hiệu ứng active phản quang: `ring-2 ring-green-600/70 shadow-[0_4px_16px_rgba(22,163,74,0.2)] scale-105 transition-transform`.
+
+2. **Triển khai thực chất công cụ AI tạo ảnh (`generate_image` / Nano Banana):**
+   - Sinh tuần tự đầy đủ bộ ảnh 5 góc chụp Studio thương mại cho các sản phẩm đại diện thuộc toàn bộ các danh mục:
+     - Chăm sóc cá nhân: `MM-PER-0184` (Sữa tắm Lifebuoy chăm sóc da)
+     - Đồ ăn vặt: `MM-SNK-0143` (Bánh ChocoPie Orion tình bạn)
+     - Rau củ tươi: `MM-VEG-0001` (Cải bó xôi Đà Lạt hữu cơ)
+     - Trái cây: `MM-FRU-0021` (Táo Envy New Zealand)
+     - Gia vị: `MM-SPC-0121` (Nước mắm truyền thống Khải Hoàn)
+     - Sữa & Bơ sữa: `MM-MIL-0101` (Sữa tươi tiệt trùng TH True Milk)
+   - Lưu trữ trực tiếp vào `storage/app/public/products/{sku}/1.jpg` đến `5.jpg`.
+   - Đảm bảo 100% các mặt hàng tiêu biểu hiển thị ảnh AI Studio sắc nét, chuẩn thương mại.
+
+3. **Kiểm thử & Chuẩn hóa:**
+   - `npm run build` xác nhận asset hợp lệ.
+   - `php artisan test --compact` kiểm tra toàn bộ suite test.
+   - `vendor/bin/pint --format agent` định dạng mã nguồn.
+
+---
+
+## 10. PHASE 17.3 (BỔ SUNG): TINH GỌN CATALOG (~24 SẢN PHẨM), TINH CHỈNH BO GÓC THUMBNAIL & PHỦ TOÀN DIỆN LIQUID GLASS V4
+
+### 10.1. Mục tiêu Kỹ thuật
+1. **Tinh gọn Catalog:** Thu nhỏ cơ sở dữ liệu sản phẩm trong `ProductSeeder.php` từ 200 xuống còn ~24-27 sản phẩm tinh hoa, giữ nguyên vẹn 4 sản phẩm AI Studio flagship (`MM-SEA-0061`, `MM-HSE-0177`, `MM-MEA-0041`, `MM-PER-0184`) và bổ sung 23 mặt hàng tiêu biểu trải đều 10 danh mục. Giúp database nhẹ, load tức thì và chuẩn xác 100% ngữ cảnh ảnh thực tế.
+2. **Sửa lỗi bo góc Thumbnail:** Giảm bán kính bo góc từ `rounded-2xl` xuống `rounded-xl`, đồng bộ lớp phủ nhãn góc nhìn `px-1 py-0.5 text-[9px] font-medium leading-tight rounded-xl`, không còn tình trạng cấn mép hoặc xén chữ.
+3. **Phủ toàn diện Apple Liquid Glass V4:**
+   - Hộp tăng giảm số lượng & nút Thêm giỏ hàng trong `products/show.blade.php`.
+   - 3 thẻ cam kết dịch vụ dạng viên thuốc kính mờ.
+   - Nút Thêm nhanh giỏ hàng `+` và các pill danh mục/kho trên `product-card.blade.php`.
+   - Menu sắp xếp và bộ lọc trên `products/index.blade.php`.
+   - Dải Highlight quang học ở mép trên các popup và floating toast trong `app.blade.php`.
+4. **Kiểm thử & Bàn giao:**
+   - Chạy `php artisan migrate:fresh --seed`.
+   - Chạy `npm run build` và Pest feature tests.
+
+
+
+
 

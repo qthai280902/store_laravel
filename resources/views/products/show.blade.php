@@ -122,14 +122,16 @@
                     {{ $product->description }}
                 </p>
 
-                <!-- Khối Hành Động Mua Hàng -->
-                <div class="mt-auto bg-white/50 backdrop-blur-xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.05)] ring-1 ring-white/50 rounded-[2rem] p-6">
+                <!-- Khối Hành Động Mua Hàng (Apple Liquid Glass V4) -->
+                <div class="mt-auto bg-white/50 backdrop-blur-2xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.05)] ring-1 ring-white/50 rounded-[2rem] p-6 relative overflow-hidden">
+                    <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none"></div>
+
                     <div class="flex items-center gap-5 mb-5">
                         <label class="text-sm font-bold text-gray-700">Số lượng:</label>
-                        <div class="flex items-center bg-white/80 backdrop-blur-md border border-white/90 rounded-2xl overflow-hidden shadow-inner" x-data="{ qty: 1 }">
-                            <button type="button" @click="qty = Math.max(1, qty - 1)" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-white hover:text-green-800 transition-colors font-bold text-lg cursor-pointer">−</button>
-                            <input type="number" x-model="qty" min="1" max="{{ $product->stock }}" class="w-14 text-center border-x border-gray-200/60 py-2 text-sm font-bold text-gray-900 focus:outline-none bg-transparent">
-                            <button type="button" @click="qty = Math.min({{ $product->stock > 0 ? $product->stock : 1 }}, qty + 1)" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-white hover:text-green-800 transition-colors font-bold text-lg cursor-pointer">+</button>
+                        <div class="flex items-center bg-white/50 backdrop-blur-xl border border-white/80 shadow-inner rounded-2xl overflow-hidden" x-data="{ qty: 1 }">
+                            <button type="button" @click="qty = Math.max(1, qty - 1)" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-white/80 hover:text-green-800 active:scale-95 transition-all font-bold text-lg cursor-pointer">−</button>
+                            <input type="number" x-model="qty" min="1" max="{{ $product->stock }}" class="w-14 text-center border-x border-gray-200/50 py-2 text-sm font-bold text-gray-900 focus:outline-none bg-transparent">
+                            <button type="button" @click="qty = Math.min({{ $product->stock > 0 ? $product->stock : 1 }}, qty + 1)" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-white/80 hover:text-green-800 active:scale-95 transition-all font-bold text-lg cursor-pointer">+</button>
                         </div>
                         <span class="text-xs text-gray-400 font-medium">Tối đa {{ $product->stock }}</span>
                     </div>
@@ -139,31 +141,31 @@
                             @csrf
                             <input type="hidden" name="variant_id" value="{{ $product->variants->first()->id ?? '' }}">
                             <button type="submit" 
-                                    class="w-full py-4 bg-green-950 text-white font-bold rounded-2xl text-base hover:bg-green-800 transition-all cursor-pointer shadow-lg hover:shadow-xl active:scale-98 flex items-center justify-center gap-2">
+                                    class="w-full py-4 bg-emerald-600/90 hover:bg-emerald-600 backdrop-blur-md shadow-[0_8px_25px_rgba(16,185,129,0.35)] border border-emerald-400/40 text-white font-semibold rounded-2xl text-base active:scale-98 transition-all cursor-pointer flex items-center justify-center gap-2">
                                 <span class="material-symbols-outlined text-[22px]">add_shopping_cart</span>
                                 Thêm vào giỏ hàng
                             </button>
                         </form>
                     @else
-                        <button disabled class="w-full py-4 bg-gray-200 text-gray-400 font-bold rounded-2xl text-base cursor-not-allowed flex items-center justify-center gap-2">
+                        <button disabled class="w-full py-4 bg-gray-200/80 backdrop-blur-md border border-gray-300/40 text-gray-400 font-bold rounded-2xl text-base cursor-not-allowed flex items-center justify-center gap-2">
                             <span class="material-symbols-outlined text-[20px]">block</span>
                             Sản phẩm tạm hết hàng
                         </button>
                     @endif
 
-                    <!-- Cam kết dịch vụ -->
-                    <div class="grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-gray-200/60 text-center">
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="material-symbols-outlined text-green-700 text-lg">local_shipping</span>
-                            <span class="text-[11px] font-bold text-gray-700">Giao nhanh 2h</span>
+                    <!-- Khối Cam kết dịch vụ (3 thẻ kính lỏng) -->
+                    <div class="grid grid-cols-3 gap-3 mt-5 pt-4 border-t border-gray-200/40 text-center">
+                        <div class="bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_4px_16px_rgba(0,0,0,0.04)] rounded-2xl p-3 flex flex-col items-center gap-1.5 transition-transform hover:-translate-y-0.5">
+                            <span class="material-symbols-outlined text-emerald-700 text-xl">local_shipping</span>
+                            <span class="text-[11px] font-bold text-gray-700">Giao nhanh 1h</span>
                         </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="material-symbols-outlined text-green-700 text-lg">verified</span>
-                            <span class="text-[11px] font-bold text-gray-700">100% Tươi sạch</span>
+                        <div class="bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_4px_16px_rgba(0,0,0,0.04)] rounded-2xl p-3 flex flex-col items-center gap-1.5 transition-transform hover:-translate-y-0.5">
+                            <span class="material-symbols-outlined text-emerald-700 text-xl">verified</span>
+                            <span class="text-[11px] font-bold text-gray-700">Cam kết chính hãng</span>
                         </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="material-symbols-outlined text-green-700 text-lg">published_with_changes</span>
-                            <span class="text-[11px] font-bold text-gray-700">Đổi trả 24h</span>
+                        <div class="bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_4px_16px_rgba(0,0,0,0.04)] rounded-2xl p-3 flex flex-col items-center gap-1.5 transition-transform hover:-translate-y-0.5">
+                            <span class="material-symbols-outlined text-emerald-700 text-xl">published_with_changes</span>
+                            <span class="text-[11px] font-bold text-gray-700">Đổi trả 7 ngày</span>
                         </div>
                     </div>
                 </div>
