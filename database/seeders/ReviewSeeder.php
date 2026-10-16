@@ -15,7 +15,7 @@ class ReviewSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Create a pool of verified customer accounts
+        // 1. Create a diverse pool of 15 verified Vietnamese customer accounts
         $sampleUsers = [
             [
                 'name' => 'Trần Minh Quang',
@@ -52,6 +52,76 @@ class ReviewSeeder extends Seeder
                 'role' => 'user',
                 'avatar' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop',
             ],
+            [
+                'name' => 'Nguyễn Văn Bình',
+                'email' => 'binhnv@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop',
+            ],
+            [
+                'name' => 'Bùi Thị Ngọc Mai',
+                'email' => 'maibtn@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'avatar' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop',
+            ],
+            [
+                'name' => 'Hoàng Trọng Dũng',
+                'email' => 'dunght@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'avatar' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop',
+            ],
+            [
+                'name' => 'Trịnh Kim Chi',
+                'email' => 'chitk@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'avatar' => 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&h=150&fit=crop',
+            ],
+            [
+                'name' => 'Đỗ Quốc Huy',
+                'email' => 'huydq@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'avatar' => 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop',
+            ],
+            [
+                'name' => 'Phan Thanh Thảo',
+                'email' => 'thaopt@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'avatar' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop',
+            ],
+            [
+                'name' => 'Ngô Hải Đăng',
+                'email' => 'dangnh@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'avatar' => 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop',
+            ],
+            [
+                'name' => 'Lâm Mỹ Linh',
+                'email' => 'linhlm@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'avatar' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop',
+            ],
+            [
+                'name' => 'Đào Xuân Bách',
+                'email' => 'bachdx@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'avatar' => 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&h=150&fit=crop',
+            ],
+            [
+                'name' => 'Võ Hồng Hạnh',
+                'email' => 'hanhvh@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+                'avatar' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop',
+            ],
         ];
 
         $users = [];
@@ -62,8 +132,7 @@ class ReviewSeeder extends Seeder
             );
         }
 
-        // Include admin/existing users if present
-        $existingUsers = User::all();
+        $allReviewUsers = collect($users);
 
         // 2. Realistic review comments pool
         $commentsPool = [
@@ -76,9 +145,11 @@ class ReviewSeeder extends Seeder
             ['rating' => 4, 'comment' => 'Chất lượng đồng đều, giao đúng hẹn. Khối lượng đóng gói chuẩn xác, có cân lại không bị hao hụt.'],
             ['rating' => 5, 'comment' => 'Đã mua ở đây nhiều lần và chưa lần nào thất vọng. Vote 5 sao cho chất lượng dịch vụ của MiniMart!'],
             ['rating' => 4, 'comment' => 'Hàng tươi ngon, chất lượng ổn định. Hy vọng cửa hàng thường xuyên có thêm nhiều deal giảm giá hời.'],
+            ['rating' => 5, 'comment' => 'Nguyên liệu tươi sạch, bảo quản nhiệt độ tốt nên nhận về nấu ăn rất thơm ngon, chuẩn vị tươi mới.'],
+            ['rating' => 5, 'comment' => 'Có tem QR quét xuất xứ rõ ràng từ nông trại. Rất an tâm khi mua thực phẩm cho cả nhà.'],
         ];
 
-        // 3. Attach 3 to 7 reviews to each product
+        // 3. Attach 3 to 6 reviews to each product, ensuring 100% unique reviewers per product
         $products = Product::all();
         foreach ($products as $product) {
             // Avoid duplicate seeding if reviews already exist
@@ -86,20 +157,21 @@ class ReviewSeeder extends Seeder
                 continue;
             }
 
-            $numReviews = rand(3, 7);
+            $numReviews = rand(3, 6);
+            $selectedUsers = $allReviewUsers->shuffle()->take($numReviews)->values();
             $shuffledComments = $commentsPool;
             shuffle($shuffledComments);
 
             for ($i = 0; $i < $numReviews; $i++) {
                 $commentData = $shuffledComments[$i % count($shuffledComments)];
-                $randomUser = $existingUsers->random();
+                $reviewer = $selectedUsers[$i];
 
                 Review::create([
                     'product_id' => $product->id,
-                    'user_id' => $randomUser->id,
+                    'user_id' => $reviewer->id,
                     'rating' => $commentData['rating'],
                     'comment' => $commentData['comment'],
-                    'created_at' => now()->subDays(rand(1, 45))->subHours(rand(1, 23)),
+                    'created_at' => now()->subDays(rand(1, 30))->subHours(rand(1, 23)),
                 ]);
             }
         }

@@ -1,5 +1,5 @@
 <x-layouts.app :title="$product->name . ' - MiniMart'">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 pb-28 md:pb-12">
         
         <!-- Breadcrumb Trail (Liquid Glass Multi-Pills) -->
         <nav class="flex items-center gap-2 text-gray-500 text-sm overflow-x-auto whitespace-nowrap py-1 no-scrollbar">
@@ -89,7 +89,7 @@
                                 @endif
                                 <span class="text-sm font-medium text-gray-500">/ {{ $product->unit ?? 'sản phẩm' }}</span>
                             </div>
-                            <p class="text-xs text-gray-400 mt-1">Đã bao gồm thuế GTGT & cam kết hàng tươi mỗi ngày</p>
+                            <p class="text-xs text-gray-400 mt-1">Đã bao gồm thuế GTGT & cam kết hàng tươi sạch mỗi ngày</p>
                         </div>
 
                         <!-- Pill Giảm Giá % -->
@@ -126,18 +126,19 @@
                     </span>
                 </div>
 
-                <!-- Tóm tắt sản phẩm -->
-                <p class="text-gray-600 leading-relaxed mb-8 text-sm sm:text-base">
-                    {{ $product->description }}
+                <!-- Tóm tắt ngắn điểm nổi bật (Khắc phục lỗi lặp lại mô tả) -->
+                <p class="text-gray-600 leading-relaxed mb-8 text-sm sm:text-base font-normal">
+                    {{ $product->short_description }}
                 </p>
 
                 <!-- Khối Hành Động Mua Hàng (Apple Liquid Glass V4) -->
-                <div class="mt-auto bg-white/50 backdrop-blur-2xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.05)] ring-1 ring-white/50 rounded-[2rem] p-6 relative overflow-hidden">
+                <div class="mt-auto bg-white/50 backdrop-blur-2xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.05)] ring-1 ring-white/50 rounded-[2rem] p-6 relative overflow-hidden"
+                     x-data="{ qty: 1 }">
                     <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none"></div>
 
                     <div class="flex items-center gap-5 mb-5">
                         <label class="text-sm font-bold text-gray-700">Số lượng:</label>
-                        <div class="flex items-center bg-white/50 backdrop-blur-xl border border-white/80 shadow-inner rounded-2xl overflow-hidden" x-data="{ qty: 1 }">
+                        <div class="flex items-center bg-white/50 backdrop-blur-xl border border-white/80 shadow-inner rounded-2xl overflow-hidden">
                             <button type="button" @click="qty = Math.max(1, qty - 1)" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-white/80 hover:text-green-800 active:scale-95 transition-all font-bold text-lg cursor-pointer">−</button>
                             <input type="number" x-model="qty" min="1" max="{{ $product->stock }}" class="w-14 text-center border-x border-gray-200/50 py-2 text-sm font-bold text-gray-900 focus:outline-none bg-transparent">
                             <button type="button" @click="qty = Math.min({{ $product->stock > 0 ? $product->stock : 1 }}, qty + 1)" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-white/80 hover:text-green-800 active:scale-95 transition-all font-bold text-lg cursor-pointer">+</button>
@@ -149,6 +150,7 @@
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
                             <input type="hidden" name="variant_id" value="{{ $product->variants->first()->id ?? '' }}">
+                            <input type="hidden" name="quantity" :value="qty">
                             <button type="submit" 
                                     class="w-full py-4 bg-emerald-600/90 hover:bg-emerald-600 backdrop-blur-md shadow-[0_8px_25px_rgba(16,185,129,0.35)] border border-emerald-400/40 text-white font-semibold rounded-2xl text-base active:scale-98 transition-all cursor-pointer flex items-center justify-center gap-2">
                                 <span class="material-symbols-outlined text-[22px]">add_shopping_cart</span>
@@ -182,61 +184,115 @@
             </div>
         </div>
 
-        <!-- KHU VỰC GIỮA: Component Thông số kỹ thuật (Trải rộng toàn màn hình) -->
+        <!-- KHU VỰC 1: Component Thông số kỹ thuật & Chất lượng -->
         <section class="w-full">
             <x-products.specs :product="$product" />
         </section>
 
-        <!-- KHU VỰC MÔ TẢ CHI TIẾT (Phiến kính độc lập) -->
+        <!-- KHU VỰC 2: Minh Bạch Nguồn Gốc & Canh Tác (Traceability QR) -->
+        <section class="w-full">
+            <x-products.traceability :product="$product" />
+        </section>
+
+        <!-- KHU VỰC 3: Hướng Dẫn Chế Biến & Bảo Quản Chuyên Sâu -->
+        <section class="w-full">
+            <x-products.usage-storage :product="$product" />
+        </section>
+
+        <!-- KHU VỰC 4: Giá Trị Dinh Dưỡng Ước Tính -->
+        <section class="w-full">
+            <x-products.nutrition :product="$product" />
+        </section>
+
+        <!-- KHU VỰC 5: Thường Mua Cùng (Combo Tiết Kiệm) -->
+        <section class="w-full">
+            <x-products.frequently-bought :product="$product" />
+        </section>
+
+        <!-- KHU VỰC 6: Câu Chuyện Nông Sản & Cam Kết 3 Không -->
+        @php
+            $story = $product->story;
+        @endphp
         <section class="bg-white/50 backdrop-blur-2xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.06)] ring-1 ring-white/50 rounded-[2.5rem] p-6 sm:p-8 md:p-10 relative overflow-hidden">
             <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none"></div>
 
             <div class="flex items-center gap-3.5 mb-6 pb-4 border-b border-gray-200/60">
                 <div class="w-12 h-12 rounded-2xl bg-green-900/10 text-green-900 flex items-center justify-center border border-white/80 shadow-xs">
-                    <span class="material-symbols-outlined text-[26px]">subject</span>
+                    <span class="material-symbols-outlined text-[26px]">menu_book</span>
                 </div>
                 <div>
-                    <h3 class="font-headline-lg text-2xl font-extrabold text-green-950 tracking-tight">Mô tả chi tiết sản phẩm</h3>
-                    <p class="text-xs sm:text-sm text-gray-500 font-medium">Quy trình chọn lọc và hướng dẫn sử dụng, bảo quản tối ưu</p>
+                    <h3 class="text-2xl font-extrabold text-green-950 tracking-tight">{{ $story['headline'] }}</h3>
+                    <p class="text-xs sm:text-sm text-gray-500 font-medium">Hành trình canh tác sạch & giá trị dinh dưỡng thuần khiết</p>
                 </div>
             </div>
 
-            <div class="prose max-w-none text-gray-700 leading-relaxed text-sm sm:text-base space-y-4">
-                <p>{{ $product->description }}</p>
-                <p>Tất cả sản phẩm tại MiniMart được bảo quản trong hệ thống kho lạnh tiêu chuẩn quốc tế và kiểm định nghiêm ngặt trước khi đóng gói. Chúng tôi đồng hành cùng các nông trại và nhà sản xuất uy tín nhằm mang lại trải nghiệm tươi ngon, trọn vị và an toàn nhất cho bữa ăn của gia đình bạn.</p>
+            <div class="space-y-4 text-gray-700 leading-relaxed text-sm sm:text-base">
+                <p class="font-semibold text-gray-900 text-base border-l-4 border-emerald-600 pl-4 py-1 bg-emerald-50/40 rounded-r-xl">
+                    {{ $story['lead'] }}
+                </p>
+
+                @foreach($story['paragraphs'] as $para)
+                    <p>{{ $para }}</p>
+                @endforeach
                 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-                    <div class="p-4 rounded-2xl bg-white/60 border border-white/80 flex items-center gap-3">
-                        <span class="material-symbols-outlined text-green-700 text-2xl">eco</span>
-                        <div>
-                            <h5 class="text-xs font-bold text-gray-900">An Toàn Tuyệt Đối</h5>
-                            <p class="text-[11px] text-gray-500">Đạt chuẩn an toàn VSTP</p>
+                <!-- Cam kết 3 Không Chuẩn Nông Sản MiniMart Fresh -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6">
+                    @foreach($story['commitments'] as $idx => $commit)
+                        <div class="p-4 rounded-2xl bg-white/70 backdrop-blur-md border border-white/90 shadow-sm flex items-start gap-3">
+                            <span class="material-symbols-outlined text-green-700 text-2xl shrink-0 mt-0.5">
+                                {{ $idx === 0 ? 'sanitizer' : ($idx === 1 ? 'shield_with_heart' : 'spa') }}
+                            </span>
+                            <div>
+                                <h5 class="text-xs font-bold text-gray-900">Cam Kết Chuẩn Sạch</h5>
+                                <p class="text-xs text-gray-600 mt-0.5">{{ $commit }}</p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="p-4 rounded-2xl bg-white/60 border border-white/80 flex items-center gap-3">
-                        <span class="material-symbols-outlined text-green-700 text-2xl">thermostat</span>
-                        <div>
-                            <h5 class="text-xs font-bold text-gray-900">Nhiệt Độ Tối Ưu</h5>
-                            <p class="text-[11px] text-gray-500">Bảo quản lạnh 4°C - 8°C</p>
-                        </div>
-                    </div>
-
-                    <div class="p-4 rounded-2xl bg-white/60 border border-white/80 flex items-center gap-3">
-                        <span class="material-symbols-outlined text-green-700 text-2xl">health_and_safety</span>
-                        <div>
-                            <h5 class="text-xs font-bold text-gray-900">Nguồn Gốc Rõ Ràng</h5>
-                            <p class="text-[11px] text-gray-500">Mã QR truy xuất nguồn gốc</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
 
-        <!-- KHU VỰC DƯỚI: Component Đánh Giá Khách Hàng (Tách biệt hoàn toàn) -->
+        <!-- KHU VỰC 7: Component Đánh Giá Khách Hàng (Tách biệt hoàn toàn) -->
         <section id="reviews-section" class="w-full">
             <x-products.reviews :product="$product" />
         </section>
 
+    </div>
+
+    <!-- Thanh Mua Hàng Cố Định Trên Mobile (Sticky Mobile Add-to-Cart Bar) -->
+    <div class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-white/85 backdrop-blur-2xl border-t border-white/80 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] p-3 px-4 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 overflow-hidden">
+            <div class="w-12 h-12 rounded-xl overflow-hidden bg-gray-100 border border-white/80 shrink-0 shadow-xs">
+                <img src="{{ asset($product->image_url ?? $product->images[0] ?? 'images/placeholder.jpg') }}" 
+                     alt="{{ $product->name }}" 
+                     class="w-full h-full object-cover">
+            </div>
+            <div class="truncate">
+                <h4 class="text-xs font-bold text-gray-900 truncate">{{ $product->name }}</h4>
+                <div class="flex items-baseline gap-1.5">
+                    <span class="text-sm font-black text-emerald-900">{{ number_format($product->base_price) }}đ</span>
+                    @if($product->original_price && $product->original_price > $product->base_price)
+                        <del class="text-[10px] text-gray-400">{{ number_format($product->original_price) }}đ</del>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        @if($product->stock > 0)
+            <form action="{{ route('cart.add') }}" method="POST" class="shrink-0">
+                @csrf
+                <input type="hidden" name="variant_id" value="{{ $product->variants->first()->id ?? '' }}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" 
+                        class="px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md active:scale-95 transition-all flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                    Thêm vào giỏ
+                </button>
+            </form>
+        @else
+            <button disabled class="px-4 py-2.5 rounded-full bg-gray-200 text-gray-400 font-bold text-xs cursor-not-allowed">
+                Tạm hết
+            </button>
+        @endif
     </div>
 </x-layouts.app>

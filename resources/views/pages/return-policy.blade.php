@@ -94,7 +94,7 @@
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-orange-500 text-[20px] mt-0.5 shrink-0">event_note</span>
-                            <span><strong>Hóa mỹ phẩm & Đồ gia dụng:</strong> Trong vòng <strong>03 ngày</strong> (yêu cầu sản phẩm chưa mở niêm phong).</span>
+                            <span><strong>Gạo, Ngũ cốc & Món sơ chế đóng gói:</strong> Trong vòng <strong>03 ngày</strong> (yêu cầu sản phẩm còn nguyên tem niêm phong).</span>
                         </li>
                     </ul>
                 </div>

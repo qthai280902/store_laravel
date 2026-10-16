@@ -9,7 +9,7 @@
                 <div class="absolute inset-0 flex flex-col justify-center px-10">
                     <span class="text-tertiary font-label-md bg-white/20 inline-block w-max px-3 py-1 rounded-full mb-3 backdrop-blur-md">Tuần lễ trái cây</span>
                     <h2 class="font-display-lg text-4xl text-white mb-4 drop-shadow-md max-w-md">Lễ hội trái cây nhập khẩu giảm đến 30%</h2>
-                    <a href="{{ route('products.index', ['category' => 'trai-cay-nhap-khau']) }}" class="inline-block bg-primary text-on-primary font-label-md py-3 px-8 rounded-full shadow-lg w-max hover:bg-primary-container transition-colors">Mua ngay</a>
+                    <a href="{{ route('products.index', ['category' => 'trai-cay-dac-san-nhap-khau']) }}" class="inline-block bg-primary text-on-primary font-label-md py-3 px-8 rounded-full shadow-lg w-max hover:bg-primary-container transition-colors">Mua ngay</a>
                 </div>
             </div>
             <!-- Slide 2 -->
@@ -18,7 +18,7 @@
                 <div class="absolute inset-0 flex flex-col justify-center px-10">
                     <span class="text-tertiary font-label-md bg-white/20 inline-block w-max px-3 py-1 rounded-full mb-3 backdrop-blur-md">Rau củ hữu cơ</span>
                     <h2 class="font-display-lg text-4xl text-white mb-4 drop-shadow-md max-w-md">100% Nông sản VietGAP trực tiếp từ nông trại</h2>
-                    <a href="{{ route('products.index', ['category' => 'rau-cu-huu-co']) }}" class="inline-block bg-primary text-on-primary font-label-md py-3 px-8 rounded-full shadow-lg w-max hover:bg-primary-container transition-colors">Khám phá</a>
+                    <a href="{{ route('products.index', ['category' => 'rau-cu-huu-co-da-lat']) }}" class="inline-block bg-primary text-on-primary font-label-md py-3 px-8 rounded-full shadow-lg w-max hover:bg-primary-container transition-colors">Khám phá</a>
                 </div>
             </div>
             <!-- Slide 3 -->
@@ -27,7 +27,7 @@
                 <div class="absolute inset-0 flex flex-col justify-center px-10">
                     <span class="text-tertiary font-label-md bg-white/20 inline-block w-max px-3 py-1 rounded-full mb-3 backdrop-blur-md">Thịt cá tươi sống</span>
                     <h2 class="font-display-lg text-4xl text-white mb-4 drop-shadow-md max-w-md">Hải sản đánh bắt trong ngày, giao sống tận nhà</h2>
-                    <a href="{{ route('products.index', ['category' => 'thuc-pham-tuoi-song']) }}" class="inline-block bg-primary text-on-primary font-label-md py-3 px-8 rounded-full shadow-lg w-max hover:bg-primary-container transition-colors">Xem hải sản</a>
+                    <a href="{{ route('products.index', ['category' => 'thuy-hai-san-tuoi-song']) }}" class="inline-block bg-primary text-on-primary font-label-md py-3 px-8 rounded-full shadow-lg w-max hover:bg-primary-container transition-colors">Xem hải sản</a>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
 
         <!-- Sub Banners -->
         <div class="hidden lg:flex flex-col gap-4 h-[500px]">
-            <a href="{{ route('products.index', ['category' => 'thuc-pham-kho']) }}" class="relative w-full flex-1 rounded-3xl overflow-hidden shadow-md group">
+            <a href="{{ route('products.index', ['category' => 'gao-ngu-coc-luong-thuc']) }}" class="relative w-full flex-1 rounded-3xl overflow-hidden shadow-md group">
                 <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://picsum.photos/seed/subbanner1/500/250')"></div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 <div class="absolute bottom-0 left-0 p-6">

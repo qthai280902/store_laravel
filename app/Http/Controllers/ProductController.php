@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -15,27 +13,17 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->only(['search']);
+        $filters = $request->only(['search', 'category', 'standard', 'freshness_type', 'on_sale', 'in_stock']);
 
-        if ($request->has('category')) {
-            $category = Category::where('slug', $request->category)->first();
-            if ($category) {
-                $filters['category_id'] = $category->id;
-            }
-        }
-
-        $sortBy = $request->get('sort_by', 'created_at');
+        $sortBy = match ($request->get('sort')) {
+            'price_asc' => 'price_asc',
+            'price_desc' => 'price_desc',
+            'name_asc' => 'name_asc',
+            default => $request->get('sort_by', 'created_at'),
+        };
         $sortDir = $request->get('sort_dir', 'desc');
 
-        $query = Product::with(['category', 'variants'])->where('is_active', true);
-        if (isset($filters['category_id'])) {
-            $query->where('category_id', $filters['category_id']);
-        }
-        if (isset($filters['search'])) {
-            $query->where('name', 'like', '%'.$filters['search'].'%');
-        }
-        $query->orderBy($sortBy, $sortDir)->orderBy('id', 'desc');
-        $products = $query->paginate(20);
+        $products = $this->productService->getProducts($filters, $sortBy, $sortDir, 20);
 
         return view('products.index', compact('products'));
     }
@@ -43,7 +31,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->get('search');
-        $filters = $request->only(['search', 'category_id']);
+        $filters = $request->only(['search', 'category_id', 'category', 'standard', 'freshness_type']);
         $products = $this->productService->getProducts($filters);
 
         return view('products.search', compact('products', 'keyword'));

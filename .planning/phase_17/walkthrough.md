@@ -312,3 +312,73 @@
 - **Biên dịch Frontend:** `npm run build` biên dịch sạch sẽ trong 1.03s.
 - **Chuẩn hóa Code:** `vendor/bin/pint --dirty --format agent` hoàn tất chuẩn PSR-12 không phát sinh lỗi.
 
+---
+
+## 10. NHẬT KÝ PHASE 17.5: CHUẨN HÓA ĐỊNH VỊ SIÊU THỊ NÔNG SẢN SẠCH & ĐỘNG HÓA PHÂN TẦNG NHÃN 5 GÓC ẢNH
+
+### 10.1. Thanh lọc Cơ sở dữ liệu & Tái cấu trúc Catalog Thực phẩm Sạch
+- **Loại bỏ ngành hàng phi thực phẩm:** Đã xóa bỏ hoàn toàn các danh mục hóa phẩm tẩy rửa, xà phòng, nước lau kính (`Gift`, `Sunlight`, `Lifebuoy`, `OMO`...) và dọn sạch các thư mục tương ứng trong `storage/app/public/products/`.
+- **Quy chuẩn 7 Danh mục Nông sản & Thực phẩm sạch chuẩn MiniMart Fresh:**
+  1. `Rau củ hữu cơ & Đà Lạt` (`rau-cu-huu-co-da-lat`)
+  2. `Trái cây đặc sản & Nhập khẩu` (`trai-cay-dac-san-nhap-khau`)
+  3. `Thịt sạch & Trứng tươi` (`thit-sach-trung-tuoi`)
+  4. `Thủy hải sản tươi sống & Đóng khay` (`thuy-hai-san-tuoi-song`)
+  5. `Gạo, Ngũ cốc & Lương thực sạch` (`gao-ngu-coc-luong-thuc`)
+  6. `Gia vị truyền thống & Tự nhiên` (`gia-vi-truyen-thong-tu-nhien`)
+  7. `Món sơ chế sẵn (Ready-to-cook)` (`mon-so-che-san-ready-to-cook`)
+- **Quy mô Catalog:** 24 sản phẩm tinh hoa phân bổ đều 3-4 mặt hàng/danh mục. Bảo toàn nguyên vẹn 100% bộ ảnh AI Studio của thực phẩm hiện có (`MM-SEA-0061` Tôm sú Cà Mau, `MM-MEA-0041` Thịt bò Úc).
+
+### 10.2. Backend Logic: Phân tầng Ngành hàng & Nhãn Động Rút Gọn (`Product.php`)
+- **3 Nhóm Ngành Hàng (`product_tier`):**
+  - `TIER_FRESH_PRODUCE`: Rau củ, Trái cây.
+  - `TIER_MEAT_SEAFOOD`: Thịt tươi, Thủy hải sản, Trứng tươi.
+  - `TIER_PACKAGED_GOODS`: Gạo, Ngũ cốc, Lương thực, Gia vị, Món sơ chế sẵn.
+- **Dynamic 5-Angle Labels (`angle_labels`):** Độ dài nhãn được rút gọn sắc nét, hiển thị vừa vặn trong thumbnail badges:
+  - *Rau củ & Trái cây:* `Chính diện`, `Nguồn gốc`, `Đóng gói`, `Cận cảnh`, `Thưởng thức`.
+  - *Thịt & Hải sản:* `Đóng khay`, `Kiểm dịch`, `Góc cắt 45°`, `Thớ thịt tươi`, `Món ngon`.
+  - *Lương thực & Gia vị:* `Bao bì`, `Dinh dưỡng`, `Góc nghiêng`, `Chất lượng hạt`, `Bữa ăn`.
+- **Hỗ trợ Quản trị Admin:** Bổ sung phương thức `Product::getAngleLabelsForCategory(?Category $category)` và `Product::angleLabelsByTier()` để form upload admin tự động cập nhật tên 5 góc ảnh theo ngành hàng được chọn.
+
+### 10.3. Cập nhật Blade Components & Đồng bộ Liên kết
+- **`x-products.gallery`:** Tích hợp `$product->angle_labels`, nhãn góc chụp hiển thị mượt mà trên khung ảnh chính và thanh thumbnail hover.
+- **`x-products.specs`:** Bổ sung thông số nông sản sạch (Chứng nhận VietGAP/GlobalGAP/Organic, Vùng trồng xuất xứ, Điều kiện bảo quản chuyên dụng, Hạn dùng/Độ tươi mới khuyến nghị).
+- **Header Mega Menu & Homepage:** Mở rộng Mega Menu hiển thị đủ 7 danh mục nông sản; đồng bộ hóa các liên kết trên Hero Slider và Sub-banners tại `home.blade.php`.
+- **Chính sách đổi trả (`return-policy.blade.php`):** Cập nhật ngành hàng sang thực phẩm khô & sơ chế đóng gói.
+
+### 10.4. Đảm bảo Lưu trữ 100% & Kết quả Kiểm thử
+- **Toàn vẹn tệp ảnh:** 120/120 file ảnh (24 SKU x 5 góc) được kiểm tra có mặt đầy đủ trên đĩa lưu trữ `storage/app/public/products/{sku}/1.jpg..5.jpg`, dung lượng đều > 1KB, loại trừ hoàn toàn nguy cơ 404.
+- **Biên dịch Frontend:** `npm run build` hoàn thành trong 2.45s.
+- **Chuẩn hóa Code:** `vendor/bin/pint --dirty --format agent` hoàn tất.
+- **Kiểm thử tự động:** `php artisan test --compact`: **20/20 tests passed, 77 assertions (100% Passed)**.
+
+---
+
+## 11. NHẬT KÝ PHASE 17.6: TÁI CẤU TRÚC BỘ LỌC NÔNG SẢN, CÁ NHÂN HÓA CHI TIẾT SẢN PHẨM & KHẮC PHỤC TOÀN DIỆN LỖI DỮ LIỆU/UX
+
+### 11.1. Cải tổ Bộ lọc Sidebar Trang Danh mục (`/products`)
+- **Loại bỏ:** Xóa bỏ hoàn toàn thanh trượt & ô nhập "Khoảng giá" cũ cùng bộ lọc "Hữu cơ/Thông thường" không còn phù hợp.
+- **Bổ sung 3 Nhóm Bộ lọc Chuyên biệt cho Siêu thị Nông sản Sạch:**
+  1. *Tiêu chuẩn chất lượng (`standard`):* `Tất cả`, `VietGAP / GlobalGAP`, `Hữu cơ (Organic)`, `Đặc sản (OCOP)`, `Nhập khẩu cao cấp`.
+  2. *Đặc tính & Tiện lợi (`freshness_type`):* `Tất cả`, `Tươi trong ngày`, `Sơ chế sẵn (Nấu ngay)`, `Lương thực & Gia vị khô`.
+  3. *Tùy chọn nhanh (Quick Toggles):* Checkbox/Pill kính lỏng `Đang giảm giá` (`on_sale`) và `Còn hàng sẵn kho` (`in_stock`).
+- **An toàn truy vấn SQL:** Lọc thông qua category slug, sku prefix (`MM-RTC-%`, `MM-CER-%`, v.v.), name và origin - tuyệt đối không truy vấn cột `product_tier` trong cơ sở dữ liệu để tránh lỗi SQL `Unknown column`.
+
+### 11.2. Khắc phục Triệt để 4 Lỗi Dữ liệu & Trải nghiệm (UX)
+1. **Lỗi ảnh sai ngữ cảnh:** Xóa bỏ hoàn toàn ảnh đĩa than trên món Bò lúc lắc (`MM-RTC-0145`) và các món RTC khác. Tự động xóa cache thư mục cũ và tải về bộ ảnh ẩm thực thực tế chất lượng cao.
+2. **Lỗi mâu thuẫn thông số bảo quản:** Xây dựng accessor `storage_specs` thông minh: Món RTC (`2–5°C` trong `24–48h`), Rau củ quả (`4–8°C` trong `3–5 ngày`), Thịt cá (`0–4°C` hoặc `-18°C`), Lương thực & Gia vị (`khô ráo 6–12 tháng`).
+3. **Lỗi trùng lặp người đánh giá & thời gian tiếng Anh:** Mở rộng `ReviewSeeder` lên 15 tài khoản khách hàng Việt Nam với avatar chân thực, áp dụng `shuffle()->take($n)` đảm bảo mỗi người chỉ xuất hiện tối đa 1 lần/sản phẩm. Cấu hình `Carbon::setLocale('vi')` và `locale('vi')->diffForHumans()` để hiển thị thời gian tiếng Việt tự nhiên ("3 ngày trước"). Tích hợp thêm bộ lọc sao tương tác Alpine.js.
+4. **Lỗi lặp lại nội dung mô tả:** Phân tách mô tả tóm tắt ngắn trên đầu (`short_description`) và câu chuyện nông sản chuyên sâu kèm cam kết 3 Không ở cuối trang (`story`).
+
+### 11.3. 5 Thành phần Mới & Tinh chỉnh Trang Chi tiết Sản phẩm
+1. `x-products.traceability`: Truy xuất nguồn gốc minh bạch, hiển thị mã lô hàng (`MM-LOT-...`), trang trại xuất xứ, chứng nhận kiểm định và cửa sổ quét mã QR tương tác.
+2. `x-products.usage-storage`: Khối hướng dẫn nấu nhanh (RTC) hoặc quy trình 3 bước chế biến & thông số bảo quản chuyên sâu.
+3. `x-products.nutrition`: Bảng giá trị dinh dưỡng chuẩn hóa (Calories, Protein, Carbs, Fat, Fiber), lợi ích sức khỏe và thông tin dị ứng.
+4. `x-products.frequently-bought`: Khối mâm cơm mua kèm (Combo 3 món) với chiết khấu 5% và nút thêm cả bộ nguyên liệu vào giỏ hàng trong 1 click.
+5. **Sticky Mobile Add-to-Cart Bar:** Thanh mua hàng cố định chân trang trên mobile (`fixed bottom-0 inset-x-0 z-40 md:hidden`), kết hợp khoảng đệm `pb-28 md:pb-12` bảo vệ Footer khỏi bị che khuất.
+
+### 11.4. Tương thích Giỏ hàng & Kết quả Kiểm thử
+- **Mở rộng Cart Controller:** `CartController@add` nhận mảng `items` để thêm cùng lúc nhiều sản phẩm combo, đồng thời bảo toàn 100% khả năng thêm đơn lẻ qua `variant_id`.
+- **Kiểm thử tự động (Pest):** Viết thêm 3 Feature Tests mới cho lọc nông sản, render component chi tiết và thêm combo giỏ hàng. Chạy `php artisan test --compact`: **23/23 tests passed, 91 assertions (100% Passed)**.
+- **Biên dịch Frontend & Chuẩn hóa Code:** `npm run build` và `vendor/bin/pint --dirty --format agent` hoàn tất thành công.
+
+

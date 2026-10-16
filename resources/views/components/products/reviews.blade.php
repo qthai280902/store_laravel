@@ -15,7 +15,7 @@
 @endphp
 
 <div id="reviews-section" class="bg-white/50 backdrop-blur-2xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.06)] ring-1 ring-white/50 rounded-[2rem] p-6 md:p-8 relative overflow-hidden"
-     x-data="{ showReviewForm: false, userRating: 5, userHoverRating: 0 }">
+     x-data="{ showReviewForm: false, userRating: 5, userHoverRating: 0, filterStar: 'all' }">
     
     <!-- Vệt sáng phản quang Liquid Glass mép trên -->
     <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none"></div>
@@ -135,10 +135,37 @@
         </div>
     @endauth
 
+    <!-- Bộ Lọc Số Sao (Star Filter Pills) -->
+    <div class="flex flex-wrap items-center gap-2 mb-6 pb-4 border-b border-gray-100">
+        <span class="text-xs font-bold text-gray-600 mr-2 flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px] text-gray-500">filter_list</span> Lọc theo:
+        </span>
+        <button type="button" 
+                @click="filterStar = 'all'" 
+                :class="filterStar === 'all' ? 'bg-green-900 text-white shadow-xs' : 'bg-white/60 text-gray-700 hover:bg-white border border-white/80'"
+                class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 cursor-pointer">
+            Tất cả ({{ $totalReviews }})
+        </button>
+        @foreach([5, 4, 3, 2, 1] as $star)
+            @if(($ratingCounts[$star] ?? 0) > 0)
+                <button type="button" 
+                        @click="filterStar = {{ $star }}" 
+                        :class="filterStar == {{ $star }} ? 'bg-amber-500 text-white shadow-xs' : 'bg-white/60 text-gray-700 hover:bg-white border border-white/80'"
+                        class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 cursor-pointer">
+                    <span>{{ $star }}</span>
+                    <span class="material-symbols-outlined text-[14px]">star</span>
+                    <span class="opacity-80">({{ $ratingCounts[$star] }})</span>
+                </button>
+            @endif
+        @endforeach
+    </div>
+
     <!-- Danh Sách Đánh Giá Thực Tế Từ Database -->
     <div class="space-y-4">
         @forelse($reviews as $review)
-            <div class="p-5 rounded-2xl bg-white/40 hover:bg-white/60 backdrop-blur-md border border-white/70 shadow-sm transition-all flex flex-col gap-3 group">
+            <div x-show="filterStar === 'all' || filterStar == {{ $review->rating }}" 
+                 x-cloak
+                 class="p-5 rounded-2xl bg-white/40 hover:bg-white/60 backdrop-blur-md border border-white/70 shadow-sm transition-all flex flex-col gap-3 group">
                 <div class="flex items-start justify-between gap-4">
                     <!-- User Avatar & Info -->
                     <div class="flex items-center gap-3">
@@ -156,7 +183,7 @@
                                     <span class="material-symbols-outlined text-[12px]">verified</span> Đã mua hàng
                                 </span>
                             </div>
-                            <span class="text-[11px] text-gray-400 font-medium">{{ $review->created_at->diffForHumans() }}</span>
+                            <span class="text-[11px] text-gray-500 font-medium">{{ $review->created_at->locale('vi')->diffForHumans() }}</span>
                         </div>
                     </div>
 

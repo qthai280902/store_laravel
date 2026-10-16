@@ -261,3 +261,69 @@ Khảo sát và chuyển đổi toàn diện giao diện Blog (`resources/views/
    - Biên dịch `npm run build`.
    - Chuẩn hóa định dạng `vendor/bin/pint --dirty --format agent`.
    - Viết test case bổ sung trong `tests/Feature/BlogPagesTest.php` và chạy `php artisan test --compact`.
+
+---
+
+## 12. PHASE 17.5: CHUẨN HÓA ĐỊNH VỊ SIÊU THỊ NÔNG SẢN SẠCH, LOẠI BỎ NGÀNH HÀNG PHI THỰC PHẨM & ĐỘNG HÓA PHÂN TẦNG NHÃN 5 GÓC ẢNH
+
+### 12.1. Mục tiêu Kỹ thuật
+1. **Thanh lọc Cơ sở dữ liệu & Tái cấu trúc Catalog Thực phẩm Sạch:**
+   - Loại bỏ triệt để các ngành hàng phi thực phẩm (`Hóa phẩm`, `Chăm sóc cá nhân`, `Đồ gia dụng`...) và các sản phẩm Gift, Sunlight, Lifebuoy.
+   - Quy chuẩn 7 nhóm danh mục nông sản & thực phẩm sạch chính danh (`CategorySeeder.php` & `ProductSeeder.php`):
+     1. *Rau củ hữu cơ & Đà Lạt* (`rau-cu-huu-co-da-lat` - `VEG`)
+     2. *Trái cây đặc sản & Nhập khẩu* (`trai-cay-dac-san-nhap-khau` - `FRU`)
+     3. *Thịt sạch & Trứng tươi* (`thit-sach-trung-tuoi` - `MEA`)
+     4. *Thủy hải sản tươi sống & Đóng khay* (`thuy-hai-san-tuoi-song` - `SEA`)
+     5. *Gạo, Ngũ cốc & Lương thực sạch* (`gao-ngu-coc-luong-thuc` - `CER`)
+     6. *Gia vị truyền thống & Tự nhiên* (`gia-vi-truyen-thong-tu-nhien` - `SPC`)
+     7. *Món sơ chế sẵn (Ready-to-cook)* (`mon-so-che-san-ready-to-cook` - `RTC`)
+   - Duy trì danh mục tinh hoa gồm đúng 24 sản phẩm cao cấp, bảo toàn 100% các bộ ảnh AI Studio của thực phẩm hiện có (`MM-SEA-0061`, `MM-MEA-0041`).
+2. **Backend Logic - Phân tầng Ngành hàng & Accessor Nhãn Động (`Product.php`):**
+   - Phân tầng sản phẩm qua helper/accessor `$product->product_tier`:
+     - `tier_fresh_produce`: Rau củ, Trái cây.
+     - `tier_meat_seafood`: Thịt tươi, Thủy hải sản, Trứng tươi.
+     - `tier_packaged_goods`: Gạo, Ngũ cốc, Lương thực, Gia vị, Món sơ chế sẵn.
+   - Hệ thống nhãn 5 góc ảnh động rút gọn (`$product->angle_labels`):
+     - Nhóm Rau củ & Trái cây: `Chính diện`, `Nguồn gốc`, `Đóng gói`, `Cận cảnh`, `Thưởng thức`.
+     - Nhóm Thịt & Hải sản: `Đóng khay`, `Kiểm dịch`, `Góc cắt 45°`, `Thớ thịt tươi`, `Món ngon`.
+     - Nhóm Lương thực & Gia vị: `Bao bì`, `Dinh dưỡng`, `Góc nghiêng`, `Chất lượng hạt`, `Bữa ăn`.
+   - Cung cấp static helper `Product::getAngleLabelsForCategory(?Category $category)` và `Product::angleLabelsByTier()` phục vụ Form Quản trị Admin.
+3. **Cập nhật Giao diện Blade & Liquid Glass V4:**
+   - `x-products.gallery`: Động hóa nhãn góc nhìn theo `$product->angle_labels`, tối ưu layout pill để vừa vặn hoàn hảo trong ô thumbnail nhỏ.
+   - `x-products.specs`: Quy chuẩn hóa bảng thông số nông sản/thực phẩm sạch (Chứng nhận VietGAP/GlobalGAP/Organic, Vùng trồng xuất xứ, Nhiệt độ bảo quản chuyên dụng, Hạn sử dụng/Độ tươi mới khuyến nghị).
+   - Đồng bộ hóa liên kết danh mục trên Header Mega Menu (`app.blade.php`) và Hero Slider / Sub-banners (`home.blade.php`).
+   - Điều chỉnh chính sách đổi trả (`pages.return-policy`) sang phân loại hàng thực phẩm đóng gói.
+4. **Kiểm thử & Đảm bảo Lưu trữ 100%:**
+   - Đảm bảo 120/120 file ảnh (24 SKU x 5 góc) tồn tại trên đĩa cục bộ (`storage/app/public/products/{sku}/1.jpg..5.jpg`), dung lượng > 1KB, loại trừ hoàn toàn nguy cơ lỗi 404.
+   - Chạy `php artisan migrate:fresh --seed`.
+   - Chạy `npm run build` và `vendor/bin/pint --dirty --format agent`.
+   - Bổ sung test case trong `tests/Feature/ProductCatalogTest.php`, 20/20 tests pass gọn gàng.
+
+---
+
+## 13. PHASE 17.6: TÁI CẤU TRÚC BỘ LỌC NÔNG SẢN, CÁ NHÂN HÓA CHI TIẾT SẢN PHẨM THEO 3 PHÂN TẦNG & KHẮC PHỤC TOÀN DIỆN LỖI DỮ LIỆU/UX
+
+### 13.1. Mục tiêu Kỹ thuật Đã Hoàn Thành
+1. **Cải tổ Bộ lọc Sidebar Trang Danh mục (`ProductService.php`, `ProductController.php` & `products/index.blade.php`):**
+   - Loại bỏ hoàn toàn khối lọc khoảng giá (price range inputs) cũ.
+   - Thay thế bộ lọc cũ bằng 3 cụm lọc chuyên biệt nông sản:
+     - Tiêu chuẩn chất lượng (`standard`): `all`, `vietgap`, `organic`, `ocop`, `imported`.
+     - Đặc tính & Tiện lợi (`freshness_type`): `all`, `fresh`, `rtc`, `dry`.
+     - Tùy chọn nhanh: Checkbox/Pill `on_sale` và `in_stock`.
+   - Xử lý SQL an toàn tuyệt đối qua Category Slugs và SKU prefixes, ngăn chặn lỗi SQL unknown column `product_tier`.
+2. **Khắc phục Triệt để 4 Lỗi Dữ liệu & Trải nghiệm (UX):**
+   - **Lỗi 1 (Sai ngữ cảnh ảnh):** Thay thế toàn bộ ảnh đĩa than của Bò lúc lắc (`MM-RTC-0145`) và các món RTC khác bằng ảnh ẩm thực thực tế 100%. Tự động xóa thư mục ảnh cũ và tải mới chuẩn xác.
+   - **Lỗi 2 (Mâu thuẫn thông số bảo quản):** Xây dựng accessor `storage_specs` chuyên sâu theo từng phân tầng: Món sơ chế sẵn (2–5°C trong 24–48h), Rau củ quả (4–8°C trong 3–5 ngày), Thịt cá (0–4°C trong ngày hoặc -18°C 1 tháng), Lương thực/Gia vị (khô ráo 6–12 tháng).
+   - **Lỗi 3 (Trùng lặp tên người đánh giá & thời gian tiếng Anh):** Mở rộng `ReviewSeeder` lên 15 người dùng Việt Nam ngẫu nhiên, áp dụng `shuffle()->take($n)` đảm bảo không trùng tên trên cùng một sản phẩm. Cấu hình `Carbon::setLocale('vi')` và `locale('vi')->diffForHumans()`, tích hợp bộ lọc sao tương tác Alpine.js.
+   - **Lỗi 4 (Lặp lại nội dung mô tả):** Phân tách mô tả tóm tắt nổi bật trên đầu (`short_description`) và câu chuyện nông sản chuyên sâu kèm cam kết 3 Không ở cuối trang (`story`).
+3. **Phát triển 5 Thành phần Nông sản Mới & Nâng cấp Trang Chi tiết:**
+   - `x-products.traceability`: Khối truy xuất nguồn gốc, mã lô hàng, trang trại và cửa sổ quét mã QR tương tác.
+   - `x-products.usage-storage`: Khối hướng dẫn nấu nhanh (RTC) hoặc 3 bước chế biến & thông số bảo quản.
+   - `x-products.nutrition`: Bảng thành phần dinh dưỡng chuẩn hóa (Calories, Protein, Carbs, Fat, Fiber) và cảnh báo dị ứng.
+   - `x-products.frequently-bought`: Khối mâm cơm mua kèm (Combo) với nút thêm trọn bộ nguyên liệu vào giỏ hàng.
+   - Sticky Mobile Add-to-Cart Bar: Thanh mua hàng cố định chân trang trên mobile, kết hợp khoảng đệm `pb-28 md:pb-12` bảo vệ Footer.
+4. **Tương thích Giỏ hàng & Kiểm thử Toàn diện:**
+   - Nâng cấp `CartController@add` hỗ trợ mảng `items` (combo batch add) trong khi duy trì 100% tương thích ngược với request đơn `variant_id`.
+   - Viết 3 Feature Tests mới trong `tests/Feature/ProductCatalogTest.php`: 23/23 tests pass (100% green).
+   - Định dạng chuẩn Pint: `vendor/bin/pint --dirty --format agent`.
+   - Biên dịch Vite: `npm run build`.

@@ -1,4 +1,4 @@
-<x-layouts.app title="Sản phẩm - MiniMart">
+<x-layouts.app title="Sản phẩm Nông sản & Thực phẩm sạch - MiniMart">
     <!-- Breadcrumb Trail (Liquid Glass Multi-Pills) -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <nav class="flex items-center gap-2 text-gray-500 text-sm overflow-x-auto whitespace-nowrap py-1 no-scrollbar">
@@ -17,91 +17,182 @@
                 </span>
             @else
                 <span class="px-3.5 py-1.5 rounded-full bg-emerald-100/70 border border-emerald-200/60 text-emerald-950 font-bold truncate shadow-xs">
-                    Tất cả sản phẩm
+                    Tất cả sản phẩm sạch
                 </span>
             @endif
         </nav>
     </div>
 
-    <div class="pt-4 pb-10 w-full flex justify-center">
+    <!-- Tiêu đề trang Pill Header Liquid Glass -->
+    <div class="pt-4 pb-8 w-full flex justify-center">
         <div class="bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-full px-12 py-4 fade-item opacity-0 translate-y-10 transition-all duration-1000 ease-out inline-block">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-green-900 text-center">Sản phẩm</h1>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-green-900 text-center">Nông Sản & Thực Phẩm Sạch</h1>
         </div>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mt-6">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mt-4">
 
-    <!-- Left Sidebar Filters (Liquid Glass V4) -->
+    <!-- Left Sidebar Filters (Liquid Glass V4 Chuyên Biệt Nông Sản) -->
     <aside class="col-span-1">
-        <div class="bg-white/40 backdrop-blur-2xl border border-white/70 shadow-[0_12px_40px_rgba(0,0,0,0.06)] ring-1 ring-white/50 rounded-3xl p-6 sticky top-[150px] h-max max-h-[calc(100vh-180px)] overflow-y-auto custom-scrollbar">
-            <h3 class="font-label-md text-label-md text-primary uppercase tracking-wider mb-4">Bộ lọc</h3>
-            <!-- Category Filter -->
-            <div class="mb-6" x-data="{ catOpen: true }">
-                <button @click="catOpen = !catOpen" type="button" class="w-full flex justify-between items-center cursor-pointer mb-3 outline-none group">
-                    <h4 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Danh mục</h4>
-                    <span class="material-symbols-outlined text-gray-500 transition-transform duration-300" :class="{'rotate-180': catOpen}">expand_more</span>
+        <div class="bg-white/40 backdrop-blur-2xl border border-white/70 shadow-[0_12px_40px_rgba(0,0,0,0.06)] ring-1 ring-white/50 rounded-3xl p-6 sticky top-[130px] h-max max-h-[calc(100vh-160px)] overflow-y-auto custom-scrollbar space-y-6">
+            
+            <div class="flex items-center justify-between pb-3 border-b border-gray-200/60">
+                <h3 class="font-bold text-sm text-green-950 uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[18px] text-green-700">tune</span>
+                    Bộ Lọc Nông Sản
+                </h3>
+                @if(request()->hasAny(['category', 'standard', 'freshness_type', 'on_sale', 'in_stock', 'search', 'sort']))
+                    <a href="{{ route('products.index') }}" class="text-[11px] font-bold text-emerald-700 hover:text-emerald-900 transition-colors">
+                        Xóa tất cả
+                    </a>
+                @endif
+            </div>
+
+            <!-- 1. Danh mục Ngành hàng Nông sản -->
+            <div x-data="{ catOpen: true }">
+                <button @click="catOpen = !catOpen" type="button" class="w-full flex justify-between items-center cursor-pointer mb-2.5 outline-none group">
+                    <h4 class="text-xs font-extrabold text-gray-800 uppercase tracking-wider group-hover:text-emerald-800 transition-colors">Danh Mục</h4>
+                    <span class="material-symbols-outlined text-gray-400 text-sm transition-transform duration-300" :class="{'rotate-180': catOpen}">expand_more</span>
                 </button>
                 <div x-show="catOpen" x-collapse>
-                    <ul class="space-y-2 font-body-lg text-body-lg text-on-surface-variant pb-2">
+                    <ul class="space-y-1.5 text-xs text-gray-700 pb-1">
                         <li>
-                            <label class="flex items-center gap-2 cursor-pointer group">
-                                <input {{ !request('category') ? 'checked' : '' }} onchange="window.location.href='{{ route('products.index') }}'" class="rounded border-outline-variant text-primary focus:ring-primary bg-white h-5 w-5 group-hover:border-primary transition-colors" type="radio" name="category_filter"/>
-                                <span class="group-hover:text-primary transition-colors {{ !request('category') ? 'text-primary' : '' }}">Tất cả sản phẩm</span>
-                            </label>
+                            <a href="{{ request()->fullUrlWithQuery(['category' => null]) }}" 
+                               class="flex items-center justify-between px-3 py-2 rounded-xl transition-all {{ !request('category') ? 'bg-emerald-600 text-white font-bold shadow-xs' : 'hover:bg-white/70' }}">
+                                <span>Tất cả ngành hàng</span>
+                            </a>
                         </li>
-                        @foreach(\App\Models\Category::all() as $cat)
+                        @foreach(\App\Models\Category::where('is_active', true)->get() as $cat)
                         <li>
-                            <label class="flex items-center gap-2 cursor-pointer group">
-                                <input {{ request('category') == $cat->slug ? 'checked' : '' }} onchange="window.location.href='{{ route('products.index', ['category' => $cat->slug]) }}'" class="rounded border-outline-variant text-primary focus:ring-primary bg-white h-5 w-5 group-hover:border-primary transition-colors" type="radio" name="category_filter"/>
-                                <span class="group-hover:text-primary transition-colors {{ request('category') == $cat->slug ? 'text-primary' : '' }}">{{ $cat->name }}</span>
-                            </label>
+                            <a href="{{ request()->fullUrlWithQuery(['category' => $cat->slug]) }}" 
+                               class="flex items-center justify-between px-3 py-2 rounded-xl transition-all {{ request('category') == $cat->slug ? 'bg-emerald-600 text-white font-bold shadow-xs' : 'hover:bg-white/70' }}">
+                                <span class="truncate">{{ $cat->name }}</span>
+                            </a>
                         </li>
                         @endforeach
                     </ul>
                 </div>
             </div>
-            <!-- Price Filter -->
-            <div class="mb-6" x-data="{ priceOpen: true }">
-                <button @click="priceOpen = !priceOpen" type="button" class="w-full flex justify-between items-center cursor-pointer mb-3 outline-none group">
-                    <h4 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Khoảng giá</h4>
-                    <span class="material-symbols-outlined text-gray-500 transition-transform duration-300" :class="{'rotate-180': priceOpen}">expand_more</span>
+
+            <!-- 2. Tiêu chuẩn chất lượng (Standard) -->
+            <div x-data="{ stdOpen: true }">
+                <button @click="stdOpen = !stdOpen" type="button" class="w-full flex justify-between items-center cursor-pointer mb-2.5 outline-none group">
+                    <h4 class="text-xs font-extrabold text-gray-800 uppercase tracking-wider group-hover:text-emerald-800 transition-colors">Tiêu Chuẩn</h4>
+                    <span class="material-symbols-outlined text-gray-400 text-sm transition-transform duration-300" :class="{'rotate-180': stdOpen}">expand_more</span>
                 </button>
-                <div x-show="priceOpen" x-collapse>
-                    <div class="flex gap-2 items-center pb-2">
-                        <input class="w-full bg-white/60 backdrop-blur-md border border-white/80 rounded-xl px-3 py-2 text-on-surface focus:ring-2 focus:ring-emerald-500 shadow-inner outline-none transition-all" placeholder="Từ" type="number"/>
-                        <span class="text-on-surface-variant">-</span>
-                        <input class="w-full bg-white/60 backdrop-blur-md border border-white/80 rounded-xl px-3 py-2 text-on-surface focus:ring-2 focus:ring-emerald-500 shadow-inner outline-none transition-all" placeholder="Đến" type="number"/>
+                <div x-show="stdOpen" x-collapse>
+                    <div class="flex flex-wrap gap-1.5 pb-1">
+                        @php
+                            $standards = [
+                                'all' => 'Tất cả',
+                                'vietgap' => 'VietGAP / GlobalGAP',
+                                'organic' => 'Hữu cơ (Organic)',
+                                'ocop' => 'Đặc sản (OCOP)',
+                                'imported' => 'Nhập khẩu cao cấp',
+                            ];
+                            $activeStd = request('standard', 'all');
+                        @endphp
+                        @foreach($standards as $stdKey => $stdLabel)
+                            <a href="{{ request()->fullUrlWithQuery(['standard' => $stdKey === 'all' ? null : $stdKey]) }}"
+                               class="px-3 py-1.5 rounded-full text-xs transition-all {{ ($activeStd === $stdKey || ($stdKey === 'all' && !request('standard'))) ? 'bg-emerald-600 text-white font-bold shadow-xs' : 'bg-white/60 text-gray-700 hover:bg-white border border-white/80' }}">
+                                {{ $stdLabel }}
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
-            <!-- Type Filter -->
-            <div x-data="{ typeOpen: true }">
-                <button @click="typeOpen = !typeOpen" type="button" class="w-full flex justify-between items-center cursor-pointer mb-3 outline-none group">
-                    <h4 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Loại</h4>
-                    <span class="material-symbols-outlined text-gray-500 transition-transform duration-300" :class="{'rotate-180': typeOpen}">expand_more</span>
+
+            <!-- 3. Đặc tính & Tiện lợi (Freshness Type) -->
+            <div x-data="{ freshOpen: true }">
+                <button @click="freshOpen = !freshOpen" type="button" class="w-full flex justify-between items-center cursor-pointer mb-2.5 outline-none group">
+                    <h4 class="text-xs font-extrabold text-gray-800 uppercase tracking-wider group-hover:text-emerald-800 transition-colors">Đặc Tính Sản Phẩm</h4>
+                    <span class="material-symbols-outlined text-gray-400 text-sm transition-transform duration-300" :class="{'rotate-180': freshOpen}">expand_more</span>
                 </button>
-                <div x-show="typeOpen" x-collapse>
-                    <div class="flex flex-wrap gap-2 pb-2">
-                        <button class="px-4 py-1.5 bg-emerald-600/90 text-white font-label-md text-label-md rounded-full shadow-xs transition-transform active:scale-95">Hữu cơ</button>
-                        <button class="px-4 py-1.5 bg-white/50 backdrop-blur-md border border-white/80 text-on-surface font-label-md text-label-md rounded-full hover:bg-white/80 transition-all active:scale-95">Thông thường</button>
+                <div x-show="freshOpen" x-collapse>
+                    <div class="flex flex-wrap gap-1.5 pb-1">
+                        @php
+                            $freshTypes = [
+                                'all' => 'Tất cả',
+                                'fresh' => 'Tươi trong ngày',
+                                'rtc' => 'Sơ chế sẵn (Nấu ngay)',
+                                'dry' => 'Lương thực & Gia vị khô',
+                            ];
+                            $activeFresh = request('freshness_type', 'all');
+                        @endphp
+                        @foreach($freshTypes as $fKey => $fLabel)
+                            <a href="{{ request()->fullUrlWithQuery(['freshness_type' => $fKey === 'all' ? null : $fKey]) }}"
+                               class="px-3 py-1.5 rounded-full text-xs transition-all {{ ($activeFresh === $fKey || ($fKey === 'all' && !request('freshness_type'))) ? 'bg-emerald-600 text-white font-bold shadow-xs' : 'bg-white/60 text-gray-700 hover:bg-white border border-white/80' }}">
+                                {{ $fLabel }}
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
+
+            <!-- 4. Tùy chọn nhanh (Quick Toggles: Giảm giá & Còn hàng) -->
+            <div class="pt-3 border-t border-gray-200/60 space-y-2">
+                <h4 class="text-xs font-extrabold text-gray-800 uppercase tracking-wider mb-2">Tùy Chọn Nhanh</h4>
+                
+                <a href="{{ request()->fullUrlWithQuery(['on_sale' => request('on_sale') ? null : 1]) }}"
+                   class="flex items-center justify-between p-2.5 rounded-xl border transition-all {{ request('on_sale') ? 'bg-red-50/80 border-red-200 text-red-700 font-bold' : 'bg-white/50 border-white/80 text-gray-700 hover:bg-white' }}">
+                    <span class="flex items-center gap-1.5 text-xs">
+                        <span class="material-symbols-outlined text-[16px] text-red-600">local_fire_department</span>
+                        Đang giảm giá
+                    </span>
+                    <span class="w-4 h-4 rounded-full border flex items-center justify-center {{ request('on_sale') ? 'bg-red-600 border-red-600 text-white' : 'border-gray-300' }}">
+                        @if(request('on_sale'))
+                            <span class="material-symbols-outlined text-[12px]">check</span>
+                        @endif
+                    </span>
+                </a>
+
+                <a href="{{ request()->fullUrlWithQuery(['in_stock' => request('in_stock') ? null : 1]) }}"
+                   class="flex items-center justify-between p-2.5 rounded-xl border transition-all {{ request('in_stock') ? 'bg-emerald-50/80 border-emerald-200 text-emerald-800 font-bold' : 'bg-white/50 border-white/80 text-gray-700 hover:bg-white' }}">
+                    <span class="flex items-center gap-1.5 text-xs">
+                        <span class="material-symbols-outlined text-[16px] text-emerald-600">inventory_2</span>
+                        Còn hàng sẵn kho
+                    </span>
+                    <span class="w-4 h-4 rounded-full border flex items-center justify-center {{ request('in_stock') ? 'bg-emerald-600 border-emerald-600 text-white' : 'border-gray-300' }}">
+                        @if(request('in_stock'))
+                            <span class="material-symbols-outlined text-[12px]">check</span>
+                        @endif
+                    </span>
+                </a>
+            </div>
+
         </div>
     </aside>
 
-    <!-- Product Grid (80% width) -->
-    <div class="col-span-1 md:col-span-4 bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-[2.5rem] p-8">
-        <div class="flex justify-end mb-6">
+    <!-- Product Grid (Cột Phải) -->
+    <div class="col-span-1 md:col-span-4 bg-white/40 backdrop-blur-3xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)] ring-1 ring-white/50 rounded-[2.5rem] p-6 sm:p-8">
+        
+        <!-- Bar Sắp Xếp & Số lượng kết quả -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-4 border-b border-gray-200/50">
+            <div class="text-xs text-gray-500 font-medium">
+                Hiển thị <strong class="text-gray-900 font-bold">{{ $products->total() }}</strong> sản phẩm nông sản sạch chất lượng cao
+            </div>
+
             <div class="relative" x-data="{ sortOpen: false }">
-                <button @click="sortOpen = !sortOpen" class="bg-white/70 hover:bg-white/95 backdrop-blur-xl border border-white/80 shadow-[0_4px_16px_rgba(0,0,0,0.04)] text-emerald-950 rounded-full transition-all px-4 py-2 flex items-center gap-2 cursor-pointer">
-                    <span class="font-label-md text-label-md text-on-surface font-semibold">Sắp xếp</span>
-                    <span class="material-symbols-outlined text-on-surface">expand_more</span>
+                <button @click="sortOpen = !sortOpen" class="bg-white/70 hover:bg-white/95 backdrop-blur-xl border border-white/80 shadow-xs text-emerald-950 rounded-full transition-all px-4 py-2 flex items-center gap-2 cursor-pointer">
+                    <span class="text-xs font-bold text-gray-800">
+                        @php
+                            $sortLabels = [
+                                'price_asc' => 'Giá: Thấp đến Cao',
+                                'price_desc' => 'Giá: Cao đến Thấp',
+                                'name_asc' => 'Tên: A - Z',
+                                'default' => 'Mới nhất',
+                            ];
+                            $currentSort = request('sort', 'default');
+                        @endphp
+                        Sắp xếp: {{ $sortLabels[$currentSort] ?? 'Mới nhất' }}
+                    </span>
+                    <span class="material-symbols-outlined text-gray-500 text-[18px]">expand_more</span>
                 </button>
-                <div x-show="sortOpen" @click.away="sortOpen = false" x-transition class="absolute right-0 bg-white/80 backdrop-blur-2xl border border-white/80 shadow-[0_12px_40px_rgba(0,0,0,0.12)] ring-1 ring-white/50 rounded-2xl mt-2 w-52 overflow-hidden z-50 p-1.5" style="display: none;">
-                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'newest']) }}" class="block px-3.5 py-2 text-sm text-gray-700 hover:text-emerald-800 hover:bg-white/80 rounded-xl transition-all font-medium">Mới nhất</a>
-                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}" class="block px-3.5 py-2 text-sm text-gray-700 hover:text-emerald-800 hover:bg-white/80 rounded-xl transition-all font-medium">Giá: Thấp đến Cao</a>
-                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}" class="block px-3.5 py-2 text-sm text-gray-700 hover:text-emerald-800 hover:bg-white/80 rounded-xl transition-all font-medium">Giá: Cao đến Thấp</a>
+                <div x-show="sortOpen" @click.away="sortOpen = false" x-transition class="absolute right-0 bg-white/90 backdrop-blur-2xl border border-white/80 shadow-[0_12px_40px_rgba(0,0,0,0.12)] ring-1 ring-white/50 rounded-2xl mt-2 w-52 overflow-hidden z-50 p-1.5" style="display: none;">
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => null]) }}" class="block px-3.5 py-2 text-xs text-gray-700 hover:text-emerald-800 hover:bg-white rounded-xl transition-all font-medium {{ !request('sort') ? 'bg-emerald-50 text-emerald-800 font-bold' : '' }}">Mới nhất</a>
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}" class="block px-3.5 py-2 text-xs text-gray-700 hover:text-emerald-800 hover:bg-white rounded-xl transition-all font-medium {{ request('sort') === 'price_asc' ? 'bg-emerald-50 text-emerald-800 font-bold' : '' }}">Giá: Thấp đến Cao</a>
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}" class="block px-3.5 py-2 text-xs text-gray-700 hover:text-emerald-800 hover:bg-white rounded-xl transition-all font-medium {{ request('sort') === 'price_desc' ? 'bg-emerald-50 text-emerald-800 font-bold' : '' }}">Giá: Cao đến Thấp</a>
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => 'name_asc']) }}" class="block px-3.5 py-2 text-xs text-gray-700 hover:text-emerald-800 hover:bg-white rounded-xl transition-all font-medium {{ request('sort') === 'name_asc' ? 'bg-emerald-50 text-emerald-800 font-bold' : '' }}">Tên: A - Z</a>
                 </div>
             </div>
         </div>
@@ -112,9 +203,14 @@
                     <x-product-card :product="$product" />
                 </div>
             @empty
-                <div class="col-span-full glass-tier-2 rounded-3xl p-12 text-center">
-                    <h3 class="text-2xl font-bold text-primary mb-2">Không tìm thấy sản phẩm</h3>
-                    <p class="text-on-surface-variant">Không có sản phẩm nào trong danh mục này.</p>
+                <div class="col-span-full rounded-3xl p-12 text-center bg-white/40 border border-white/60">
+                    <span class="material-symbols-outlined text-5xl text-gray-400 mb-3">search_off</span>
+                    <h3 class="text-lg font-bold text-gray-900 mb-1">Không tìm thấy sản phẩm phù hợp</h3>
+                    <p class="text-xs text-gray-500 mb-4">Vui lòng thử điều chỉnh lại bộ lọc hoặc tìm kiếm với từ khóa khác.</p>
+                    <a href="{{ route('products.index') }}" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-emerald-600 text-white font-bold text-xs shadow-sm hover:bg-emerald-700 transition-all">
+                        <span class="material-symbols-outlined text-[16px]">refresh</span>
+                        Xóa tất cả bộ lọc
+                    </a>
                 </div>
             @endforelse
         </div>

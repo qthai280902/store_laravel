@@ -116,14 +116,13 @@
                     <span class="material-symbols-outlined text-[18px]">grid_view</span> Danh mục sản phẩm
                 </a>
                 <!-- Mega Menu Dropdown -->
-                <div x-show="megaMenuOpen" x-transition.opacity class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[800px] bg-white/90 backdrop-blur-3xl shadow-2xl rounded-3xl p-8 z-50 grid grid-cols-4 gap-8">
-                    @foreach(\App\Models\Category::take(4)->get() as $cat)
-                        <div>
-                            <a href="{{ route('products.index', ['category' => $cat->slug]) }}" class="font-label-md font-bold text-primary mb-3 block hover:underline">{{ $cat->name }}</a>
-                            <ul class="flex flex-col gap-2 font-body-lg text-sm text-on-surface-variant">
-                                <li><a href="{{ route('products.index', ['category' => $cat->slug]) }}" class="hover:text-primary transition-colors">Sản phẩm nổi bật</a></li>
-                                <li><a href="{{ route('products.index', ['category' => $cat->slug]) }}" class="hover:text-primary transition-colors">Hàng mới về</a></li>
-                                <li><a href="{{ route('products.index', ['category' => $cat->slug]) }}" class="hover:text-primary transition-colors">Khuyến mãi</a></li>
+                <div x-show="megaMenuOpen" x-transition.opacity class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[920px] max-w-[95vw] bg-white/95 backdrop-blur-3xl shadow-2xl rounded-3xl p-6 md:p-8 z-50 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 border border-white/80">
+                    @foreach(\App\Models\Category::all() as $cat)
+                        <div class="p-3 rounded-2xl hover:bg-green-50/70 transition-colors">
+                            <a href="{{ route('products.index', ['category' => $cat->slug]) }}" class="font-label-md font-bold text-green-950 mb-2 block hover:text-green-700 transition-colors leading-snug">{{ $cat->name }}</a>
+                            <ul class="flex flex-col gap-1.5 font-body-lg text-xs text-gray-500">
+                                <li><a href="{{ route('products.index', ['category' => $cat->slug]) }}" class="hover:text-green-700 transition-colors">Sản phẩm nổi bật</a></li>
+                                <li><a href="{{ route('products.index', ['category' => $cat->slug]) }}" class="hover:text-green-700 transition-colors">Hàng tươi mỗi ngày</a></li>
                             </ul>
                         </div>
                     @endforeach

@@ -8,17 +8,29 @@
     <div class="flex flex-wrap items-center justify-between gap-4 pb-6 mb-6 border-b border-gray-200/60">
         <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-green-900/10 text-green-900 flex items-center justify-center border border-white/80 shadow-xs">
-                <span class="material-symbols-outlined text-[26px]">info</span>
+                <span class="material-symbols-outlined text-[26px]">eco</span>
             </div>
             <div>
-                <h3 class="font-headline-lg text-2xl font-extrabold text-green-950 tracking-tight">Thông tin sản phẩm</h3>
-                <p class="text-xs sm:text-sm text-gray-500 font-medium">Quy chuẩn chất lượng, nguồn gốc và xuất xứ kiểm nghiệm</p>
+                <h3 class="font-headline-lg text-2xl font-extrabold text-green-950 tracking-tight">Thông số kỹ thuật & Chất lượng</h3>
+                <p class="text-xs sm:text-sm text-gray-500 font-medium">Quy chuẩn nông sản sạch, nguồn gốc vùng trồng và chứng nhận kiểm định</p>
             </div>
         </div>
 
+        @php
+            $storageSpecs = $product->storage_specs;
+            $certText = match($product->product_tier) {
+                \App\Models\Product::TIER_FRESH_PRODUCE => 'Đạt chuẩn VietGAP / GlobalGAP',
+                \App\Models\Product::TIER_MEAT_SEAFOOD => 'Kiểm dịch Thú y & Cấp đông sâu',
+                'rtc' => 'Sơ Chế Sạch & ATVSTP Chuẩn Hóa',
+                default => 'Chuẩn An Toàn Vệ Sinh Thực Phẩm',
+            };
+            $storageText = $storageSpecs['temp'] ?? 'Nơi khô ráo, thoáng mát';
+            $freshnessText = $storageSpecs['shelf_life'] ?? 'Xem trên bao bì';
+        @endphp
+
         <span class="inline-flex items-center gap-1.5 text-xs font-bold text-green-800 bg-green-100/80 border border-green-200 px-4 py-1.5 rounded-full shadow-xs">
             <span class="material-symbols-outlined text-[16px] text-green-700">verified</span>
-            Kiểm nghiệm đạt chuẩn VietGAP
+            {{ $certText }}
         </span>
     </div>
 
@@ -31,25 +43,16 @@
                 <span class="material-symbols-outlined text-[20px] text-gray-400">verified_user</span>
                 Thương hiệu
             </span>
-            <span class="text-sm font-extrabold text-gray-900">{{ $product->brand ?? 'MiniMart' }}</span>
+            <span class="text-sm font-extrabold text-gray-900">{{ $product->brand ?? 'MiniMart Fresh' }}</span>
         </div>
 
-        <!-- Xuất xứ -->
+        <!-- Xuất xứ & Vùng trồng -->
         <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/60 hover:bg-white/90 border border-white/80 transition-colors">
             <span class="text-sm font-semibold text-gray-500 flex items-center gap-2">
                 <span class="material-symbols-outlined text-[20px] text-gray-400">public</span>
-                Xuất xứ
+                Xuất xứ / Vùng trồng
             </span>
             <span class="text-sm font-extrabold text-gray-900">{{ $product->origin ?? 'Việt Nam' }}</span>
-        </div>
-
-        <!-- Đơn vị tính -->
-        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/60 hover:bg-white/90 border border-white/80 transition-colors">
-            <span class="text-sm font-semibold text-gray-500 flex items-center gap-2">
-                <span class="material-symbols-outlined text-[20px] text-gray-400">category</span>
-                Đơn vị tính
-            </span>
-            <span class="text-sm font-extrabold text-gray-900">{{ $product->unit ?? 'Sản phẩm' }}</span>
         </div>
 
         <!-- Quy cách / Khối lượng -->
@@ -59,6 +62,33 @@
                 Quy cách / Khối lượng
             </span>
             <span class="text-sm font-extrabold text-gray-900">{{ $product->weight ?? ($product->unit ?? 'Đóng gói chuẩn') }}</span>
+        </div>
+
+        <!-- Điều kiện bảo quản -->
+        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/60 hover:bg-white/90 border border-white/80 transition-colors">
+            <span class="text-sm font-semibold text-gray-500 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[20px] text-gray-400">thermostat</span>
+                Bảo quản khuyến nghị
+            </span>
+            <span class="text-sm font-bold text-gray-800">{{ $storageText }}</span>
+        </div>
+
+        <!-- Độ tươi mới / Hạn dùng -->
+        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/60 hover:bg-white/90 border border-white/80 transition-colors">
+            <span class="text-sm font-semibold text-gray-500 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[20px] text-gray-400">schedule</span>
+                Độ tươi mới / HSD
+            </span>
+            <span class="text-sm font-bold text-gray-800">{{ $freshnessText }}</span>
+        </div>
+
+        <!-- Đơn vị tính -->
+        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/60 hover:bg-white/90 border border-white/80 transition-colors">
+            <span class="text-sm font-semibold text-gray-500 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[20px] text-gray-400">category</span>
+                Đơn vị tính
+            </span>
+            <span class="text-sm font-extrabold text-gray-900">{{ $product->unit ?? 'Sản phẩm' }}</span>
         </div>
 
         <!-- Mã sản phẩm (SKU) -->

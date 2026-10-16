@@ -166,13 +166,13 @@ class GenerateProductImages extends Command
             ];
         }
 
-        if (str_contains($name, 'kính') || str_contains($name, 'tẩy') || str_contains($name, 'rửa')) {
+        if (str_contains($name, 'gạo') || str_contains($name, 'yến mạch') || str_contains($name, 'đậu')) {
             return [
-                'https://images.unsplash.com/photo-1585670270638-7282a175d94e?w=800&h=800&fit=crop',
-                'https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=800&h=800&fit=crop',
-                'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=800&h=800&fit=crop',
-                'https://images.unsplash.com/photo-1585670149967-b4f4da88cc9f?w=800&h=800&fit=crop',
-                'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=800&fit=crop',
+                'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&h=800&fit=crop',
+                'https://images.unsplash.com/photo-1509358271058-acd22cc93898?w=800&h=800&fit=crop',
+                'https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=800&h=800&fit=crop',
+                'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=800&h=800&fit=crop',
+                'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=800&fit=crop',
             ];
         }
 
@@ -186,18 +186,46 @@ class GenerateProductImages extends Command
     }
 
     /**
-     * Tạo ảnh fallback nếu không có kết nối internet.
+     * Tạo ảnh fallback chất lượng cao nếu không có kết nối internet hoặc ảnh lỗi.
      */
     protected function createFallbackImage(string $path, string $name, int $angle): void
     {
         $angleNames = [
-            1 => 'Chính diện (Front)',
-            2 => 'Nhãn thông số (Back/Specs)',
-            3 => 'Góc 45 độ (Isometric)',
-            4 => 'Cận cảnh (Macro)',
-            5 => 'Đời thực (Lifestyle)',
+            1 => 'Chinh dien',
+            2 => 'Thong so & Nguon goc',
+            3 => 'Goc nghieng 45 do',
+            4 => 'Can canh do tuoi',
+            5 => 'Mon ngon thuong thuc',
         ];
-        $angleName = $angleNames[$angle] ?? "Góc {$angle}";
+        $angleName = $angleNames[$angle] ?? "Goc {$angle}";
+
+        if (extension_loaded('gd')) {
+            $img = imagecreatetruecolor(800, 800);
+            $bg = imagecolorallocate($img, 240, 253, 244); // #f0fdf4
+            imagefill($img, 0, 0, $bg);
+
+            $border = imagecolorallocate($img, 134, 239, 172); // #86efac
+            imagerectangle($img, 30, 30, 769, 769, $border);
+            imagerectangle($img, 32, 32, 767, 767, $border);
+
+            $whiteCard = imagecolorallocate($img, 255, 255, 255);
+            imagefilledrectangle($img, 100, 250, 700, 550, $whiteCard);
+            imagerectangle($img, 100, 250, 700, 550, $border);
+
+            $darkGreen = imagecolorallocate($img, 20, 83, 45); // #14532d
+            $emerald = imagecolorallocate($img, 5, 150, 105); // #059669
+
+            $asciiName = preg_replace('/[^\x20-\x7E]/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $name));
+
+            imagestring($img, 5, 280, 310, 'MiniMart Fresh Studio', $darkGreen);
+            imagestring($img, 5, 240, 370, substr($asciiName, 0, 40), $emerald);
+            imagestring($img, 4, 300, 430, "Angle {$angle}: {$angleName}", $darkGreen);
+
+            imagejpeg($img, $path, 90);
+            imagedestroy($img);
+
+            return;
+        }
 
         $svg = <<<SVG
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
@@ -211,7 +239,7 @@ class GenerateProductImages extends Command
     <rect width="800" height="800" fill="url(#bg)"/>
     <circle cx="400" cy="400" r="260" fill="#166534" opacity="0.06"/>
     <rect x="150" y="250" width="500" height="300" rx="40" fill="#ffffff" stroke="#86efac" stroke-width="4" opacity="0.9"/>
-    <text x="400" y="370" font-family="sans-serif" font-size="28" font-weight="bold" fill="#14532d" text-anchor="middle">MiniMart Commercial Studio</text>
+    <text x="400" y="370" font-family="sans-serif" font-size="28" font-weight="bold" fill="#14532d" text-anchor="middle">MiniMart Fresh Studio</text>
     <text x="400" y="420" font-family="sans-serif" font-size="20" fill="#15803d" text-anchor="middle">{$name}</text>
     <text x="400" y="470" font-family="sans-serif" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">Góc {$angle}: {$angleName}</text>
 </svg>

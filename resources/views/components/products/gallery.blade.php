@@ -2,13 +2,7 @@
 
 @php
     $gallery = $product->gallery_images;
-    $angleLabels = [
-        0 => 'Chính diện',
-        1 => 'Nhãn phụ & Dinh dưỡng',
-        2 => 'Góc nghiêng 45°',
-        3 => 'Cận cảnh kết cấu',
-        4 => 'Thực tế / Chế biến',
-    ];
+    $angleLabels = $product->angle_labels;
 @endphp
 
 <div x-data="{ 
